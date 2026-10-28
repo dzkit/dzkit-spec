@@ -111,6 +111,60 @@
         "rip": "0079999900231150079a"
       },
       "expected": null
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "rip": "٠٠٧٩٩٩٩٩٠٠٢٣١١٥٠٠٧٩٧"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0023115007",
+        "key": "97"
+      }
+    },
+    {
+      "id": "dots",
+      "input": {
+        "rip": "007.99999.0023115007.97"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0023115007",
+        "key": "97"
+      }
+    },
+    {
+      "id": "underscores-slashes",
+      "input": {
+        "rip": "007_99999/0023115007_97"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0023115007",
+        "key": "97"
+      }
+    },
+    {
+      "id": "twenty-one-digits",
+      "input": {
+        "rip": "007999990023115007970"
+      },
+      "expected": null
+    },
+    {
+      "id": "null",
+      "input": {
+        "rip": null
+      },
+      "expected": null
+    },
+    {
+      "id": "number-type",
+      "input": {
+        "rip": 7999990023115007
+      },
+      "expected": null
     }
   ]
 }

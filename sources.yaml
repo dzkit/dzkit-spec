@@ -70,6 +70,35 @@
     checked: 2026-10-28
   notes: Fixes the names and numbers 59 to 69. A different order circulated in the press in November 2025; this decree replaces it.
 
+- id: loi-19-12
+  kind: law
+  number: 19-12
+  date: 2019-12-11
+  title:
+    fr: Loi modifiant et complétant la loi n° 84-09 relative à l'organisation territoriale du pays
+  amends: [loi-84-09]
+  verification:
+    read: report
+    via:
+      - https://algerie-eco.com/2021/03/26/voici-les-codes-et-les-noms-des-chefs-lieux-des-nouvelles-wilayas/
+    checked: 2026-10-28
+  notes: Creates the wilayas 49 to 58 from the former wilayas déléguées of the South. Journal officiel issue not recorded yet.
+
+- id: decret-presidentiel-21-117
+  kind: presidential-decree
+  number: 21-117
+  date: 2021-03-22
+  title:
+    fr: Décret présidentiel complétant le décret n° 84-79 fixant les noms et chefs-lieux des wilayas
+  jo: { year: 2021, issue: 22 }
+  amends: [decret-84-79]
+  verification:
+    read: report
+    via:
+      - https://algerie-eco.com/2021/03/26/voici-les-codes-et-les-noms-des-chefs-lieux-des-nouvelles-wilayas/
+    checked: 2026-10-28
+  notes: Names, chefs-lieux and codes 49 to 58.
+
 - id: upgrowth-wilayas-2026
   kind: dataset
   title:

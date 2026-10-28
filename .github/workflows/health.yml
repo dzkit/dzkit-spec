@@ -13,6 +13,7 @@ on:
 permissions:
   contents: read
   issues: write
+  actions: write # to keep the weekly schedules enabled
 
 jobs:
   health:
@@ -26,6 +27,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+
+      # GitHub turns off scheduled workflows after 60 days without a commit. Re-enabling
+      # them every week keeps both weekly checks running while the repository is quiet.
+      - name: Keep the weekly schedules active
+        run: |
+          for wf in jo-watch.yml health.yml; do
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/$wf/enable" || echo "::warning::could not re-enable $wf"
+          done
 
       - id: links
         name: Check source links
@@ -63,3 +72,16 @@ jobs:
             { echo "These rules are past their review date. Re-check their sources, update \`verification.checked\` in sources.yaml, and add a new version if anything changed."; echo; echo '```'; cat reviews.log; echo '```'; echo; echo "Run: $run_url"; } > reviews.md
             report "Rules past their review date" reviews.md
           fi
+
+      - name: Close issues that are fixed
+        if: steps.links.outcome == 'success' || steps.reviews.outcome == 'success'
+        shell: bash
+        run: |
+          close() {
+            local title="$1" number
+            number=$(gh issue list --label health --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+            [ -n "$number" ] && gh issue close "$number" --comment "Fixed: the weekly check passed on $(date -u +%Y-%m-%d)." || true
+          }
+          [ "${{ steps.links.outcome }}" = success ] && close "Broken source links"
+          [ "${{ steps.reviews.outcome }}" = success ] && close "Rules past their review date"
+          true

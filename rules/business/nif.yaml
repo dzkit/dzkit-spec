@@ -1,0 +1,29 @@
+id: business.nif
+title:
+  fr: Numéro d'identification fiscale (NIF)
+  ar: رقم التعريف الجبائي
+  en: Tax identification number (NIF)
+description: >
+  No check-digit algorithm is published, so implementations can only check the
+  format: digits only, with one of the allowed lengths, after ignoring the
+  separators. To confirm a NIF exists, use the DGI portal (`lookup_url`).
+  No legal text giving the format has been found yet: the lengths come from
+  references and match real NIFs.
+review:
+  every_months: 24
+  triggers: [change to the NIF format, introduction of the national identification number for companies]
+watch:
+  fr: [numero d'identification fiscale]
+  ar: [رقم التعريف الجبائي]
+versions:
+  - valid_from: null
+    valid_to: null
+    status: confirmed
+    sources:
+      - { source: python-stdnum-nif, supports: lengths }
+      - { source: upgrowth-nif, supports: lengths and absence of a check key }
+    data:
+      lengths: [15, 20]
+      notes: 20 digits for a branch or secondary establishment.
+      lookup_url: https://nifenligne.mf.gov.dz
+      separators: [' ', '.', '-']

@@ -243,6 +243,145 @@
         "number": "+33612345678"
       },
       "expected": null
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "number": "٠٥٥١٢٣٤٥٦٧"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0551234567",
+        "e164": "+213551234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      },
+      "notes": "OPERATIONS.md § 1.2"
+    },
+    {
+      "id": "eastern-arabic-digits",
+      "input": {
+        "number": "۰۶۶۱۲۳۴۵۶۷"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0661234567",
+        "e164": "+213661234567",
+        "operator": "Mobilis",
+        "allocated": true
+      }
+    },
+    {
+      "id": "no-break-spaces",
+      "input": {
+        "number": "0551 23 45 67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0551234567",
+        "e164": "+213551234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      }
+    },
+    {
+      "id": "parentheses-and-dots",
+      "input": {
+        "number": "(0551) 23.45.67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0551234567",
+        "e164": "+213551234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      }
+    },
+    {
+      "id": "slashes",
+      "input": {
+        "number": "0771/23/45/67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0771234567",
+        "e164": "+213771234567",
+        "operator": "Djezzy",
+        "allocated": true
+      }
+    },
+    {
+      "id": "plus-213-zero-in-parentheses",
+      "input": {
+        "number": "+213 (0) 661 23 45 67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0661234567",
+        "e164": "+213661234567",
+        "operator": "Mobilis",
+        "allocated": true
+      }
+    },
+    {
+      "id": "surrounding-spaces",
+      "input": {
+        "number": "  0551 23 45 67  "
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0551234567",
+        "e164": "+213551234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      }
+    },
+    {
+      "id": "landline-international",
+      "input": {
+        "number": "+213 21 23 45 67"
+      },
+      "expected": {
+        "type": "landline",
+        "national": "021234567",
+        "e164": "+21321234567",
+        "area_code": "21"
+      }
+    },
+    {
+      "id": "landline-annaba",
+      "input": {
+        "number": "038 12 34 56"
+      },
+      "expected": {
+        "type": "landline",
+        "national": "038123456",
+        "e164": "+21338123456",
+        "area_code": "38"
+      }
+    },
+    {
+      "id": "null",
+      "input": {
+        "number": null
+      },
+      "expected": null,
+      "notes": "any value must be accepted without failing"
+    },
+    {
+      "id": "number-type",
+      "input": {
+        "number": 551234567
+      },
+      "expected": null,
+      "notes": "a number, not text"
+    },
+    {
+      "id": "letters-inside",
+      "input": {
+        "number": "0551 23 45 6A"
+      },
+      "expected": null
     }
   ]
 }

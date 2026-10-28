@@ -89,6 +89,127 @@
         "code": 70
       },
       "expected": null
+    },
+    {
+      "id": "leading-zeros",
+      "input": {
+        "code": "016"
+      },
+      "expected": {
+        "name_fr": "Alger",
+        "name_ar": "الجزائر"
+      }
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "code": "٠٩"
+      },
+      "expected": {
+        "name_fr": "Blida",
+        "name_ar": "البليدة"
+      }
+    },
+    {
+      "id": "surrounding-spaces",
+      "input": {
+        "code": " 9 "
+      },
+      "expected": {
+        "name_fr": "Blida",
+        "name_ar": "البليدة"
+      }
+    },
+    {
+      "id": "letter-after",
+      "input": {
+        "code": "16a"
+      },
+      "expected": null
+    },
+    {
+      "id": "exponent",
+      "input": {
+        "code": "1e1"
+      },
+      "expected": null
+    },
+    {
+      "id": "decimal-text",
+      "input": {
+        "code": "16.0"
+      },
+      "expected": null
+    },
+    {
+      "id": "decimal-number",
+      "input": {
+        "code": 16.5
+      },
+      "expected": null
+    },
+    {
+      "id": "empty",
+      "input": {
+        "code": ""
+      },
+      "expected": null
+    },
+    {
+      "id": "null",
+      "input": {
+        "code": null
+      },
+      "expected": null
+    },
+    {
+      "id": "code-50-in-2020",
+      "input": {
+        "code": 50,
+        "date": "2020-01-01"
+      },
+      "expected": {
+        "name_fr": "Bordj Badji Mokhtar",
+        "name_ar": "برج باجي مختار"
+      },
+      "source": "decret-presidentiel-21-117"
+    },
+    {
+      "id": "code-50-before-2019-law",
+      "input": {
+        "code": 50,
+        "date": "2019-12-10"
+      },
+      "expected": null
+    },
+    {
+      "id": "code-60-before-2026-law",
+      "input": {
+        "code": 60,
+        "date": "2026-04-03"
+      },
+      "expected": null
+    },
+    {
+      "id": "code-60-on-2026-law",
+      "input": {
+        "code": 60,
+        "date": "2026-04-04"
+      },
+      "expected": {
+        "name_fr": "Barika",
+        "name_ar": "بريكة"
+      },
+      "source": "decret-presidentiel-26-206"
+    },
+    {
+      "id": "before-1984",
+      "input": {
+        "code": 16,
+        "date": "1983-12-31"
+      },
+      "expected": null,
+      "notes": "no version: a lookup rejects rather than raising"
     }
   ]
 }

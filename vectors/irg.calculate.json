@@ -238,6 +238,212 @@
         "irg": 2745.4
       },
       "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-30000-01",
+      "input": {
+        "taxable": 30000.01,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 1.5
+      },
+      "notes": "just above the exemption: the smoothing starts at about 1.5 DA"
+    },
+    {
+      "id": "salaried-30000-11",
+      "input": {
+        "taxable": 30000.11,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 1.6
+      },
+      "notes": "scale result rounded to the centime before the abatements (OPERATIONS.md)"
+    },
+    {
+      "id": "salaried-30870",
+      "input": {
+        "taxable": 30870,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 538.9
+      },
+      "notes": "40 % abatement reaches its 1 000 DA minimum"
+    },
+    {
+      "id": "salaried-34999-99",
+      "input": {
+        "taxable": 34999.99,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 2069.9
+      },
+      "notes": "last centime of the salaried smoothing"
+    },
+    {
+      "id": "salaried-36304-35",
+      "input": {
+        "taxable": 36304.35,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 2250
+      },
+      "notes": "40 % abatement reaches its 1 500 DA maximum"
+    },
+    {
+      "id": "salaried-45678-91",
+      "input": {
+        "taxable": 45678.91,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 4633.3
+      },
+      "notes": "amount with centimes"
+    },
+    {
+      "id": "salaried-320000",
+      "input": {
+        "taxable": 320000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 90700
+      },
+      "notes": "top of the 33 % bracket"
+    },
+    {
+      "id": "salaried-320001",
+      "input": {
+        "taxable": 320001,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 90700.3
+      },
+      "notes": "first dinar in the 35 % bracket"
+    },
+    {
+      "id": "salaried-500000",
+      "input": {
+        "taxable": 500000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 153700
+      },
+      "notes": "35 % bracket"
+    },
+    {
+      "id": "retired-42499-99",
+      "input": {
+        "taxable": 42499.99,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 3774.5
+      },
+      "notes": "last centime of the retired smoothing"
+    },
+    {
+      "id": "retired-42500",
+      "input": {
+        "taxable": 42500,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 3775
+      },
+      "notes": "smoothing no longer applies"
+    },
+    {
+      "id": "disabled-42500",
+      "input": {
+        "taxable": 42500,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 3775
+      },
+      "notes": "smoothing no longer applies"
+    },
+    {
+      "id": "disabled-36000",
+      "input": {
+        "taxable": 36000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 1385.4
+      },
+      "notes": "disabled workers share the retired smoothing"
+    },
+    {
+      "id": "default-regime",
+      "input": {
+        "taxable": 40000,
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 3100
+      },
+      "notes": "regime defaults to salaried"
+    },
+    {
+      "id": "negative",
+      "input": {
+        "taxable": -1,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "not-a-number",
+      "input": {
+        "taxable": "40000",
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-amount",
+      "notes": "text is not an amount"
+    },
+    {
+      "id": "unknown-regime",
+      "input": {
+        "taxable": 40000,
+        "regime": "retraite",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-option",
+      "notes": "must not fall back to another regime"
+    },
+    {
+      "id": "before-2022",
+      "input": {
+        "taxable": 40000,
+        "regime": "salaried",
+        "date": "2021-12-31"
+      },
+      "error": "no-rule-for-date",
+      "notes": "earlier scales are not recorded yet"
     }
   ]
 }

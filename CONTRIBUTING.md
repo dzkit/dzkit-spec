@@ -32,6 +32,10 @@ You don't need to edit any file.
 - Describe the shape of `data` in the rule's `description`, in plain words, so someone porting it to another language understands it without reading code.
 - Add a test-case file for each operation, named `<operation>.json`.
 
+## Change what an operation does
+
+[OPERATIONS.md](OPERATIONS.md) says what every implementation must do: accepted inputs, rejection or error, rounding, dates. When you change it, add or change test cases for every point, in the same pull request. A change that makes an existing case give a different result is a minor version before 1.0 (see GOVERNANCE.md), because every implementation must follow it.
+
 ## Status levels
 
 - `official`: the value is in an official text you can link to

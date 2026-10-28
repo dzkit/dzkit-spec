@@ -1,0 +1,25 @@
+id: business.nis
+title:
+  fr: Numéro d'identification statistique (NIS)
+  ar: رقم التعريف الإحصائي
+  en: Statistical identification number (NIS)
+description: >
+  Issued by the ONS. No check-digit algorithm is published, so implementations can
+  only check the format: digits only, with one of the allowed lengths, after
+  ignoring the separators.
+review:
+  every_months: 24
+  triggers: [change to the NIS format]
+watch:
+  fr: [numero d'identification statistique]
+  ar: [رقم التعريف الإحصائي]
+versions:
+  - valid_from: null
+    valid_to: null
+    status: official
+    sources:
+      - { source: decret-executif-97-396, articles: ['4', '5'], supports: lengths }
+    data:
+      lengths: [15, 18]
+      notes: A secondary establishment adds a 3-digit sequence number to the main establishment's 15 digits.
+      separators: [' ', '.', '-']

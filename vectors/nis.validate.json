@@ -1,7 +1,7 @@
 {
   "operation": "nis.validate",
   "description": "Check the format of a NIS.",
-  "rule": "business.nif-nis",
+  "rule": "business.nis",
   "inputs": {
     "value": "NIS as typed"
   },
@@ -38,6 +38,42 @@
         "valid": false
       },
       "source": "decret-executif-97-396"
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "value": "٠٩٨٧١٦٠١٠٠٠٢٣٤٣"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "spaced",
+      "input": {
+        "value": "0987 1601 0002 343 001"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "twenty",
+      "input": {
+        "value": "09871601000234300100"
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "null",
+      "input": {
+        "value": null
+      },
+      "expected": {
+        "valid": false
+      }
     }
   ]
 }

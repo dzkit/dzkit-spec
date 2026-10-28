@@ -288,6 +288,37 @@
         "text": "trois milliards"
       },
       "source": "grammar-fr"
+    },
+    {
+      "id": "n-max",
+      "input": {
+        "number": 999999999999
+      },
+      "expected": {
+        "text": "neuf cent quatre-vingt-dix-neuf milliards neuf cent quatre-vingt-dix-neuf millions neuf cent quatre-vingt-dix-neuf mille neuf cent quatre-vingt-dix-neuf"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "negative",
+      "input": {
+        "number": -1
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "not-integer",
+      "input": {
+        "number": 1.5
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "too-large",
+      "input": {
+        "number": 1000000000000
+      },
+      "error": "invalid-amount"
     }
   ]
 }

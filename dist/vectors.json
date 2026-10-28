@@ -1,7 +1,7 @@
 {
   "name": "dzkit-spec vectors",
-  "version": "0.2.0",
-  "schema_version": 2,
+  "version": "0.3.0",
+  "schema_version": 3,
   "suites": [
     {
       "operation": "irg.calculate",
@@ -243,13 +243,219 @@
             "irg": 2745.4
           },
           "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-30000-01",
+          "input": {
+            "taxable": 30000.01,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 1.5
+          },
+          "notes": "just above the exemption: the smoothing starts at about 1.5 DA"
+        },
+        {
+          "id": "salaried-30000-11",
+          "input": {
+            "taxable": 30000.11,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 1.6
+          },
+          "notes": "scale result rounded to the centime before the abatements (OPERATIONS.md)"
+        },
+        {
+          "id": "salaried-30870",
+          "input": {
+            "taxable": 30870,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 538.9
+          },
+          "notes": "40 % abatement reaches its 1 000 DA minimum"
+        },
+        {
+          "id": "salaried-34999-99",
+          "input": {
+            "taxable": 34999.99,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 2069.9
+          },
+          "notes": "last centime of the salaried smoothing"
+        },
+        {
+          "id": "salaried-36304-35",
+          "input": {
+            "taxable": 36304.35,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 2250
+          },
+          "notes": "40 % abatement reaches its 1 500 DA maximum"
+        },
+        {
+          "id": "salaried-45678-91",
+          "input": {
+            "taxable": 45678.91,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 4633.3
+          },
+          "notes": "amount with centimes"
+        },
+        {
+          "id": "salaried-320000",
+          "input": {
+            "taxable": 320000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 90700
+          },
+          "notes": "top of the 33 % bracket"
+        },
+        {
+          "id": "salaried-320001",
+          "input": {
+            "taxable": 320001,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 90700.3
+          },
+          "notes": "first dinar in the 35 % bracket"
+        },
+        {
+          "id": "salaried-500000",
+          "input": {
+            "taxable": 500000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 153700
+          },
+          "notes": "35 % bracket"
+        },
+        {
+          "id": "retired-42499-99",
+          "input": {
+            "taxable": 42499.99,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 3774.5
+          },
+          "notes": "last centime of the retired smoothing"
+        },
+        {
+          "id": "retired-42500",
+          "input": {
+            "taxable": 42500,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 3775
+          },
+          "notes": "smoothing no longer applies"
+        },
+        {
+          "id": "disabled-42500",
+          "input": {
+            "taxable": 42500,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 3775
+          },
+          "notes": "smoothing no longer applies"
+        },
+        {
+          "id": "disabled-36000",
+          "input": {
+            "taxable": 36000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 1385.4
+          },
+          "notes": "disabled workers share the retired smoothing"
+        },
+        {
+          "id": "default-regime",
+          "input": {
+            "taxable": 40000,
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 3100
+          },
+          "notes": "regime defaults to salaried"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "taxable": -1,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "not-a-number",
+          "input": {
+            "taxable": "40000",
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-amount",
+          "notes": "text is not an amount"
+        },
+        {
+          "id": "unknown-regime",
+          "input": {
+            "taxable": 40000,
+            "regime": "retraite",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-option",
+          "notes": "must not fall back to another regime"
+        },
+        {
+          "id": "before-2022",
+          "input": {
+            "taxable": 40000,
+            "regime": "salaried",
+            "date": "2021-12-31"
+          },
+          "error": "no-rule-for-date",
+          "notes": "earlier scales are not recorded yet"
         }
       ]
     },
     {
       "operation": "nif.validate",
       "description": "Check the format of a NIF.",
-      "rule": "business.nif-nis",
+      "rule": "business.nif",
       "inputs": {
         "value": "NIF as typed"
       },
@@ -306,13 +512,59 @@
             "valid": false
           },
           "source": "python-stdnum-nif"
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "value": "٤٠٨٠٢٠٠٠٠١٥٠٠٣٩"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "dots-dashes",
+          "input": {
+            "value": "408.020.000-150-039"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "null",
+          "input": {
+            "value": null
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "number-type",
+          "input": {
+            "value": 408020000150039
+          },
+          "expected": {
+            "valid": false
+          },
+          "notes": "a number, not text: leading zeros would be lost"
+        },
+        {
+          "id": "sixteen",
+          "input": {
+            "value": "4080200001500391"
+          },
+          "expected": {
+            "valid": false
+          }
         }
       ]
     },
     {
       "operation": "nis.validate",
       "description": "Check the format of a NIS.",
-      "rule": "business.nif-nis",
+      "rule": "business.nis",
       "inputs": {
         "value": "NIS as typed"
       },
@@ -349,6 +601,42 @@
             "valid": false
           },
           "source": "decret-executif-97-396"
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "value": "٠٩٨٧١٦٠١٠٠٠٢٣٤٣"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "spaced",
+          "input": {
+            "value": "0987 1601 0002 343 001"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "twenty",
+          "input": {
+            "value": "09871601000234300100"
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "null",
+          "input": {
+            "value": null
+          },
+          "expected": {
+            "valid": false
+          }
         }
       ]
     },
@@ -597,6 +885,145 @@
             "number": "+33612345678"
           },
           "expected": null
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "number": "٠٥٥١٢٣٤٥٦٧"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0551234567",
+            "e164": "+213551234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          },
+          "notes": "OPERATIONS.md § 1.2"
+        },
+        {
+          "id": "eastern-arabic-digits",
+          "input": {
+            "number": "۰۶۶۱۲۳۴۵۶۷"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0661234567",
+            "e164": "+213661234567",
+            "operator": "Mobilis",
+            "allocated": true
+          }
+        },
+        {
+          "id": "no-break-spaces",
+          "input": {
+            "number": "0551 23 45 67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0551234567",
+            "e164": "+213551234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          }
+        },
+        {
+          "id": "parentheses-and-dots",
+          "input": {
+            "number": "(0551) 23.45.67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0551234567",
+            "e164": "+213551234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          }
+        },
+        {
+          "id": "slashes",
+          "input": {
+            "number": "0771/23/45/67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0771234567",
+            "e164": "+213771234567",
+            "operator": "Djezzy",
+            "allocated": true
+          }
+        },
+        {
+          "id": "plus-213-zero-in-parentheses",
+          "input": {
+            "number": "+213 (0) 661 23 45 67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0661234567",
+            "e164": "+213661234567",
+            "operator": "Mobilis",
+            "allocated": true
+          }
+        },
+        {
+          "id": "surrounding-spaces",
+          "input": {
+            "number": "  0551 23 45 67  "
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0551234567",
+            "e164": "+213551234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          }
+        },
+        {
+          "id": "landline-international",
+          "input": {
+            "number": "+213 21 23 45 67"
+          },
+          "expected": {
+            "type": "landline",
+            "national": "021234567",
+            "e164": "+21321234567",
+            "area_code": "21"
+          }
+        },
+        {
+          "id": "landline-annaba",
+          "input": {
+            "number": "038 12 34 56"
+          },
+          "expected": {
+            "type": "landline",
+            "national": "038123456",
+            "e164": "+21338123456",
+            "area_code": "38"
+          }
+        },
+        {
+          "id": "null",
+          "input": {
+            "number": null
+          },
+          "expected": null,
+          "notes": "any value must be accepted without failing"
+        },
+        {
+          "id": "number-type",
+          "input": {
+            "number": 551234567
+          },
+          "expected": null,
+          "notes": "a number, not text"
+        },
+        {
+          "id": "letters-inside",
+          "input": {
+            "number": "0551 23 45 6A"
+          },
+          "expected": null
         }
       ]
     },
@@ -772,6 +1199,144 @@
             "date": "2027-06-01"
           },
           "expected": null
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "plate": "٠٢٦٣٩-١٢٦-٠٩",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "02639",
+            "category": 1,
+            "year": "26",
+            "wilaya": 9
+          }
+        },
+        {
+          "id": "spaced-dashes",
+          "input": {
+            "plate": "02639 - 126 - 09",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "02639",
+            "category": 1,
+            "year": "26",
+            "wilaya": 9
+          }
+        },
+        {
+          "id": "compact-with-space",
+          "input": {
+            "plate": "12345 11916",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "19",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "compact-six-digit-serial",
+          "input": {
+            "plate": "12345611916",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "123456",
+            "category": 1,
+            "year": "19",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "short-serial",
+          "input": {
+            "plate": "7-126-31",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "7",
+            "category": 1,
+            "year": "26",
+            "wilaya": 31
+          }
+        },
+        {
+          "id": "code-49-in-2026",
+          "input": {
+            "plate": "00123-125-49",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "00123",
+            "category": 1,
+            "year": "25",
+            "wilaya": 49
+          }
+        },
+        {
+          "id": "old-plate-2005",
+          "input": {
+            "plate": "12345-105-16",
+            "date": "2005-06-01"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "05",
+            "wilaya": 16
+          },
+          "notes": "the first version has no start date"
+        },
+        {
+          "id": "dots",
+          "input": {
+            "plate": "02639.126.09",
+            "date": "2026-10-28"
+          },
+          "expected": null,
+          "notes": "dots are not plate separators"
+        },
+        {
+          "id": "compact-nine-digits",
+          "input": {
+            "plate": "123411916",
+            "date": "2026-10-28"
+          },
+          "expected": null
+        },
+        {
+          "id": "null",
+          "input": {
+            "plate": null,
+            "date": "2026-10-28"
+          },
+          "expected": null
+        },
+        {
+          "id": "code-59-last-day-2026",
+          "input": {
+            "plate": "12345-127-59",
+            "date": "2026-12-31"
+          },
+          "expected": null
+        },
+        {
+          "id": "code-59-first-day-2027",
+          "input": {
+            "plate": "12345-127-59",
+            "date": "2027-01-01"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "27",
+            "wilaya": 59
+          }
         }
       ]
     },
@@ -848,6 +1413,67 @@
           "id": "not-digits",
           "input": {
             "account": "abc"
+          },
+          "expected": null
+        },
+        {
+          "id": "integer-account",
+          "input": {
+            "account": 23115007
+          },
+          "expected": {
+            "rip": "00799999002311500797",
+            "ccp_key": "32",
+            "rip_key": "97"
+          }
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "account": "٢٣١١٥٠٠٧"
+          },
+          "expected": {
+            "rip": "00799999002311500797",
+            "ccp_key": "32",
+            "rip_key": "97"
+          }
+        },
+        {
+          "id": "spaces",
+          "input": {
+            "account": " 0023 1150 07 "
+          },
+          "expected": {
+            "rip": "00799999002311500797",
+            "ccp_key": "32",
+            "rip_key": "97"
+          }
+        },
+        {
+          "id": "empty",
+          "input": {
+            "account": ""
+          },
+          "expected": null
+        },
+        {
+          "id": "negative",
+          "input": {
+            "account": -5
+          },
+          "expected": null
+        },
+        {
+          "id": "decimal",
+          "input": {
+            "account": 1.5
+          },
+          "expected": null
+        },
+        {
+          "id": "null",
+          "input": {
+            "account": null
           },
           "expected": null
         }
@@ -966,6 +1592,60 @@
             "rip": "0079999900231150079a"
           },
           "expected": null
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "rip": "٠٠٧٩٩٩٩٩٠٠٢٣١١٥٠٠٧٩٧"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0023115007",
+            "key": "97"
+          }
+        },
+        {
+          "id": "dots",
+          "input": {
+            "rip": "007.99999.0023115007.97"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0023115007",
+            "key": "97"
+          }
+        },
+        {
+          "id": "underscores-slashes",
+          "input": {
+            "rip": "007_99999/0023115007_97"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0023115007",
+            "key": "97"
+          }
+        },
+        {
+          "id": "twenty-one-digits",
+          "input": {
+            "rip": "007999990023115007970"
+          },
+          "expected": null
+        },
+        {
+          "id": "null",
+          "input": {
+            "rip": null
+          },
+          "expected": null
+        },
+        {
+          "id": "number-type",
+          "input": {
+            "rip": 7999990023115007
+          },
+          "expected": null
         }
       ]
     },
@@ -1017,6 +1697,141 @@
             "cnas_employer": 6120
           },
           "source": "upgrowth-salary"
+        },
+        {
+          "id": "gross-32967",
+          "input": {
+            "gross": 32967,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 2967.03,
+            "taxable": 29999.97,
+            "irg": 0,
+            "net": 29999.97,
+            "cnas_employer": 8406.59
+          },
+          "notes": "taxable 29 999.97: exempt"
+        },
+        {
+          "id": "gross-32968",
+          "input": {
+            "gross": 32968,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 2967.12,
+            "taxable": 30000.88,
+            "irg": 2,
+            "net": 29998.88,
+            "cnas_employer": 8406.84
+          },
+          "notes": "taxable 30 000.88: the smoothing starts; net is about 1 DA lower than at 32 967 (the law's formula)"
+        },
+        {
+          "id": "gross-45000",
+          "input": {
+            "gross": 45000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 4050,
+            "taxable": 40950,
+            "irg": 3356.5,
+            "net": 37593.5,
+            "cnas_employer": 11475
+          }
+        },
+        {
+          "id": "gross-100000",
+          "input": {
+            "gross": 100000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 9000,
+            "taxable": 91000,
+            "irg": 17200,
+            "net": 73800,
+            "cnas_employer": 25500
+          }
+        },
+        {
+          "id": "gross-250000-55",
+          "input": {
+            "gross": 250000.55,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 22500.05,
+            "taxable": 227500.5,
+            "irg": 60175.1,
+            "net": 167325.4,
+            "cnas_employer": 63750.14
+          },
+          "notes": "gross with centimes"
+        },
+        {
+          "id": "retired-40000",
+          "input": {
+            "gross": 40000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 3600,
+            "taxable": 36400,
+            "irg": 1483,
+            "net": 34917,
+            "cnas_employer": 10200
+          }
+        },
+        {
+          "id": "disabled-50000",
+          "input": {
+            "gross": 50000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 4500,
+            "taxable": 45500,
+            "irg": 4585,
+            "net": 40915,
+            "cnas_employer": 12750
+          }
+        },
+        {
+          "id": "unknown-regime",
+          "input": {
+            "gross": 60000,
+            "regime": "retraite",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-option"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "gross": -100,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "before-2022",
+          "input": {
+            "gross": 60000,
+            "regime": "salaried",
+            "date": "2021-06-30"
+          },
+          "error": "no-rule-for-date"
         }
       ]
     },
@@ -1111,6 +1926,127 @@
             "code": 70
           },
           "expected": null
+        },
+        {
+          "id": "leading-zeros",
+          "input": {
+            "code": "016"
+          },
+          "expected": {
+            "name_fr": "Alger",
+            "name_ar": "الجزائر"
+          }
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "code": "٠٩"
+          },
+          "expected": {
+            "name_fr": "Blida",
+            "name_ar": "البليدة"
+          }
+        },
+        {
+          "id": "surrounding-spaces",
+          "input": {
+            "code": " 9 "
+          },
+          "expected": {
+            "name_fr": "Blida",
+            "name_ar": "البليدة"
+          }
+        },
+        {
+          "id": "letter-after",
+          "input": {
+            "code": "16a"
+          },
+          "expected": null
+        },
+        {
+          "id": "exponent",
+          "input": {
+            "code": "1e1"
+          },
+          "expected": null
+        },
+        {
+          "id": "decimal-text",
+          "input": {
+            "code": "16.0"
+          },
+          "expected": null
+        },
+        {
+          "id": "decimal-number",
+          "input": {
+            "code": 16.5
+          },
+          "expected": null
+        },
+        {
+          "id": "empty",
+          "input": {
+            "code": ""
+          },
+          "expected": null
+        },
+        {
+          "id": "null",
+          "input": {
+            "code": null
+          },
+          "expected": null
+        },
+        {
+          "id": "code-50-in-2020",
+          "input": {
+            "code": 50,
+            "date": "2020-01-01"
+          },
+          "expected": {
+            "name_fr": "Bordj Badji Mokhtar",
+            "name_ar": "برج باجي مختار"
+          },
+          "source": "decret-presidentiel-21-117"
+        },
+        {
+          "id": "code-50-before-2019-law",
+          "input": {
+            "code": 50,
+            "date": "2019-12-10"
+          },
+          "expected": null
+        },
+        {
+          "id": "code-60-before-2026-law",
+          "input": {
+            "code": 60,
+            "date": "2026-04-03"
+          },
+          "expected": null
+        },
+        {
+          "id": "code-60-on-2026-law",
+          "input": {
+            "code": 60,
+            "date": "2026-04-04"
+          },
+          "expected": {
+            "name_fr": "Barika",
+            "name_ar": "بريكة"
+          },
+          "source": "decret-presidentiel-26-206"
+        },
+        {
+          "id": "before-1984",
+          "input": {
+            "code": 16,
+            "date": "1983-12-31"
+          },
+          "expected": null,
+          "notes": "no version: a lookup rejects rather than raising"
         }
       ]
     },
@@ -1184,6 +2120,174 @@
             "text": "ألف ومائتان وخمسون دينارا جزائريا وخمسون سنتيما"
           },
           "source": "grammar-ar"
+        },
+        {
+          "id": "a-200",
+          "input": {
+            "amount": 200
+          },
+          "expected": {
+            "text": "مائتا دينار جزائري"
+          },
+          "source": "grammar-ar",
+          "notes": "construct form before the currency"
+        },
+        {
+          "id": "a-1200",
+          "input": {
+            "amount": 1200
+          },
+          "expected": {
+            "text": "ألف ومائتا دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-2000",
+          "input": {
+            "amount": 2000
+          },
+          "expected": {
+            "text": "ألفا دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-11000",
+          "input": {
+            "amount": 11000
+          },
+          "expected": {
+            "text": "أحد عشر ألف دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-45000",
+          "input": {
+            "amount": 45000
+          },
+          "expected": {
+            "text": "خمسة وأربعون ألف دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-50000",
+          "input": {
+            "amount": 50000
+          },
+          "expected": {
+            "text": "خمسون ألف دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-200000",
+          "input": {
+            "amount": 200000
+          },
+          "expected": {
+            "text": "مائتا ألف دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-2000000",
+          "input": {
+            "amount": 2000000
+          },
+          "expected": {
+            "text": "مليونا دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-11000000",
+          "input": {
+            "amount": 11000000
+          },
+          "expected": {
+            "text": "أحد عشر مليون دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-2500",
+          "input": {
+            "amount": 2500
+          },
+          "expected": {
+            "text": "ألفان وخمسمائة دينار جزائري"
+          },
+          "source": "grammar-ar",
+          "notes": "no construct: something follows ألفان"
+        },
+        {
+          "id": "a-3000",
+          "input": {
+            "amount": 3000
+          },
+          "expected": {
+            "text": "ثلاثة آلاف دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-45250",
+          "input": {
+            "amount": 45250
+          },
+          "expected": {
+            "text": "خمسة وأربعون ألفا ومائتان وخمسون دينارا جزائريا"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-0-50",
+          "input": {
+            "amount": 0.5
+          },
+          "expected": {
+            "text": "صفر دينار جزائري وخمسون سنتيما"
+          },
+          "source": "grammar-ar",
+          "notes": "zero dinars is written"
+        },
+        {
+          "id": "a-1-005",
+          "input": {
+            "amount": 1.005
+          },
+          "expected": {
+            "text": "دينار جزائري واحد وسنتيم واحد"
+          },
+          "source": "grammar-ar",
+          "notes": "half up on the amount as written"
+        },
+        {
+          "id": "a-max",
+          "input": {
+            "amount": 999999999999.99
+          },
+          "expected": {
+            "text": "تسعمائة وتسعة وتسعون مليارا وتسعمائة وتسعة وتسعون مليونا وتسعمائة وتسعة وتسعون ألفا وتسعمائة وتسعة وتسعون دينارا جزائريا وتسعة وتسعون سنتيما"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "amount": -0.01
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "too-large",
+          "input": {
+            "amount": 1000000000000
+          },
+          "error": "invalid-amount"
         }
       ]
     },
@@ -1267,6 +2371,129 @@
             "text": "onze dinars algériens"
           },
           "source": "grammar-fr"
+        },
+        {
+          "id": "a-200",
+          "input": {
+            "amount": 200
+          },
+          "expected": {
+            "text": "deux cents dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1200",
+          "input": {
+            "amount": 1200
+          },
+          "expected": {
+            "text": "mille deux cents dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-80",
+          "input": {
+            "amount": 80
+          },
+          "expected": {
+            "text": "quatre-vingts dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-2000000",
+          "input": {
+            "amount": 2000000
+          },
+          "expected": {
+            "text": "deux millions de dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1000080",
+          "input": {
+            "amount": 1000080
+          },
+          "expected": {
+            "text": "un million quatre-vingts dinars algériens"
+          },
+          "source": "grammar-fr",
+          "notes": "no « de » when something follows million"
+        },
+        {
+          "id": "a-0-50",
+          "input": {
+            "amount": 0.5
+          },
+          "expected": {
+            "text": "zéro dinar algérien et cinquante centimes"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1-005",
+          "input": {
+            "amount": 1.005
+          },
+          "expected": {
+            "text": "un dinar algérien et un centime"
+          },
+          "source": "grammar-fr",
+          "notes": "half up on the amount as written: 1.005 × 100 is 100.4999… in binary"
+        },
+        {
+          "id": "a-2-675",
+          "input": {
+            "amount": 2.675
+          },
+          "expected": {
+            "text": "deux dinars algériens et soixante-huit centimes"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1-004",
+          "input": {
+            "amount": 1.004
+          },
+          "expected": {
+            "text": "un dinar algérien"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-max",
+          "input": {
+            "amount": 999999999999.99
+          },
+          "expected": {
+            "text": "neuf cent quatre-vingt-dix-neuf milliards neuf cent quatre-vingt-dix-neuf millions neuf cent quatre-vingt-dix-neuf mille neuf cent quatre-vingt-dix-neuf dinars algériens et quatre-vingt-dix-neuf centimes"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "amount": -0.01
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "too-large",
+          "input": {
+            "amount": 1000000000000
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "not-a-number",
+          "input": {
+            "amount": "12"
+          },
+          "error": "invalid-amount"
         }
       ]
     },
@@ -1440,6 +2667,68 @@
             "text": "خمسة ملايين"
           },
           "source": "grammar-ar"
+        },
+        {
+          "id": "n-200000",
+          "input": {
+            "number": 200000
+          },
+          "expected": {
+            "text": "مائتا ألف"
+          },
+          "source": "grammar-ar",
+          "notes": "construct form before a scale word"
+        },
+        {
+          "id": "n-200200",
+          "input": {
+            "number": 200200
+          },
+          "expected": {
+            "text": "مائتا ألف ومائتان"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-200000000",
+          "input": {
+            "number": 200000000
+          },
+          "expected": {
+            "text": "مائتا مليون"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-max",
+          "input": {
+            "number": 999999999999
+          },
+          "expected": {
+            "text": "تسعمائة وتسعة وتسعون مليارا وتسعمائة وتسعة وتسعون مليونا وتسعمائة وتسعة وتسعون ألفا وتسعمائة وتسعة وتسعون"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "number": -1
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "not-integer",
+          "input": {
+            "number": 1.5
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "too-large",
+          "input": {
+            "number": 1000000000000
+          },
+          "error": "invalid-amount"
         }
       ]
     },
@@ -1733,6 +3022,37 @@
             "text": "trois milliards"
           },
           "source": "grammar-fr"
+        },
+        {
+          "id": "n-max",
+          "input": {
+            "number": 999999999999
+          },
+          "expected": {
+            "text": "neuf cent quatre-vingt-dix-neuf milliards neuf cent quatre-vingt-dix-neuf millions neuf cent quatre-vingt-dix-neuf mille neuf cent quatre-vingt-dix-neuf"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "negative",
+          "input": {
+            "number": -1
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "not-integer",
+          "input": {
+            "number": 1.5
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "too-large",
+          "input": {
+            "number": 1000000000000
+          },
+          "error": "invalid-amount"
         }
       ]
     }

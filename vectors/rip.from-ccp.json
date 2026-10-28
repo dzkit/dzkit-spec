@@ -73,6 +73,67 @@
         "account": "abc"
       },
       "expected": null
+    },
+    {
+      "id": "integer-account",
+      "input": {
+        "account": 23115007
+      },
+      "expected": {
+        "rip": "00799999002311500797",
+        "ccp_key": "32",
+        "rip_key": "97"
+      }
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "account": "٢٣١١٥٠٠٧"
+      },
+      "expected": {
+        "rip": "00799999002311500797",
+        "ccp_key": "32",
+        "rip_key": "97"
+      }
+    },
+    {
+      "id": "spaces",
+      "input": {
+        "account": " 0023 1150 07 "
+      },
+      "expected": {
+        "rip": "00799999002311500797",
+        "ccp_key": "32",
+        "rip_key": "97"
+      }
+    },
+    {
+      "id": "empty",
+      "input": {
+        "account": ""
+      },
+      "expected": null
+    },
+    {
+      "id": "negative",
+      "input": {
+        "account": -5
+      },
+      "expected": null
+    },
+    {
+      "id": "decimal",
+      "input": {
+        "account": 1.5
+      },
+      "expected": null
+    },
+    {
+      "id": "null",
+      "input": {
+        "account": null
+      },
+      "expected": null
     }
   ]
 }

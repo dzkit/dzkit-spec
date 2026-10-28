@@ -1,7 +1,7 @@
 {
   "operation": "nif.validate",
   "description": "Check the format of a NIF.",
-  "rule": "business.nif-nis",
+  "rule": "business.nif",
   "inputs": {
     "value": "NIF as typed"
   },
@@ -58,6 +58,52 @@
         "valid": false
       },
       "source": "python-stdnum-nif"
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "value": "٤٠٨٠٢٠٠٠٠١٥٠٠٣٩"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "dots-dashes",
+      "input": {
+        "value": "408.020.000-150-039"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "null",
+      "input": {
+        "value": null
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "number-type",
+      "input": {
+        "value": 408020000150039
+      },
+      "expected": {
+        "valid": false
+      },
+      "notes": "a number, not text: leading zeros would be lost"
+    },
+    {
+      "id": "sixteen",
+      "input": {
+        "value": "4080200001500391"
+      },
+      "expected": {
+        "valid": false
+      }
     }
   ]
 }
