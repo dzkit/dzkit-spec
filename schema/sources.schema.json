@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/dzkit/dzkit-spec/schema/sources.schema.json",
   "title": "dzkit sources",
-  "description": "Every legal text or reference that a rule relies on.",
+  "description": "Every legal text or reference that a rule relies on, and how closely it was checked.",
   "type": "array",
   "items": { "$ref": "#/$defs/source" },
   "$defs": {
@@ -19,19 +19,21 @@
     },
     "source": {
       "type": "object",
-      "required": ["id", "kind", "title", "checked"],
+      "required": ["id", "kind", "title", "verification"],
       "additionalProperties": false,
       "properties": {
         "id": {
-          "description": "Stable identifier used by rules and test cases, e.g. loi-21-16.",
+          "description": "Stable identifier used by rules and test cases, e.g. loi-21-16. Never reused for another text.",
           "type": "string",
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
         },
         "kind": {
-          "enum": ["law", "ordinance", "presidential-decree", "executive-decree", "arrete", "code", "regulator", "official-site", "reference", "press", "dataset"]
+          "description": "One of the kinds in hierarchy.yaml.",
+          "type": "string",
+          "pattern": "^[a-z]+(-[a-z]+)*$"
         },
         "number": { "description": "Official number of the text, e.g. 21-16.", "type": "string" },
-        "date": { "$ref": "#/$defs/date" },
+        "date": { "description": "Date the text was signed or issued.", "$ref": "#/$defs/date" },
         "title": { "$ref": "#/$defs/localized" },
         "issuer": { "type": "string" },
         "jo": {
@@ -46,17 +48,31 @@
           }
         },
         "articles": { "type": "array", "items": { "type": "string" } },
-        "url": { "description": "Where the text can be read, when it is not (only) in the Journal officiel.", "type": "string", "format": "uri" },
+        "url": { "description": "Where the source can be read, when it is not (only) in the Journal officiel.", "type": "string", "format": "uri" },
         "quote": {
           "description": "Short extract of the relevant passage, so anyone can check it quickly.",
           "$ref": "#/$defs/localized"
         },
-        "read_via": {
-          "description": "Pages through which the text was read, when the official file was not opened directly.",
-          "type": "array",
-          "items": { "type": "string", "format": "uri" }
+        "amends": { "description": "Ids of sources this text amends.", "type": "array", "items": { "type": "string" } },
+        "verification": {
+          "description": "How closely this source was checked.",
+          "type": "object",
+          "required": ["read", "checked"],
+          "additionalProperties": false,
+          "properties": {
+            "read": {
+              "description": "original: the source itself was read in its authoritative form (the Journal officiel PDF, the regulator's own page, the article itself). copy: a faithful copy of the text hosted elsewhere was read. report: only reports about the text were read (press, guides).",
+              "enum": ["original", "copy", "report"]
+            },
+            "via": {
+              "description": "Pages through which the source was read, when read is copy or report.",
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            },
+            "checked": { "description": "Date of the last check.", "$ref": "#/$defs/date" },
+            "notes": { "type": "string" }
+          }
         },
-        "checked": { "description": "Date the source was last checked.", "$ref": "#/$defs/date" },
         "notes": { "type": "string" }
       }
     }

@@ -1,0 +1,105 @@
+# Kinds of sources, from the most to the least authoritative.
+#
+# rank: lower wins when two texts disagree (a lower text must respect every text above it).
+# authority:
+#   legal-text            a binding text, published in the Journal officiel
+#   official-publication  published by the issuing administration or regulator, but not itself
+#                         the law: consolidated codes, regulator pages, circulars
+#   secondary             reports about the rules: reference works, press, datasets
+#
+# Within one text, the Arabic edition of the Journal officiel is the authoritative one.
+
+- kind: constitution
+  rank: 1
+  authority: legal-text
+  label: { fr: Constitution, ar: الدستور, en: Constitution }
+
+- kind: treaty
+  rank: 2
+  authority: legal-text
+  label: { fr: Traité ou convention ratifié, ar: معاهدة مصادق عليها, en: Ratified treaty }
+
+- kind: organic-law
+  rank: 3
+  authority: legal-text
+  label: { fr: Loi organique, ar: قانون عضوي, en: Organic law }
+
+- kind: law
+  rank: 4
+  authority: legal-text
+  label: { fr: Loi, ar: قانون, en: Law }
+
+- kind: ordinance
+  rank: 4
+  authority: legal-text
+  label: { fr: Ordonnance, ar: أمر, en: Ordinance }
+
+- kind: presidential-decree
+  rank: 5
+  authority: legal-text
+  label: { fr: Décret présidentiel, ar: مرسوم رئاسي, en: Presidential decree }
+
+- kind: decree
+  rank: 5
+  authority: legal-text
+  label: { fr: Décret (avant 1989), ar: مرسوم, en: Decree (before 1989) }
+
+- kind: executive-decree
+  rank: 6
+  authority: legal-text
+  label: { fr: Décret exécutif, ar: مرسوم تنفيذي, en: Executive decree }
+
+- kind: arrete
+  rank: 7
+  authority: legal-text
+  label: { fr: Arrêté, ar: قرار, en: Ministerial order (arrêté) }
+
+- kind: regulation
+  rank: 7
+  authority: legal-text
+  label: { fr: Règlement (Banque d'Algérie), ar: نظام, en: Regulation (Bank of Algeria) }
+
+- kind: regulator-decision
+  rank: 7
+  authority: legal-text
+  label: { fr: Décision d'une autorité de régulation, ar: قرار سلطة ضبط, en: Regulator decision }
+
+- kind: court-decision
+  rank: 7
+  authority: legal-text
+  label: { fr: Décision de justice, ar: قرار قضائي, en: Court decision }
+
+- kind: consolidated-code
+  rank: 8
+  authority: official-publication
+  label: { fr: Code consolidé officiel, ar: تقنين محين رسمي, en: Official consolidated code }
+
+- kind: official-publication
+  rank: 8
+  authority: official-publication
+  label: { fr: Publication officielle (administration, régulateur), ar: منشور رسمي, en: Official publication (administration or regulator) }
+
+- kind: circular
+  rank: 9
+  authority: official-publication
+  label: { fr: Circulaire ou instruction, ar: منشور أو تعليمة, en: Circular or instruction }
+
+- kind: collective-agreement
+  rank: 9
+  authority: official-publication
+  label: { fr: Convention collective, ar: اتفاقية جماعية, en: Collective agreement }
+
+- kind: reference
+  rank: 20
+  authority: secondary
+  label: { fr: Ouvrage ou outil de référence, ar: مرجع, en: Reference work or tool }
+
+- kind: dataset
+  rank: 20
+  authority: secondary
+  label: { fr: Jeu de données, ar: مجموعة بيانات, en: Dataset }
+
+- kind: press
+  rank: 30
+  authority: secondary
+  label: { fr: Presse, ar: صحافة, en: Press }

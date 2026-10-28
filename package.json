@@ -1,11 +1,12 @@
 {
   "name": "dzkit-spec",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Machine-readable Algerian rules, each linked to its official text, with dates and shared test cases.",
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
-    "links": "node scripts/check-links.mjs"
+    "links": "node scripts/check-links.mjs",
+    "watch": "node scripts/watch-jo.mjs"
   },
   "repository": {
     "type": "git",

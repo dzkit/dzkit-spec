@@ -1,0 +1,65 @@
+name: Weekly health check
+
+# Every week:
+#   - checks that every source link answers, including the Journal officiel PDFs on joradp.dz
+#   - checks that no rule is past its review date
+# Opens (or updates) one issue per problem. It never blocks a pull request, because
+# official sites are sometimes slow or briefly offline.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - id: links
+        name: Check source links
+        shell: bash
+        run: node scripts/check-links.mjs 2>&1 | tee links.log
+        continue-on-error: true
+
+      - id: reviews
+        name: Check review dates
+        shell: bash
+        run: node scripts/build.mjs --overdue 2>&1 | tee reviews.log
+        continue-on-error: true
+
+      - name: Report problems
+        if: steps.links.outcome == 'failure' || steps.reviews.outcome == 'failure'
+        shell: bash
+        run: |
+          gh label create health --color D93F0B --description "Broken link or overdue review" --force
+          report() {
+            local title="$1" body="$2"
+            local number
+            number=$(gh issue list --label health --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+            if [ -n "$number" ]; then
+              gh issue comment "$number" --body-file "$body"
+            else
+              gh issue create --label health --title "$title" --body-file "$body"
+            fi
+          }
+          run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "${{ steps.links.outcome }}" = failure ]; then
+            { echo "These source links don't answer (week of $(date -u +%Y-%m-%d)):"; echo; echo '```'; grep '✗' links.log || true; echo '```'; echo; echo "Run: $run_url"; } > links.md
+            report "Broken source links" links.md
+          fi
+          if [ "${{ steps.reviews.outcome }}" = failure ]; then
+            { echo "These rules are past their review date. Re-check their sources, update \`verification.checked\` in sources.yaml, and add a new version if anything changed."; echo; echo '```'; cat reviews.log; echo '```'; echo; echo "Run: $run_url"; } > reviews.md
+            report "Rules past their review date" reviews.md
+          fi

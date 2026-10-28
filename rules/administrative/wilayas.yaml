@@ -7,11 +7,23 @@ description: >
   The official list of wilayas with their codes (also used on licence plates),
   French and Arabic names. Each entry may carry `valid_from` (first day it exists
   as a wilaya) and `parent` (code of the wilaya it was created from).
+review:
+  every_months: 12
+  triggers: [new wilayas, renaming of a wilaya]
+watch:
+  fr: [organisation territoriale, noms et chefs-lieux des wilayas, wilaya deleguee]
+  ar: [التنظيم الإقليمي, أسماء الولايات]
 versions:
   - valid_from: 2026-04-04
     valid_to: null
     status: official
-    sources: [loi-26-06, decret-presidentiel-26-206, upgrowth-wilayas-2026, wikipedia-provinces]
+    sources:
+      - { source: loi-84-09, supports: codes and names 1-48 }
+      - { source: decret-84-79, supports: names and chefs-lieux }
+      - { source: loi-26-06, supports: the 69 wilayas }
+      - { source: decret-presidentiel-26-206, supports: names and numbers of 59-69 }
+      - { source: upgrowth-wilayas-2026, supports: cross-check of all names and parents of 59-69 }
+      - { source: wikipedia-provinces, supports: cross-check of names 1-58 }
     notes: >
       Codes 59 to 69 exist since loi n° 26-06 and were numbered by décret présidentiel
       n° 26-206. They exercise their full powers from 1 January 2027; until then

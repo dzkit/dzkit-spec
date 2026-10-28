@@ -1,0 +1,82 @@
+name: Journal officiel watch
+
+# Every week, scans the Journal officiel issues published since the last run for the
+# phrases each rule watches (rules/*.yaml, `watch`). Opens one issue per Journal
+# officiel issue that mentions them. The last issue seen is kept in a pinned issue
+# labelled jo-watch-state, so the workflow needs no commits.
+on:
+  schedule:
+    - cron: '23 7 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: jo-watch
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
+
+      - name: Read the last issue seen
+        id: state
+        run: |
+          gh label create jo-watch --color 0E8A16 --description "A Journal officiel issue may affect a rule" --force
+          gh label create jo-watch-state --color BFD4F2 --description "Keeps the Journal officiel watch position" --force
+          number=$(gh issue list --label jo-watch-state --state all --limit 1 --json number --jq '.[0].number // empty')
+          last=""
+          if [ -n "$number" ]; then
+            last=$(gh issue view "$number" --json body --jq .body | grep -oE 'last: [0-9]{4}-[0-9]+' | head -1 | cut -d' ' -f2)
+          fi
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          echo "last=$last" >> "$GITHUB_OUTPUT"
+          echo "State issue: ${number:-none}; last seen: ${last:-none}"
+
+      - name: Scan new Journal officiel issues
+        run: |
+          if [ -n "${{ steps.state.outputs.last }}" ]; then
+            node scripts/watch-jo.mjs --after "${{ steps.state.outputs.last }}"
+          else
+            node scripts/watch-jo.mjs --bootstrap
+          fi
+
+      - name: Open an issue for each Journal officiel issue with matches
+        run: |
+          shopt -s nullglob
+          for f in watch-out/issue-*.md; do
+            title=$(head -1 "$f")
+            if gh issue list --label jo-watch --state all --search "\"$title\" in:title" --json number --jq '.[0].number // empty' | grep -q .; then
+              echo "Already reported: $title"
+              continue
+            fi
+            tail -n +2 "$f" > body.md
+            gh issue create --label jo-watch --title "$title" --body-file body.md
+          done
+
+      - name: Save the last issue seen
+        run: |
+          last=$(node -e "const r=require('./watch-out/result.json'); console.log(r.last_seen ? r.last_seen.year + '-' + r.last_seen.issue : '')")
+          [ -z "$last" ] && { echo "Nothing found; state unchanged."; exit 0; }
+          {
+            echo "This issue keeps the position of the weekly Journal officiel watch. Don't close or edit it."
+            echo
+            echo "Last Journal officiel issue scanned: **${last/-/ nº }**"
+            echo
+            echo "<!-- last: $last -->"
+          } > state.md
+          if [ -n "${{ steps.state.outputs.number }}" ]; then
+            gh issue edit "${{ steps.state.outputs.number }}" --body-file state.md
+          else
+            n=$(gh issue create --label jo-watch-state --title "Journal officiel watch: position" --body-file state.md | grep -oE '[0-9]+$')
+            gh issue pin "$n" || true
+          fi

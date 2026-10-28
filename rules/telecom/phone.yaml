@@ -11,6 +11,12 @@ description: >
   the 0, the blocks ARPCE has assigned. Implementations should accept any number
   of the right shape and report allocation separately, because ARPCE assigns new
   blocks over time.
+review:
+  every_months: 12
+  triggers: [ARPCE assigns new blocks, number portability]
+watch:
+  fr: [plan national de numerotation, portabilite des numeros]
+  ar: [المخطط الوطني للترقيم]
 versions:
   - valid_from: 2008-02-22
     valid_to: null

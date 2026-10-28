@@ -17,11 +17,20 @@ description: >
 
   Smoothing entries are not cumulative: use the first one whose `regimes` contains
   the taxpayer's regime.
+review:
+  every_months: 12
+  triggers: [loi de finances, loi de finances complémentaire]
+watch:
+  fr: [article 104 du code des impots directs, impot sur le revenu global, bareme de l'irg]
+  ar: [المادة 104 من قانون الضرائب المباشرة, الضريبة على الدخل الإجمالي]
 versions:
   - valid_from: 2022-01-01
     valid_to: null
     status: official
-    sources: [loi-21-16, cidta-2026, dgi-bareme-irg]
+    sources:
+      - { source: loi-21-16, articles: ['31'], supports: 'scale, exemption, abatement and smoothing formulas' }
+      - { source: cidta-2026, articles: ['104'], supports: still in force in 2026 }
+      - { source: dgi-bareme-irg, supports: rounding and reference amounts }
     notes: The annual scale of article 104 divided by 12. Earlier scales are not recorded yet.
     data:
       period: month
