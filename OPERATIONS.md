@@ -2,7 +2,17 @@
 
 What every dzkit implementation must do, in any language. The rules in `rules/` give the **data**; this page gives the **behaviour**: which inputs are accepted, what comes out, what is rejected and what is an error. The test cases in `vectors/` check every point below, one file per operation.
 
-Function names are each implementation's choice (`calculateIrg` in JavaScript, `calculate_irg` in Python); the operation names here are the shared ones.
+Function names are each implementation's choice (`calculateIrg` in JavaScript, `calculate_irg` in Python); the operation names here are the shared ones. Every implementation provides **all** of them; [PORTING.md](PORTING.md) explains how to start one.
+
+| Area | Operations |
+|---|---|
+| RIP and CCP | `rip.validate`, `rip.from-ccp`, `rip.format`, `ccp.validate` |
+| Phone numbers | `phone.parse`, `phone.validate`, `phone.format` |
+| Licence plates | `plate.parse`, `plate.format` |
+| NIF and NIS | `nif.validate`, `nis.validate` |
+| Wilayas | `wilaya.lookup` |
+| Payroll | `irg.calculate`, `irg.breakdown`, `salary.gross-to-net`, `salary.net-to-gross` |
+| Words | `words.number-fr`, `words.amount-fr`, `words.number-ar`, `words.amount-ar` |
 
 ## 1. General rules
 
@@ -65,6 +75,17 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
 - **Output:** `rip` (20 digits), `ccp_key` (2 digits), `rip_key` (2 digits). The account is left-padded with zeros to 10 digits.
 - **Rejected:** empty, more than 10 digits, anything that isn't digits after cleaning.
 
+### `rip.format` — RIP in four groups
+
+- **Input:** `rip`, any value, accepted as by `rip.validate`.
+- **Output:** `text`, the four groups separated by single spaces: `007 99999 0023115007 97`.
+- **Rejected:** anything `rip.validate` rejects, including a RIP with a wrong key. Only valid RIPs are formatted.
+
+### `ccp.validate` — CCP account with its key
+
+- **Input:** `account`, as `rip.from-ccp`; `key`, 1 or 2 digits as text (cleaned as § 1.2) or a non-negative integer.
+- **Output:** `valid`: `true` when the key equals the CCP key of the account (rule `banking.ccp-rip`, `ccp_key`), comparing both on 2 digits (`4` is `04`). Never `null`: anything invalid is `valid: false`.
+
 ### `phone.parse` — phone number
 
 - **Input:** `number`, any value.
@@ -78,6 +99,21 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
 - **Output:** `type`, `national` (`0N`), `e164` (`+213N`); mobiles add `operator` and `allocated`; service numbers add `allocated` and `freephone`; VoIP adds `allocated`; landlines add `area_code` (first two digits of `N`).
 - **Allocation never rejects.** A number in a block ARPCE hasn't assigned yet is accepted with `allocated: false`, because ARPCE assigns new blocks over time.
 
+### `phone.validate` — is it a phone number?
+
+- **Input:** `number`, any value; `type`, optional, one of `mobile`, `landline`, `service`, `voip`; `allocated_only`, optional, default `false`.
+- **Output:** `valid`: `true` when `phone.parse` accepts the number, its type matches `type` (when given), and, when `allocated_only` is true, the number isn't marked `allocated: false`. Landlines carry no allocation, so `allocated_only` doesn't affect them.
+- **Error:** `invalid-option` for an unknown `type`.
+
+### `phone.format` — formatted phone number
+
+- **Input:** `number`, any value, accepted as by `phone.parse`; `style`, `national` (default) or `international`.
+- **Output:** `text`, with `N` the national number without its 0:
+  - landlines: national `0` + area code, then the six remaining digits in pairs: `021 23 45 67`; international `+213 21 23 45 67`;
+  - every other type: national `0` + first three digits of `N`, then pairs: `0551 23 45 67`, `0800 12 34 56`; international `+213 551 23 45 67`.
+- **Rejected:** anything `phone.parse` rejects.
+- **Error:** `invalid-option` for an unknown `style`.
+
 ### `plate.parse` — licence plate
 
 - **Input:** `plate`, any value; `date`, optional (§ 1.4).
@@ -85,7 +121,13 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
   - separated: `SERIAL C YY WW`, the three groups separated by one or more spaces or dashes, with `SERIAL` 1 to 6 digits and `CYY` 3 digits — `02639-126-09`, `12345 119 16`;
   - compact: when the separated form doesn't match, remove all whitespace; 10 or 11 digits are read as a 5- or 6-digit serial followed by `CYYWW` — `1234511916`, `12345 11916`.
 - **Rejected:** serial of only zeros, category 0, wilaya code not issued on plates on that date (rule `vehicles.plates`, `wilaya_codes`), any other shape. Plate validation never raises `no-rule-for-date`; a date before every version is a rejection.
-- **Output:** `serial` (as written, without padding), `category` (1–9), `year` (2 digits, as written), `wilaya` (code).
+- **Output:** `serial` (as written, without padding), `category` (1–9), `category_name` (the French name from rule `vehicles.plates`, `categories`), `year` (2 digits, as written), `wilaya` (code).
+
+### `plate.format` — formatted plate
+
+- **Input:** as `plate.parse`.
+- **Output:** `text`: `SERIAL-CYY-WW`, the serial left-padded with zeros to `serial.display_digits` (5) when shorter, the wilaya on 2 digits: `02639-126-09`, `00007-126-31`, `123456-126-09`.
+- **Rejected:** anything `plate.parse` rejects on that date.
 
 ### `nif.validate` and `nis.validate` — tax and statistical numbers
 
@@ -98,7 +140,7 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
 
 - **Input:** `code`, an integer, or text of 1 to 3 digits after § 1.2 (leading zeros allowed: `"09"`, `"016"`); `date`, optional (§ 1.4).
 - **Rejected:** zero, a code above the last wilaya, a code whose wilaya doesn't exist yet on that date, a non-integer number, text with anything other than digits (`"16a"`, `"1e1"`, `"16.0"`, `" 1 6"`).
-- **Output:** `name_fr`, `name_ar`.
+- **Output:** `name_fr`, `name_ar`; for wilayas created after 1984, also `parent` (the code it was created from) and `valid_from`.
 
 ## 3. Payroll
 
@@ -108,6 +150,18 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
 - **Steps:** as described in rule `payroll.irg-salary`, applied to `taxable` as given, with one rounding inside: the result of the progressive scale (`scale_irg`) is rounded half up to the centime before the abatements. The final result is rounded down to `rounding.step` (0.1 DA).
 - **Errors:** `invalid-amount` (negative, not finite, not a number), `invalid-option` (unknown regime), `no-rule-for-date`.
 - **Output:** `irg`.
+
+### `irg.breakdown` — every step of the IRG, for payslips
+
+- **Input and errors:** as `irg.calculate`.
+- **Output:**
+  - `scale_irg`: the result of the progressive scale, rounded half up to the centime (step 2 of the rule);
+  - `exempt`: `true` when taxable income is at or below the exemption threshold; then `abatement`, `smoothing` and `irg` are 0;
+  - `abatement`: the 40 % abatement after its bounds, rounded half up to the centime;
+  - `smoothing`: the second abatement, that is the IRG after the first abatement minus the result of the smoothing formula, before the final rounding, rounded half up to the centime; 0 when no smoothing formula applies;
+  - `irg`: as `irg.calculate`.
+
+  The lines don't always add up to the centime, because the IRG is rounded down to 0.1 DA at the end.
 
 ### `salary.gross-to-net` — regular monthly salary
 
@@ -120,6 +174,13 @@ Some data entries carry their own `valid_from` (the wilayas created in 2019 and 
   5. `cnas_employer` = gross × (employer rate + social services rate), rounded half up to the centime.
 - **Errors:** as `irg.calculate`.
 - **Output:** `cnas_employee`, `taxable`, `irg`, `net`, `cnas_employer`.
+
+### `salary.net-to-gross` — gross salary for a target net
+
+- **Input:** `net` (target net salary in DA), `regime`, `date` (optional), as `salary.gross-to-net`.
+- **Output:** the **smallest gross, in whole centimes**, whose net (by `salary.gross-to-net`) is at least the target, with all the fields of `salary.gross-to-net` plus `gross`. A target of 0 gives a gross of 0.
+- **Careful:** net pay doesn't always increase with gross. It dips by up to about 1.5 DA where taxable income passes 30 000 DA, because the law's smoothing formula starts at about 1.5 DA of IRG, and by up to 0.1 DA elsewhere, because the IRG is rounded down to 0.1 DA. A plain bisection can return a gross that works but isn't the smallest; implementations must also check below it.
+- **Errors:** as `salary.gross-to-net`.
 
 Not covered: non-monthly bonuses (10 % flat withholding), exempt allowances, the minimum-wage floor of the contribution base, training and apprenticeship taxes.
 

@@ -2,6 +2,26 @@
 
 Every data change is listed with its source. See [GOVERNANCE.md](GOVERNANCE.md) for how versions are numbered.
 
+## 0.4.0 — 2026-10-28
+
+The complete contract: every function a dzkit package offers now has a definition and test cases, so a port in any language can be written from this repository alone.
+
+### Operations
+- New operations in OPERATIONS.md, each with test cases: `rip.format`, `ccp.validate`, `phone.validate` (by type, and allocated blocks only), `phone.format` (national and international), `plate.format`, `irg.breakdown` (every step, for payslips) and `salary.net-to-gross` (smallest gross to the centime, including around the 30 000 DA dip).
+- `plate.parse` returns `category_name`; `wilaya.lookup` returns `parent` and `valid_from` for wilayas created after 1984.
+- OPERATIONS.md opens with the list of the 17 operations every implementation provides.
+- `irg.breakdown` defines `smoothing` as the second abatement only, rounded to the centime, and 0 when no smoothing formula applies.
+- An unknown phone `type` or `style` is the error `invalid-option`.
+
+### Test cases
+- 339 cases, up from 273. Breakdown and net-to-gross values come from the exact reference computation; net-to-gross was found by walking up from below, a different method from dzkit-js's search, and both agree.
+
+### Documentation
+- **PORTING.md**: how to write a dzkit package in another language: names, using the spec, the test runner, errors, exact arithmetic per language, text and dates, framework packages, the repository checklist and how to publish without tokens on npm, PyPI, pub.dev and Packagist.
+
+### Tooling
+- GitHub Actions pinned to commits in every workflow. The watcher's temporary folder is ignored by git.
+
 ## 0.3.0 — 2026-10-28
 
 The behaviour contract. Implementations must be updated: `schema_version` is now 3, and the rule `business.nif-nis` is split in two.

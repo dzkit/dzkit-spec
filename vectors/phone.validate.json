@@ -1,0 +1,123 @@
+{
+  "operation": "phone.validate",
+  "description": "Check that a value is a phone number, optionally of one type and in an allocated block.",
+  "rule": "telecom.phone",
+  "contract": "OPERATIONS.md, phone.validate",
+  "inputs": {
+    "number": "number as typed",
+    "type": "optional: mobile, landline, service or voip",
+    "allocated_only": "optional: true to also require an allocated block"
+  },
+  "outputs": {
+    "valid": "true or false"
+  },
+  "cases": [
+    {
+      "id": "any-type",
+      "input": {
+        "number": "021234567"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "mobile-ok",
+      "input": {
+        "number": "0551234567",
+        "type": "mobile"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "landline-is-not-mobile",
+      "input": {
+        "number": "021234567",
+        "type": "mobile"
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "mobile-is-not-landline",
+      "input": {
+        "number": "0551234567",
+        "type": "landline"
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "unallocated-accepted",
+      "input": {
+        "number": "0685123456"
+      },
+      "expected": {
+        "valid": true
+      },
+      "notes": "allocation never rejects by default"
+    },
+    {
+      "id": "unallocated-strict",
+      "input": {
+        "number": "0685123456",
+        "allocated_only": true
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "allocated-strict",
+      "input": {
+        "number": "0661234567",
+        "allocated_only": true
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "service-unallocated-strict",
+      "input": {
+        "number": "0807123456",
+        "allocated_only": true
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "landline-strict",
+      "input": {
+        "number": "021234567",
+        "allocated_only": true
+      },
+      "expected": {
+        "valid": true
+      },
+      "notes": "allocation is not checked for landlines"
+    },
+    {
+      "id": "null",
+      "input": {
+        "number": null
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "unknown-type",
+      "input": {
+        "number": "0551234567",
+        "type": "cellphone"
+      },
+      "error": "invalid-option"
+    }
+  ]
+}

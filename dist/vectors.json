@@ -1,8 +1,241 @@
 {
   "name": "dzkit-spec vectors",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "schema_version": 3,
   "suites": [
+    {
+      "operation": "ccp.validate",
+      "description": "Check a CCP account number together with its key (the key written after the account on cheques).",
+      "rule": "banking.ccp-rip",
+      "contract": "OPERATIONS.md, ccp.validate",
+      "inputs": {
+        "account": "account as typed or a non-negative integer",
+        "key": "key as typed or a non-negative integer"
+      },
+      "outputs": {
+        "valid": "true or false"
+      },
+      "cases": [
+        {
+          "id": "example",
+          "input": {
+            "account": "1234567890",
+            "key": "45"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "mouh2020-algeria"
+        },
+        {
+          "id": "short-account",
+          "input": {
+            "account": "23115007",
+            "key": "32"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "excel-downloads-rip"
+        },
+        {
+          "id": "integer-key",
+          "input": {
+            "account": 6334829,
+            "key": 33
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "experts-univers-rip"
+        },
+        {
+          "id": "one-digit-key",
+          "input": {
+            "account": "1",
+            "key": "4"
+          },
+          "expected": {
+            "valid": true
+          },
+          "notes": "key 04 written as 4"
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "account": "١٢٣٤٥٦٧٨٩٠",
+            "key": "٤٥"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "wrong-key",
+          "input": {
+            "account": "1234567890",
+            "key": "46"
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "three-digit-key",
+          "input": {
+            "account": "1234567890",
+            "key": "045"
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "null-key",
+          "input": {
+            "account": "1234567890",
+            "key": null
+          },
+          "expected": {
+            "valid": false
+          }
+        }
+      ]
+    },
+    {
+      "operation": "irg.breakdown",
+      "description": "Every step of the monthly IRG, for payslips.",
+      "rule": "payroll.irg-salary",
+      "contract": "OPERATIONS.md, irg.breakdown",
+      "inputs": {
+        "taxable": "monthly taxable income in DA",
+        "regime": "salaried, retired or disabled",
+        "date": "date the salary relates to (ISO)"
+      },
+      "outputs": {
+        "scale_irg": "result of the progressive scale, rounded half up to the centime",
+        "abatement": "40 % abatement after its bounds, rounded half up to the centime (0 when exempt)",
+        "smoothing": "second abatement from the smoothing formula, rounded half up to the centime (0 when no formula applies)",
+        "irg": "IRG to withhold",
+        "exempt": "true when taxable income is at or below the exemption threshold"
+      },
+      "cases": [
+        {
+          "id": "exempt",
+          "input": {
+            "taxable": 25000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 1150,
+            "abatement": 0,
+            "smoothing": 0,
+            "irg": 0,
+            "exempt": true
+          }
+        },
+        {
+          "id": "threshold",
+          "input": {
+            "taxable": 30000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 2300,
+            "abatement": 0,
+            "smoothing": 0,
+            "irg": 0,
+            "exempt": true
+          }
+        },
+        {
+          "id": "salaried-32000",
+          "input": {
+            "taxable": 32000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 2760,
+            "abatement": 1104,
+            "smoothing": 698.15,
+            "irg": 957.8,
+            "exempt": false
+          }
+        },
+        {
+          "id": "disabled-36000",
+          "input": {
+            "taxable": 36000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 3680,
+            "abatement": 1472,
+            "smoothing": 822.51,
+            "irg": 1385.4,
+            "exempt": false
+          }
+        },
+        {
+          "id": "no-smoothing-with-centimes",
+          "input": {
+            "taxable": 40123.45,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 4633.33,
+            "abatement": 1500,
+            "smoothing": 0,
+            "irg": 3133.3,
+            "exempt": false
+          }
+        },
+        {
+          "id": "abatement-maximum",
+          "input": {
+            "taxable": 50000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 7300,
+            "abatement": 1500,
+            "smoothing": 0,
+            "irg": 5800,
+            "exempt": false
+          }
+        },
+        {
+          "id": "abatement-minimum",
+          "input": {
+            "taxable": 30870,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "scale_irg": 2500.1,
+            "abatement": 1000.04,
+            "smoothing": 961.11,
+            "irg": 538.9,
+            "exempt": false
+          }
+        },
+        {
+          "id": "unknown-regime",
+          "input": {
+            "taxable": 40000,
+            "regime": "retraite",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-option"
+        }
+      ]
+    },
     {
       "operation": "irg.calculate",
       "description": "Monthly IRG withheld on a salary or pension.",
@@ -641,6 +874,110 @@
       ]
     },
     {
+      "operation": "phone.format",
+      "description": "Format a phone number nationally or internationally.",
+      "rule": "telecom.phone",
+      "contract": "OPERATIONS.md, phone.format",
+      "inputs": {
+        "number": "number as typed",
+        "style": "national (default) or international"
+      },
+      "outputs": {
+        "text": "formatted number"
+      },
+      "cases": [
+        {
+          "id": "mobile-national",
+          "input": {
+            "number": "+213551234567"
+          },
+          "expected": {
+            "text": "0551 23 45 67"
+          }
+        },
+        {
+          "id": "mobile-international",
+          "input": {
+            "number": "0551234567",
+            "style": "international"
+          },
+          "expected": {
+            "text": "+213 551 23 45 67"
+          }
+        },
+        {
+          "id": "landline-national",
+          "input": {
+            "number": "+213 21 23 45 67",
+            "style": "national"
+          },
+          "expected": {
+            "text": "021 23 45 67"
+          }
+        },
+        {
+          "id": "landline-international",
+          "input": {
+            "number": "038123456",
+            "style": "international"
+          },
+          "expected": {
+            "text": "+213 38 12 34 56"
+          }
+        },
+        {
+          "id": "freephone-national",
+          "input": {
+            "number": "0800123456"
+          },
+          "expected": {
+            "text": "0800 12 34 56"
+          }
+        },
+        {
+          "id": "voip-international",
+          "input": {
+            "number": "0982 12 34 56",
+            "style": "international"
+          },
+          "expected": {
+            "text": "+213 982 12 34 56"
+          }
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "number": "٠٦٦١٢٣٤٥٦٧"
+          },
+          "expected": {
+            "text": "0661 23 45 67"
+          }
+        },
+        {
+          "id": "invalid",
+          "input": {
+            "number": "123"
+          },
+          "expected": null
+        },
+        {
+          "id": "null",
+          "input": {
+            "number": null
+          },
+          "expected": null
+        },
+        {
+          "id": "unknown-style",
+          "input": {
+            "number": "0551234567",
+            "style": "e164"
+          },
+          "error": "invalid-option"
+        }
+      ]
+    },
+    {
       "operation": "phone.parse",
       "description": "Parse an Algerian phone number written nationally or internationally.",
       "rule": "telecom.phone",
@@ -1028,6 +1365,221 @@
       ]
     },
     {
+      "operation": "phone.validate",
+      "description": "Check that a value is a phone number, optionally of one type and in an allocated block.",
+      "rule": "telecom.phone",
+      "contract": "OPERATIONS.md, phone.validate",
+      "inputs": {
+        "number": "number as typed",
+        "type": "optional: mobile, landline, service or voip",
+        "allocated_only": "optional: true to also require an allocated block"
+      },
+      "outputs": {
+        "valid": "true or false"
+      },
+      "cases": [
+        {
+          "id": "any-type",
+          "input": {
+            "number": "021234567"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "mobile-ok",
+          "input": {
+            "number": "0551234567",
+            "type": "mobile"
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "landline-is-not-mobile",
+          "input": {
+            "number": "021234567",
+            "type": "mobile"
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "mobile-is-not-landline",
+          "input": {
+            "number": "0551234567",
+            "type": "landline"
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "unallocated-accepted",
+          "input": {
+            "number": "0685123456"
+          },
+          "expected": {
+            "valid": true
+          },
+          "notes": "allocation never rejects by default"
+        },
+        {
+          "id": "unallocated-strict",
+          "input": {
+            "number": "0685123456",
+            "allocated_only": true
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "allocated-strict",
+          "input": {
+            "number": "0661234567",
+            "allocated_only": true
+          },
+          "expected": {
+            "valid": true
+          }
+        },
+        {
+          "id": "service-unallocated-strict",
+          "input": {
+            "number": "0807123456",
+            "allocated_only": true
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "landline-strict",
+          "input": {
+            "number": "021234567",
+            "allocated_only": true
+          },
+          "expected": {
+            "valid": true
+          },
+          "notes": "allocation is not checked for landlines"
+        },
+        {
+          "id": "null",
+          "input": {
+            "number": null
+          },
+          "expected": {
+            "valid": false
+          }
+        },
+        {
+          "id": "unknown-type",
+          "input": {
+            "number": "0551234567",
+            "type": "cellphone"
+          },
+          "error": "invalid-option"
+        }
+      ]
+    },
+    {
+      "operation": "plate.format",
+      "description": "Format a licence plate as SERIAL-CYY-WW.",
+      "rule": "vehicles.plates",
+      "contract": "OPERATIONS.md, plate.format",
+      "inputs": {
+        "plate": "plate as typed",
+        "date": "date of the check (ISO)"
+      },
+      "outputs": {
+        "text": "formatted plate"
+      },
+      "cases": [
+        {
+          "id": "pads-serial",
+          "input": {
+            "plate": "2639-126-09",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "text": "02639-126-09"
+          },
+          "notes": "serial padded to 5 digits (display_digits)"
+        },
+        {
+          "id": "six-digit-serial",
+          "input": {
+            "plate": "123456-126-09",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "text": "123456-126-09"
+          }
+        },
+        {
+          "id": "one-digit-serial",
+          "input": {
+            "plate": "7 126 31",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "text": "00007-126-31"
+          }
+        },
+        {
+          "id": "compact",
+          "input": {
+            "plate": "1234511916",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "text": "12345-119-16"
+          }
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "plate": "٠٢٦٣٩-١٢٦-٠٩",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "text": "02639-126-09"
+          }
+        },
+        {
+          "id": "code-64-before-2027",
+          "input": {
+            "plate": "12345-127-64",
+            "date": "2026-10-28"
+          },
+          "expected": null
+        },
+        {
+          "id": "code-64-in-2027",
+          "input": {
+            "plate": "12345-127-64",
+            "date": "2027-01-01"
+          },
+          "expected": {
+            "text": "12345-127-64"
+          }
+        },
+        {
+          "id": "invalid",
+          "input": {
+            "plate": "06390-00-09",
+            "date": "2026-10-28"
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
       "operation": "plate.parse",
       "description": "Parse a standard licence plate as of a given date.",
       "rule": "vehicles.plates",
@@ -1039,7 +1591,8 @@
         "serial": "serial as written",
         "category": "vehicle category 1–9",
         "year": "two-digit year as written",
-        "wilaya": "wilaya code"
+        "wilaya": "wilaya code",
+        "category_name": "French name of the category (rule vehicles.plates, categories)"
       },
       "cases": [
         {
@@ -1337,6 +1890,104 @@
             "year": "27",
             "wilaya": 59
           }
+        },
+        {
+          "id": "category-name-car",
+          "input": {
+            "plate": "02639-126-09",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "02639",
+            "category": 1,
+            "category_name": "Véhicule de tourisme",
+            "year": "26",
+            "wilaya": 9
+          }
+        },
+        {
+          "id": "category-name-trailer",
+          "input": {
+            "plate": "12345-822-16",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 8,
+            "category_name": "Remorque ou semi-remorque",
+            "year": "22",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "category-name-motorcycle",
+          "input": {
+            "plate": "12345-925-31",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 9,
+            "category_name": "Motocyclette",
+            "year": "25",
+            "wilaya": 31
+          }
+        }
+      ]
+    },
+    {
+      "operation": "rip.format",
+      "description": "Format a valid RIP in four groups.",
+      "rule": "banking.ccp-rip",
+      "contract": "OPERATIONS.md, rip.format",
+      "inputs": {
+        "rip": "RIP as typed"
+      },
+      "outputs": {
+        "text": "formatted RIP"
+      },
+      "cases": [
+        {
+          "id": "compact",
+          "input": {
+            "rip": "00799999002311500797"
+          },
+          "expected": {
+            "text": "007 99999 0023115007 97"
+          }
+        },
+        {
+          "id": "already-spaced",
+          "input": {
+            "rip": "007-99999-0023115007-97"
+          },
+          "expected": {
+            "text": "007 99999 0023115007 97"
+          }
+        },
+        {
+          "id": "arabic-indic-digits",
+          "input": {
+            "rip": "٠٠٧٩٩٩٩٩٠٠٠٦٣٣٤٨٢٩٥٦"
+          },
+          "expected": {
+            "text": "007 99999 0006334829 56"
+          }
+        },
+        {
+          "id": "wrong-key",
+          "input": {
+            "rip": "00799999002311500796"
+          },
+          "expected": null,
+          "notes": "only valid RIPs are formatted"
+        },
+        {
+          "id": "null",
+          "input": {
+            "rip": null
+          },
+          "expected": null
         }
       ]
     },
@@ -1836,6 +2487,186 @@
       ]
     },
     {
+      "operation": "salary.net-to-gross",
+      "description": "Smallest gross monthly salary, to the centime, whose net reaches a target.",
+      "contract": "OPERATIONS.md, salary.net-to-gross",
+      "inputs": {
+        "net": "target net salary in DA",
+        "regime": "salaried, retired or disabled",
+        "date": "date the salary relates to (ISO)"
+      },
+      "outputs": {
+        "gross": "smallest gross in whole centimes whose net is at least the target",
+        "cnas_employee": "as salary.gross-to-net",
+        "taxable": "as salary.gross-to-net",
+        "irg": "as salary.gross-to-net",
+        "net": "as salary.gross-to-net",
+        "cnas_employer": "as salary.gross-to-net"
+      },
+      "cases": [
+        {
+          "id": "net-20000",
+          "input": {
+            "net": 20000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 21978.02,
+            "cnas_employee": 1978.02,
+            "taxable": 20000,
+            "irg": 0,
+            "net": 20000,
+            "cnas_employer": 5604.4
+          }
+        },
+        {
+          "id": "just-below-threshold",
+          "input": {
+            "net": 29999.5,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 32966.48,
+            "cnas_employee": 2966.98,
+            "taxable": 29999.5,
+            "irg": 0,
+            "net": 29999.5,
+            "cnas_employer": 8406.45
+          },
+          "notes": "taxable just under 30 000 DA"
+        },
+        {
+          "id": "net-30000",
+          "input": {
+            "net": 30000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 32967.03,
+            "cnas_employee": 2967.03,
+            "taxable": 30000,
+            "irg": 0,
+            "net": 30000,
+            "cnas_employer": 8406.59
+          },
+          "notes": "net pay dips near this point; the smallest gross is required"
+        },
+        {
+          "id": "net-35000",
+          "input": {
+            "net": 35000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 41244.4,
+            "cnas_employee": 3712,
+            "taxable": 37532.4,
+            "irg": 2532.4,
+            "net": 35000,
+            "cnas_employer": 10517.32
+          }
+        },
+        {
+          "id": "net-47558",
+          "input": {
+            "net": 47558,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 59999.89,
+            "cnas_employee": 5399.99,
+            "taxable": 54599.9,
+            "irg": 7041.9,
+            "net": 47558,
+            "cnas_employer": 15299.97
+          },
+          "notes": "gross-to-net of 60 000 DA gives this net; a slightly smaller gross already reaches it"
+        },
+        {
+          "id": "net-with-centimes",
+          "input": {
+            "net": 75000.5,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 101884.51,
+            "cnas_employee": 9169.61,
+            "taxable": 92714.9,
+            "irg": 17714.4,
+            "net": 75000.5,
+            "cnas_employer": 25980.55
+          }
+        },
+        {
+          "id": "net-150000",
+          "input": {
+            "net": 150000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 221584.29,
+            "cnas_employee": 19942.59,
+            "taxable": 201641.7,
+            "irg": 51641.7,
+            "net": 150000,
+            "cnas_employer": 56503.99
+          }
+        },
+        {
+          "id": "retired-40000",
+          "input": {
+            "net": 40000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 48622.53,
+            "cnas_employee": 4376.03,
+            "taxable": 44246.5,
+            "irg": 4246.5,
+            "net": 40000,
+            "cnas_employer": 12398.75
+          }
+        },
+        {
+          "id": "zero",
+          "input": {
+            "net": 0,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "gross": 0
+          }
+        },
+        {
+          "id": "negative",
+          "input": {
+            "net": -1,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-amount"
+        },
+        {
+          "id": "unknown-regime",
+          "input": {
+            "net": 40000,
+            "regime": "retraite",
+            "date": "2026-10-28"
+          },
+          "error": "invalid-option"
+        }
+      ]
+    },
+    {
       "operation": "wilaya.lookup",
       "description": "Find a wilaya by its code.",
       "rule": "administrative.wilayas",
@@ -1844,7 +2675,9 @@
       },
       "outputs": {
         "name_fr": "French name",
-        "name_ar": "Arabic name"
+        "name_ar": "Arabic name",
+        "parent": "for wilayas created after 1984: code of the wilaya it was created from",
+        "valid_from": "for wilayas created after 1984: first day it exists"
       },
       "cases": [
         {
@@ -2047,6 +2880,34 @@
           },
           "expected": null,
           "notes": "no version: a lookup rejects rather than raising"
+        },
+        {
+          "id": "parent-of-49",
+          "input": {
+            "code": 49,
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "name_fr": "Timimoun",
+            "name_ar": "تيميمون",
+            "parent": 1,
+            "valid_from": "2019-12-11"
+          },
+          "source": "decret-presidentiel-21-117"
+        },
+        {
+          "id": "parent-of-64",
+          "input": {
+            "code": 64,
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "name_fr": "Ksar Chellala",
+            "name_ar": "قصر الشلالة",
+            "parent": 14,
+            "valid_from": "2026-04-04"
+          },
+          "source": "decret-presidentiel-26-206"
         }
       ]
     },

@@ -1,0 +1,180 @@
+{
+  "operation": "salary.net-to-gross",
+  "description": "Smallest gross monthly salary, to the centime, whose net reaches a target.",
+  "contract": "OPERATIONS.md, salary.net-to-gross",
+  "inputs": {
+    "net": "target net salary in DA",
+    "regime": "salaried, retired or disabled",
+    "date": "date the salary relates to (ISO)"
+  },
+  "outputs": {
+    "gross": "smallest gross in whole centimes whose net is at least the target",
+    "cnas_employee": "as salary.gross-to-net",
+    "taxable": "as salary.gross-to-net",
+    "irg": "as salary.gross-to-net",
+    "net": "as salary.gross-to-net",
+    "cnas_employer": "as salary.gross-to-net"
+  },
+  "cases": [
+    {
+      "id": "net-20000",
+      "input": {
+        "net": 20000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 21978.02,
+        "cnas_employee": 1978.02,
+        "taxable": 20000,
+        "irg": 0,
+        "net": 20000,
+        "cnas_employer": 5604.4
+      }
+    },
+    {
+      "id": "just-below-threshold",
+      "input": {
+        "net": 29999.5,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 32966.48,
+        "cnas_employee": 2966.98,
+        "taxable": 29999.5,
+        "irg": 0,
+        "net": 29999.5,
+        "cnas_employer": 8406.45
+      },
+      "notes": "taxable just under 30 000 DA"
+    },
+    {
+      "id": "net-30000",
+      "input": {
+        "net": 30000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 32967.03,
+        "cnas_employee": 2967.03,
+        "taxable": 30000,
+        "irg": 0,
+        "net": 30000,
+        "cnas_employer": 8406.59
+      },
+      "notes": "net pay dips near this point; the smallest gross is required"
+    },
+    {
+      "id": "net-35000",
+      "input": {
+        "net": 35000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 41244.4,
+        "cnas_employee": 3712,
+        "taxable": 37532.4,
+        "irg": 2532.4,
+        "net": 35000,
+        "cnas_employer": 10517.32
+      }
+    },
+    {
+      "id": "net-47558",
+      "input": {
+        "net": 47558,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 59999.89,
+        "cnas_employee": 5399.99,
+        "taxable": 54599.9,
+        "irg": 7041.9,
+        "net": 47558,
+        "cnas_employer": 15299.97
+      },
+      "notes": "gross-to-net of 60 000 DA gives this net; a slightly smaller gross already reaches it"
+    },
+    {
+      "id": "net-with-centimes",
+      "input": {
+        "net": 75000.5,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 101884.51,
+        "cnas_employee": 9169.61,
+        "taxable": 92714.9,
+        "irg": 17714.4,
+        "net": 75000.5,
+        "cnas_employer": 25980.55
+      }
+    },
+    {
+      "id": "net-150000",
+      "input": {
+        "net": 150000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 221584.29,
+        "cnas_employee": 19942.59,
+        "taxable": 201641.7,
+        "irg": 51641.7,
+        "net": 150000,
+        "cnas_employer": 56503.99
+      }
+    },
+    {
+      "id": "retired-40000",
+      "input": {
+        "net": 40000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 48622.53,
+        "cnas_employee": 4376.03,
+        "taxable": 44246.5,
+        "irg": 4246.5,
+        "net": 40000,
+        "cnas_employer": 12398.75
+      }
+    },
+    {
+      "id": "zero",
+      "input": {
+        "net": 0,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "gross": 0
+      }
+    },
+    {
+      "id": "negative",
+      "input": {
+        "net": -1,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "unknown-regime",
+      "input": {
+        "net": 40000,
+        "regime": "retraite",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-option"
+    }
+  ]
+}

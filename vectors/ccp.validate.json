@@ -1,0 +1,99 @@
+{
+  "operation": "ccp.validate",
+  "description": "Check a CCP account number together with its key (the key written after the account on cheques).",
+  "rule": "banking.ccp-rip",
+  "contract": "OPERATIONS.md, ccp.validate",
+  "inputs": {
+    "account": "account as typed or a non-negative integer",
+    "key": "key as typed or a non-negative integer"
+  },
+  "outputs": {
+    "valid": "true or false"
+  },
+  "cases": [
+    {
+      "id": "example",
+      "input": {
+        "account": "1234567890",
+        "key": "45"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "mouh2020-algeria"
+    },
+    {
+      "id": "short-account",
+      "input": {
+        "account": "23115007",
+        "key": "32"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "excel-downloads-rip"
+    },
+    {
+      "id": "integer-key",
+      "input": {
+        "account": 6334829,
+        "key": 33
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "experts-univers-rip"
+    },
+    {
+      "id": "one-digit-key",
+      "input": {
+        "account": "1",
+        "key": "4"
+      },
+      "expected": {
+        "valid": true
+      },
+      "notes": "key 04 written as 4"
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "account": "١٢٣٤٥٦٧٨٩٠",
+        "key": "٤٥"
+      },
+      "expected": {
+        "valid": true
+      }
+    },
+    {
+      "id": "wrong-key",
+      "input": {
+        "account": "1234567890",
+        "key": "46"
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "three-digit-key",
+      "input": {
+        "account": "1234567890",
+        "key": "045"
+      },
+      "expected": {
+        "valid": false
+      }
+    },
+    {
+      "id": "null-key",
+      "input": {
+        "account": "1234567890",
+        "key": null
+      },
+      "expected": {
+        "valid": false
+      }
+    }
+  ]
+}

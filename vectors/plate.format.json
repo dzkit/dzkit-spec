@@ -1,0 +1,92 @@
+{
+  "operation": "plate.format",
+  "description": "Format a licence plate as SERIAL-CYY-WW.",
+  "rule": "vehicles.plates",
+  "contract": "OPERATIONS.md, plate.format",
+  "inputs": {
+    "plate": "plate as typed",
+    "date": "date of the check (ISO)"
+  },
+  "outputs": {
+    "text": "formatted plate"
+  },
+  "cases": [
+    {
+      "id": "pads-serial",
+      "input": {
+        "plate": "2639-126-09",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "text": "02639-126-09"
+      },
+      "notes": "serial padded to 5 digits (display_digits)"
+    },
+    {
+      "id": "six-digit-serial",
+      "input": {
+        "plate": "123456-126-09",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "text": "123456-126-09"
+      }
+    },
+    {
+      "id": "one-digit-serial",
+      "input": {
+        "plate": "7 126 31",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "text": "00007-126-31"
+      }
+    },
+    {
+      "id": "compact",
+      "input": {
+        "plate": "1234511916",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "text": "12345-119-16"
+      }
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "plate": "٠٢٦٣٩-١٢٦-٠٩",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "text": "02639-126-09"
+      }
+    },
+    {
+      "id": "code-64-before-2027",
+      "input": {
+        "plate": "12345-127-64",
+        "date": "2026-10-28"
+      },
+      "expected": null
+    },
+    {
+      "id": "code-64-in-2027",
+      "input": {
+        "plate": "12345-127-64",
+        "date": "2027-01-01"
+      },
+      "expected": {
+        "text": "12345-127-64"
+      }
+    },
+    {
+      "id": "invalid",
+      "input": {
+        "plate": "06390-00-09",
+        "date": "2026-10-28"
+      },
+      "expected": null
+    }
+  ]
+}

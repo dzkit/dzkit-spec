@@ -1,0 +1,56 @@
+{
+  "operation": "rip.format",
+  "description": "Format a valid RIP in four groups.",
+  "rule": "banking.ccp-rip",
+  "contract": "OPERATIONS.md, rip.format",
+  "inputs": {
+    "rip": "RIP as typed"
+  },
+  "outputs": {
+    "text": "formatted RIP"
+  },
+  "cases": [
+    {
+      "id": "compact",
+      "input": {
+        "rip": "00799999002311500797"
+      },
+      "expected": {
+        "text": "007 99999 0023115007 97"
+      }
+    },
+    {
+      "id": "already-spaced",
+      "input": {
+        "rip": "007-99999-0023115007-97"
+      },
+      "expected": {
+        "text": "007 99999 0023115007 97"
+      }
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "rip": "٠٠٧٩٩٩٩٩٠٠٠٦٣٣٤٨٢٩٥٦"
+      },
+      "expected": {
+        "text": "007 99999 0006334829 56"
+      }
+    },
+    {
+      "id": "wrong-key",
+      "input": {
+        "rip": "00799999002311500796"
+      },
+      "expected": null,
+      "notes": "only valid RIPs are formatted"
+    },
+    {
+      "id": "null",
+      "input": {
+        "rip": null
+      },
+      "expected": null
+    }
+  ]
+}
