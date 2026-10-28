@@ -2,7 +2,7 @@
 
 **Algerian rules as data.** Tax, payroll, wilayas, licence plates, phone numbers and identifiers, written as plain YAML and JSON that any language can read. Every rule says **when it applies** and **which official text makes it law**, and comes with test cases that every implementation must pass.
 
-This is the shared source for the dzkit packages ([dzkit-js](https://github.com/dzkit/dzkit-js) today, PHP, Python and others later), but you can use it directly in any project.
+This is the shared source for the dzkit packages ([dzkit-js](https://github.com/dzkit/dzkit-js) today, PHP, Python and others later), but you can use it directly in any project. To start a package in a new language, read [PORTING.md](PORTING.md).
 
 **Why you can trust it:** every value cites the text that makes it law, ranked by the hierarchy of Algerian legal texts; every source says how closely it was checked; a public [trust report](TRUST.md) shows the evidence for each rule and the work still open; and the Journal officiel is watched every week for changes. The rules for changing anything are in [GOVERNANCE.md](GOVERNANCE.md).
 
@@ -148,13 +148,13 @@ An implementation maps each operation to its own function (`calculateIrg` in JS,
 
 | Operation | What it checks |
 |---|---|
-| `rip.validate`, `rip.from-ccp` | RIP and CCP keys, including real RIP numbers |
-| `phone.parse` | Types, operators, allocated blocks, rejected inputs |
-| `plate.parse` | Plates before and after 1 January 2027 |
+| `rip.validate`, `rip.from-ccp`, `rip.format`, `ccp.validate` | RIP and CCP keys, including real RIP numbers |
+| `phone.parse`, `phone.validate`, `phone.format` | Types, operators, allocated blocks, formats, rejected inputs |
+| `plate.parse`, `plate.format` | Plates before and after 1 January 2027, category names |
 | `nif.validate`, `nis.validate` | Identifier formats |
-| `irg.calculate`, `salary.gross-to-net` | The DGI's published IRG amounts, every bracket and abatement boundary, errors |
+| `irg.calculate`, `irg.breakdown`, `salary.gross-to-net`, `salary.net-to-gross` | The DGI's published IRG amounts, every bracket and abatement boundary, payslip steps, net to gross around the 30 000 DA dip, errors |
 | `words.number-fr`, `words.amount-fr`, `words.number-ar`, `words.amount-ar` | Spelling, agreement, Arabic construct forms, rounding to the centime, limits |
-| `wilaya.lookup` | Names, the 2019 and 2026 wilayas by date, strict codes |
+| `wilaya.lookup` | Names, the 2019 and 2026 wilayas by date and their parent wilaya, strict codes |
 
 Every identifier operation also checks Arabic-Indic digits, separators and non-text input.
 
@@ -162,6 +162,7 @@ Every identifier operation also checks Arabic-Indic digits, separators and non-t
 
 ```
 OPERATIONS.md           what every implementation must do with each operation
+PORTING.md              how to start a dzkit package in another language
 hierarchy.yaml          kinds of legal texts, ranked
 sources.yaml            every text a rule relies on, and how it was verified
 rules/<area>/*.yaml     one file per rule, with its dated versions

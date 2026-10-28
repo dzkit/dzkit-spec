@@ -7,7 +7,9 @@
   },
   "outputs": {
     "name_fr": "French name",
-    "name_ar": "Arabic name"
+    "name_ar": "Arabic name",
+    "parent": "for wilayas created after 1984: code of the wilaya it was created from",
+    "valid_from": "for wilayas created after 1984: first day it exists"
   },
   "cases": [
     {
@@ -210,6 +212,34 @@
       },
       "expected": null,
       "notes": "no version: a lookup rejects rather than raising"
+    },
+    {
+      "id": "parent-of-49",
+      "input": {
+        "code": 49,
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "name_fr": "Timimoun",
+        "name_ar": "تيميمون",
+        "parent": 1,
+        "valid_from": "2019-12-11"
+      },
+      "source": "decret-presidentiel-21-117"
+    },
+    {
+      "id": "parent-of-64",
+      "input": {
+        "code": 64,
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "name_fr": "Ksar Chellala",
+        "name_ar": "قصر الشلالة",
+        "parent": 14,
+        "valid_from": "2026-04-04"
+      },
+      "source": "decret-presidentiel-26-206"
     }
   ]
 }

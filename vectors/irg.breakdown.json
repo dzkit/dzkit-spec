@@ -1,0 +1,134 @@
+{
+  "operation": "irg.breakdown",
+  "description": "Every step of the monthly IRG, for payslips.",
+  "rule": "payroll.irg-salary",
+  "contract": "OPERATIONS.md, irg.breakdown",
+  "inputs": {
+    "taxable": "monthly taxable income in DA",
+    "regime": "salaried, retired or disabled",
+    "date": "date the salary relates to (ISO)"
+  },
+  "outputs": {
+    "scale_irg": "result of the progressive scale, rounded half up to the centime",
+    "abatement": "40 % abatement after its bounds, rounded half up to the centime (0 when exempt)",
+    "smoothing": "second abatement from the smoothing formula, rounded half up to the centime (0 when no formula applies)",
+    "irg": "IRG to withhold",
+    "exempt": "true when taxable income is at or below the exemption threshold"
+  },
+  "cases": [
+    {
+      "id": "exempt",
+      "input": {
+        "taxable": 25000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 1150,
+        "abatement": 0,
+        "smoothing": 0,
+        "irg": 0,
+        "exempt": true
+      }
+    },
+    {
+      "id": "threshold",
+      "input": {
+        "taxable": 30000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 2300,
+        "abatement": 0,
+        "smoothing": 0,
+        "irg": 0,
+        "exempt": true
+      }
+    },
+    {
+      "id": "salaried-32000",
+      "input": {
+        "taxable": 32000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 2760,
+        "abatement": 1104,
+        "smoothing": 698.15,
+        "irg": 957.8,
+        "exempt": false
+      }
+    },
+    {
+      "id": "disabled-36000",
+      "input": {
+        "taxable": 36000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 3680,
+        "abatement": 1472,
+        "smoothing": 822.51,
+        "irg": 1385.4,
+        "exempt": false
+      }
+    },
+    {
+      "id": "no-smoothing-with-centimes",
+      "input": {
+        "taxable": 40123.45,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 4633.33,
+        "abatement": 1500,
+        "smoothing": 0,
+        "irg": 3133.3,
+        "exempt": false
+      }
+    },
+    {
+      "id": "abatement-maximum",
+      "input": {
+        "taxable": 50000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 7300,
+        "abatement": 1500,
+        "smoothing": 0,
+        "irg": 5800,
+        "exempt": false
+      }
+    },
+    {
+      "id": "abatement-minimum",
+      "input": {
+        "taxable": 30870,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "scale_irg": 2500.1,
+        "abatement": 1000.04,
+        "smoothing": 961.11,
+        "irg": 538.9,
+        "exempt": false
+      }
+    },
+    {
+      "id": "unknown-regime",
+      "input": {
+        "taxable": 40000,
+        "regime": "retraite",
+        "date": "2026-10-28"
+      },
+      "error": "invalid-option"
+    }
+  ]
+}

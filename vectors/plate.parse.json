@@ -10,7 +10,8 @@
     "serial": "serial as written",
     "category": "vehicle category 1–9",
     "year": "two-digit year as written",
-    "wilaya": "wilaya code"
+    "wilaya": "wilaya code",
+    "category_name": "French name of the category (rule vehicles.plates, categories)"
   },
   "cases": [
     {
@@ -307,6 +308,48 @@
         "category": 1,
         "year": "27",
         "wilaya": 59
+      }
+    },
+    {
+      "id": "category-name-car",
+      "input": {
+        "plate": "02639-126-09",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "02639",
+        "category": 1,
+        "category_name": "Véhicule de tourisme",
+        "year": "26",
+        "wilaya": 9
+      }
+    },
+    {
+      "id": "category-name-trailer",
+      "input": {
+        "plate": "12345-822-16",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 8,
+        "category_name": "Remorque ou semi-remorque",
+        "year": "22",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "category-name-motorcycle",
+      "input": {
+        "plate": "12345-925-31",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 9,
+        "category_name": "Motocyclette",
+        "year": "25",
+        "wilaya": 31
       }
     }
   ]

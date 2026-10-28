@@ -1,0 +1,104 @@
+{
+  "operation": "phone.format",
+  "description": "Format a phone number nationally or internationally.",
+  "rule": "telecom.phone",
+  "contract": "OPERATIONS.md, phone.format",
+  "inputs": {
+    "number": "number as typed",
+    "style": "national (default) or international"
+  },
+  "outputs": {
+    "text": "formatted number"
+  },
+  "cases": [
+    {
+      "id": "mobile-national",
+      "input": {
+        "number": "+213551234567"
+      },
+      "expected": {
+        "text": "0551 23 45 67"
+      }
+    },
+    {
+      "id": "mobile-international",
+      "input": {
+        "number": "0551234567",
+        "style": "international"
+      },
+      "expected": {
+        "text": "+213 551 23 45 67"
+      }
+    },
+    {
+      "id": "landline-national",
+      "input": {
+        "number": "+213 21 23 45 67",
+        "style": "national"
+      },
+      "expected": {
+        "text": "021 23 45 67"
+      }
+    },
+    {
+      "id": "landline-international",
+      "input": {
+        "number": "038123456",
+        "style": "international"
+      },
+      "expected": {
+        "text": "+213 38 12 34 56"
+      }
+    },
+    {
+      "id": "freephone-national",
+      "input": {
+        "number": "0800123456"
+      },
+      "expected": {
+        "text": "0800 12 34 56"
+      }
+    },
+    {
+      "id": "voip-international",
+      "input": {
+        "number": "0982 12 34 56",
+        "style": "international"
+      },
+      "expected": {
+        "text": "+213 982 12 34 56"
+      }
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "number": "٠٦٦١٢٣٤٥٦٧"
+      },
+      "expected": {
+        "text": "0661 23 45 67"
+      }
+    },
+    {
+      "id": "invalid",
+      "input": {
+        "number": "123"
+      },
+      "expected": null
+    },
+    {
+      "id": "null",
+      "input": {
+        "number": null
+      },
+      "expected": null
+    },
+    {
+      "id": "unknown-style",
+      "input": {
+        "number": "0551234567",
+        "style": "e164"
+      },
+      "error": "invalid-option"
+    }
+  ]
+}
