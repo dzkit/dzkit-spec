@@ -1,0 +1,33 @@
+id: language.amount-in-words
+title:
+  fr: Montants en lettres
+  ar: كتابة المبالغ بالحروف
+  en: Amounts in words
+description: >
+  Words used to write DZD amounts on invoices and cheques. French uses the
+  traditional spelling: "vingt" and "cent" take an s only when multiplied and at
+  the end of the number (quatre-vingts, deux cents, but quatre-vingt-un, deux cent
+  mille); "mille" never takes an s; "million" and "milliard" are nouns (deux
+  millions) and take "de" before the currency when nothing follows (un million de
+  dinars). Arabic chooses the form of the counted noun from the last two digits of
+  the number: 1 singular followed by واحد, 2 dual, 3–10 plural (the number takes
+  the ة form), 11–99 singular accusative, otherwise singular. The vectors in
+  vectors/words-*.json are the reference.
+versions:
+  - valid_from: null
+    valid_to: null
+    status: convention
+    sources: [grammar-fr, grammar-ar]
+    data:
+      fr:
+        currency: { singular: dinar algérien, plural: dinars algériens }
+        subunit: { singular: centime, plural: centimes }
+        joiner: ' et '
+      ar:
+        currency:
+          noun: { singular: دينار, dual: ديناران, plural: دنانير, accusative: دينارا }
+          adjective: { singular: جزائري, dual: جزائريان, plural: جزائرية, accusative: جزائريا }
+        subunit:
+          noun: { singular: سنتيم, dual: سنتيمان, plural: سنتيمات, accusative: سنتيما }
+        joiner: ' و'
+        hundreds_spelling: مائة

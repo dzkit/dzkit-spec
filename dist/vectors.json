@@ -1,0 +1,1739 @@
+{
+  "name": "dzkit-spec vectors",
+  "version": "0.1.0",
+  "suites": [
+    {
+      "operation": "irg.calculate",
+      "description": "Monthly IRG withheld on a salary or pension.",
+      "rule": "payroll.irg-salary",
+      "inputs": {
+        "taxable": "monthly taxable income in DA (gross minus employee social security)",
+        "regime": "salaried, retired or disabled",
+        "date": "date the salary relates to (ISO)"
+      },
+      "outputs": {
+        "irg": "IRG in DA, rounded down to the tenth"
+      },
+      "cases": [
+        {
+          "id": "salaried-30000",
+          "input": {
+            "taxable": 30000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 0
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-32000",
+          "input": {
+            "taxable": 32000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 957.8
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-35000",
+          "input": {
+            "taxable": 35000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 2070
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-40000",
+          "input": {
+            "taxable": 40000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 3100
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-50000",
+          "input": {
+            "taxable": 50000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 5800
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-60000",
+          "input": {
+            "taxable": 60000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 8500
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-70000",
+          "input": {
+            "taxable": 70000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 11200
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-150000",
+          "input": {
+            "taxable": 150000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 34900
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "salaried-300000",
+          "input": {
+            "taxable": 300000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 84100
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-30000",
+          "input": {
+            "taxable": 30000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 0
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-32000",
+          "input": {
+            "taxable": 32000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 543.9
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-35000",
+          "input": {
+            "taxable": 35000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 1175
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-40000",
+          "input": {
+            "taxable": 40000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 2745.4
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-50000",
+          "input": {
+            "taxable": 50000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 5800
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "retired-70000",
+          "input": {
+            "taxable": 70000,
+            "regime": "retired",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 11200
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "disabled-30000",
+          "input": {
+            "taxable": 30000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 0
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "disabled-32000",
+          "input": {
+            "taxable": 32000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 543.9
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "disabled-35000",
+          "input": {
+            "taxable": 35000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 1175
+          },
+          "source": "dgi-bareme-irg"
+        },
+        {
+          "id": "disabled-40000",
+          "input": {
+            "taxable": 40000,
+            "regime": "disabled",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "irg": 2745.4
+          },
+          "source": "dgi-bareme-irg"
+        }
+      ]
+    },
+    {
+      "operation": "nif.validate",
+      "description": "Check the format of a NIF.",
+      "rule": "business.nif-nis",
+      "inputs": {
+        "value": "NIF as typed"
+      },
+      "outputs": {
+        "valid": "format is valid"
+      },
+      "cases": [
+        {
+          "id": "fifteen",
+          "input": {
+            "value": "408 020 000 150 039"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "python-stdnum-nif"
+        },
+        {
+          "id": "twenty",
+          "input": {
+            "value": "41201600000606600001"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "python-stdnum-nif"
+        },
+        {
+          "id": "twenty-spaced",
+          "input": {
+            "value": "000 216 001 808 337 13010"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "python-stdnum-nif"
+        },
+        {
+          "id": "too-short",
+          "input": {
+            "value": "12345"
+          },
+          "expected": {
+            "valid": false
+          },
+          "source": "python-stdnum-nif"
+        },
+        {
+          "id": "letters",
+          "input": {
+            "value": "X1600100000000V"
+          },
+          "expected": {
+            "valid": false
+          },
+          "source": "python-stdnum-nif"
+        }
+      ]
+    },
+    {
+      "operation": "nis.validate",
+      "description": "Check the format of a NIS.",
+      "rule": "business.nif-nis",
+      "inputs": {
+        "value": "NIS as typed"
+      },
+      "outputs": {
+        "valid": "format is valid"
+      },
+      "cases": [
+        {
+          "id": "fifteen",
+          "input": {
+            "value": "098716010002343"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "decret-executif-97-396"
+        },
+        {
+          "id": "eighteen",
+          "input": {
+            "value": "098716010002343001"
+          },
+          "expected": {
+            "valid": true
+          },
+          "source": "decret-executif-97-396"
+        },
+        {
+          "id": "sixteen",
+          "input": {
+            "value": "0987160100023430"
+          },
+          "expected": {
+            "valid": false
+          },
+          "source": "decret-executif-97-396"
+        }
+      ]
+    },
+    {
+      "operation": "phone.parse",
+      "description": "Parse an Algerian phone number written nationally or internationally.",
+      "rule": "telecom.phone",
+      "inputs": {
+        "number": "number as typed"
+      },
+      "outputs": {
+        "type": "mobile, landline, service or voip",
+        "national": "with leading 0, digits only",
+        "e164": "+213…",
+        "operator": "mobile operator from the prefix",
+        "allocated": "in a block ARPCE has assigned (not given for landlines)",
+        "area_code": "landlines only",
+        "freephone": "service numbers only"
+      },
+      "cases": [
+        {
+          "id": "ooredoo",
+          "input": {
+            "number": "0551234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0551234567",
+            "e164": "+213551234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "mobilis-intl",
+          "input": {
+            "number": "+213 661 23 45 67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0661234567",
+            "e164": "+213661234567",
+            "operator": "Mobilis",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "djezzy-00213",
+          "input": {
+            "number": "00213771234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0771234567",
+            "e164": "+213771234567",
+            "operator": "Djezzy",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "djezzy-no-plus",
+          "input": {
+            "number": "213771234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0771234567",
+            "e164": "+213771234567",
+            "operator": "Djezzy",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "extra-zero",
+          "input": {
+            "number": "+213 0771 23 45 67"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0771234567",
+            "e164": "+213771234567",
+            "operator": "Djezzy",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "mobilis-unallocated",
+          "input": {
+            "number": "0685234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0685234567",
+            "e164": "+213685234567",
+            "operator": "Mobilis",
+            "allocated": false
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "ooredoo-0541",
+          "input": {
+            "number": "0541234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0541234567",
+            "e164": "+213541234567",
+            "operator": "Ooredoo",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "ooredoo-0563-unallocated",
+          "input": {
+            "number": "0563234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0563234567",
+            "e164": "+213563234567",
+            "operator": "Ooredoo",
+            "allocated": false
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "djezzy-0785-unallocated",
+          "input": {
+            "number": "0785234567"
+          },
+          "expected": {
+            "type": "mobile",
+            "national": "0785234567",
+            "e164": "+213785234567",
+            "operator": "Djezzy",
+            "allocated": false
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "landline-algiers",
+          "input": {
+            "number": "021 23 45 67"
+          },
+          "expected": {
+            "type": "landline",
+            "national": "021234567",
+            "e164": "+21321234567",
+            "area_code": "21"
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "freephone",
+          "input": {
+            "number": "0800 12 34 56"
+          },
+          "expected": {
+            "type": "service",
+            "national": "0800123456",
+            "e164": "+213800123456",
+            "allocated": true,
+            "freephone": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "service-unallocated",
+          "input": {
+            "number": "0807 12 34 56"
+          },
+          "expected": {
+            "type": "service",
+            "national": "0807123456",
+            "e164": "+213807123456",
+            "allocated": false,
+            "freephone": false
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "voip",
+          "input": {
+            "number": "0982 12 34 56"
+          },
+          "expected": {
+            "type": "voip",
+            "national": "0982123456",
+            "e164": "+213982123456",
+            "allocated": true
+          },
+          "source": "arpce-pnn"
+        },
+        {
+          "id": "too-short",
+          "input": {
+            "number": "055123456"
+          },
+          "expected": null
+        },
+        {
+          "id": "too-long",
+          "input": {
+            "number": "05512345678"
+          },
+          "expected": null
+        },
+        {
+          "id": "starts-with-1",
+          "input": {
+            "number": "0151234567"
+          },
+          "expected": null
+        },
+        {
+          "id": "no-prefix",
+          "input": {
+            "number": "551234567"
+          },
+          "expected": null
+        },
+        {
+          "id": "letters",
+          "input": {
+            "number": "abc"
+          },
+          "expected": null
+        },
+        {
+          "id": "empty",
+          "input": {
+            "number": ""
+          },
+          "expected": null
+        },
+        {
+          "id": "french-number",
+          "input": {
+            "number": "+33612345678"
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "operation": "plate.parse",
+      "description": "Parse a standard licence plate as of a given date.",
+      "rule": "vehicles.plates",
+      "inputs": {
+        "plate": "plate as typed",
+        "date": "date of the check (ISO), because codes 59–69 start on 2027-01-01"
+      },
+      "outputs": {
+        "serial": "serial as written",
+        "category": "vehicle category 1–9",
+        "year": "two-digit year as written",
+        "wilaya": "wilaya code"
+      },
+      "cases": [
+        {
+          "id": "blida-2026",
+          "input": {
+            "plate": "02639-126-09",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "02639",
+            "category": 1,
+            "year": "26",
+            "wilaya": 9
+          },
+          "source": "wikipedia-plates"
+        },
+        {
+          "id": "bouira-2025",
+          "input": {
+            "plate": "76739-125-10",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "76739",
+            "category": 1,
+            "year": "25",
+            "wilaya": 10
+          },
+          "source": "wikipedia-plates"
+        },
+        {
+          "id": "spaces",
+          "input": {
+            "plate": "12345 119 16",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "19",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "no-separators",
+          "input": {
+            "plate": "1234511916",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "19",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "motorcycle",
+          "input": {
+            "plate": "15843-919-16",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "15843",
+            "category": 9,
+            "year": "19",
+            "wilaya": 16
+          }
+        },
+        {
+          "id": "unknown-year",
+          "input": {
+            "plate": "12345-133-16",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "33",
+            "wilaya": 16
+          },
+          "source": "arrete-plates-2023"
+        },
+        {
+          "id": "new-wilaya-before-2027",
+          "input": {
+            "plate": "12345-127-64",
+            "date": "2026-10-28"
+          },
+          "expected": null,
+          "source": "arrete-plates-2026"
+        },
+        {
+          "id": "new-wilaya-after-2027",
+          "input": {
+            "plate": "12345-127-64",
+            "date": "2027-06-01"
+          },
+          "expected": {
+            "serial": "12345",
+            "category": 1,
+            "year": "27",
+            "wilaya": 64
+          },
+          "source": "arrete-plates-2026"
+        },
+        {
+          "id": "code-69-after-2027",
+          "input": {
+            "plate": "00412-127-69",
+            "date": "2027-06-01"
+          },
+          "expected": {
+            "serial": "00412",
+            "category": 1,
+            "year": "27",
+            "wilaya": 69
+          },
+          "source": "arrete-plates-2026"
+        },
+        {
+          "id": "code-70",
+          "input": {
+            "plate": "12345-126-70",
+            "date": "2027-06-01"
+          },
+          "expected": null
+        },
+        {
+          "id": "category-0",
+          "input": {
+            "plate": "12345-026-16",
+            "date": "2027-06-01"
+          },
+          "expected": null
+        },
+        {
+          "id": "serial-zero",
+          "input": {
+            "plate": "00000-126-16",
+            "date": "2027-06-01"
+          },
+          "expected": null
+        },
+        {
+          "id": "serial-too-long",
+          "input": {
+            "plate": "1234567-126-16",
+            "date": "2027-06-01"
+          },
+          "expected": null
+        },
+        {
+          "id": "middle-two-digits",
+          "input": {
+            "plate": "06390-00-09",
+            "date": "2027-06-01"
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "operation": "rip.from-ccp",
+      "description": "Build the RIP and both keys from a CCP account number (1 to 10 digits).",
+      "rule": "banking.ccp-rip",
+      "inputs": {
+        "account": "CCP account number, with or without leading zeros"
+      },
+      "outputs": {
+        "rip": "20-digit RIP",
+        "ccp_key": "key written after the account number",
+        "rip_key": "last two digits of the RIP"
+      },
+      "cases": [
+        {
+          "id": "example-1234567890",
+          "input": {
+            "account": "1234567890"
+          },
+          "expected": {
+            "rip": "00799999123456789006",
+            "ccp_key": "45",
+            "rip_key": "06"
+          },
+          "source": "mouh2020-algeria"
+        },
+        {
+          "id": "short-account",
+          "input": {
+            "account": "23115007"
+          },
+          "expected": {
+            "rip": "00799999002311500797",
+            "ccp_key": "32",
+            "rip_key": "97"
+          },
+          "source": "excel-downloads-rip"
+        },
+        {
+          "id": "seven-digits",
+          "input": {
+            "account": "6334829"
+          },
+          "expected": {
+            "rip": "00799999000633482956",
+            "ccp_key": "33",
+            "rip_key": "56"
+          },
+          "source": "experts-univers-rip",
+          "notes": "The RIP comes from a real document; the CCP key is computed with the confirmed algorithm."
+        },
+        {
+          "id": "one-digit",
+          "input": {
+            "account": "1"
+          },
+          "expected": {
+            "rip": "00799999000000000109",
+            "ccp_key": "04",
+            "rip_key": "09"
+          },
+          "notes": "0000000001 → 1 × 4 = 4."
+        },
+        {
+          "id": "too-long",
+          "input": {
+            "account": "12345678901"
+          },
+          "expected": null
+        },
+        {
+          "id": "not-digits",
+          "input": {
+            "account": "abc"
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "operation": "rip.validate",
+      "description": "Validate a 20-digit RIP. Spaces and dashes are allowed.",
+      "rule": "banking.ccp-rip",
+      "inputs": {
+        "rip": "RIP as typed"
+      },
+      "outputs": {
+        "valid": "true when the RIP is valid",
+        "account": "10-digit account",
+        "key": "2-digit RIP key"
+      },
+      "cases": [
+        {
+          "id": "real-002311500797",
+          "input": {
+            "rip": "00799999002311500797"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0023115007",
+            "key": "97"
+          },
+          "source": "excel-downloads-rip",
+          "notes": "Key 97: a widely shared formula returns 00 here."
+        },
+        {
+          "id": "real-000633482956",
+          "input": {
+            "rip": "00799999000633482956"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0006334829",
+            "key": "56"
+          },
+          "source": "experts-univers-rip"
+        },
+        {
+          "id": "real-000169242896",
+          "input": {
+            "rip": "00799999000169242896"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0001692428",
+            "key": "96"
+          },
+          "source": "experts-univers-rip"
+        },
+        {
+          "id": "real-001880462576",
+          "input": {
+            "rip": "00799999001880462576"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0018804625",
+            "key": "76"
+          },
+          "source": "experts-univers-rip"
+        },
+        {
+          "id": "real-123456789006",
+          "input": {
+            "rip": "00799999123456789006"
+          },
+          "expected": {
+            "valid": true,
+            "account": "1234567890",
+            "key": "06"
+          },
+          "source": "mouh2020-algeria"
+        },
+        {
+          "id": "spaces-and-dashes",
+          "input": {
+            "rip": "007 99999 0023115007 97"
+          },
+          "expected": {
+            "valid": true,
+            "account": "0023115007",
+            "key": "97"
+          },
+          "source": "excel-downloads-rip"
+        },
+        {
+          "id": "wrong-key",
+          "input": {
+            "rip": "00799999002311500796"
+          },
+          "expected": null
+        },
+        {
+          "id": "wrong-prefix",
+          "input": {
+            "rip": "00899999002311500797"
+          },
+          "expected": null
+        },
+        {
+          "id": "too-short",
+          "input": {
+            "rip": "0079999900231150079"
+          },
+          "expected": null
+        },
+        {
+          "id": "letters",
+          "input": {
+            "rip": "0079999900231150079a"
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "operation": "salary.gross-to-net",
+      "description": "Monthly gross-to-net for a regular salary fully subject to CNAS and IRG.",
+      "rule": "payroll.irg-salary",
+      "inputs": {
+        "gross": "monthly gross salary in DA",
+        "regime": "salaried, retired or disabled",
+        "date": "date the salary relates to (ISO)"
+      },
+      "outputs": {
+        "cnas_employee": "9 % of gross",
+        "taxable": "gross minus cnas_employee",
+        "irg": "IRG on taxable",
+        "net": "taxable minus irg",
+        "cnas_employer": "25.5 % of gross (25 % + 0.5 % social services)"
+      },
+      "cases": [
+        {
+          "id": "gross-60000",
+          "input": {
+            "gross": 60000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 5400,
+            "taxable": 54600,
+            "irg": 7042,
+            "net": 47558,
+            "cnas_employer": 15300
+          },
+          "source": "upgrowth-salary"
+        },
+        {
+          "id": "minimum-wage",
+          "input": {
+            "gross": 24000,
+            "regime": "salaried",
+            "date": "2026-10-28"
+          },
+          "expected": {
+            "cnas_employee": 2160,
+            "taxable": 21840,
+            "irg": 0,
+            "net": 21840,
+            "cnas_employer": 6120
+          },
+          "source": "upgrowth-salary"
+        }
+      ]
+    },
+    {
+      "operation": "wilaya.lookup",
+      "description": "Find a wilaya by its code.",
+      "rule": "administrative.wilayas",
+      "inputs": {
+        "code": "code as number or string"
+      },
+      "outputs": {
+        "name_fr": "French name",
+        "name_ar": "Arabic name"
+      },
+      "cases": [
+        {
+          "id": "alger",
+          "input": {
+            "code": 16
+          },
+          "expected": {
+            "name_fr": "Alger",
+            "name_ar": "الجزائر"
+          },
+          "source": "wikipedia-provinces"
+        },
+        {
+          "id": "string-code",
+          "input": {
+            "code": "09"
+          },
+          "expected": {
+            "name_fr": "Blida",
+            "name_ar": "البليدة"
+          },
+          "source": "wikipedia-provinces"
+        },
+        {
+          "id": "code-60",
+          "input": {
+            "code": 60
+          },
+          "expected": {
+            "name_fr": "Barika",
+            "name_ar": "بريكة"
+          },
+          "source": "decret-presidentiel-26-206"
+        },
+        {
+          "id": "code-64",
+          "input": {
+            "code": 64
+          },
+          "expected": {
+            "name_fr": "Ksar Chellala",
+            "name_ar": "قصر الشلالة"
+          },
+          "source": "decret-presidentiel-26-206"
+        },
+        {
+          "id": "code-68",
+          "input": {
+            "code": 68
+          },
+          "expected": {
+            "name_fr": "Bou Saâda",
+            "name_ar": "بوسعادة"
+          },
+          "source": "decret-presidentiel-26-206"
+        },
+        {
+          "id": "code-69",
+          "input": {
+            "code": 69
+          },
+          "expected": {
+            "name_fr": "El Abiodh Sidi Cheikh",
+            "name_ar": "الأبيض سيدي الشيخ"
+          },
+          "source": "decret-presidentiel-26-206"
+        },
+        {
+          "id": "code-0",
+          "input": {
+            "code": 0
+          },
+          "expected": null
+        },
+        {
+          "id": "code-70",
+          "input": {
+            "code": 70
+          },
+          "expected": null
+        }
+      ]
+    },
+    {
+      "operation": "words.amount-ar",
+      "description": "DZD amount in Arabic words, rounded to the centime.",
+      "rule": "language.amount-in-words",
+      "inputs": {
+        "amount": "amount in DA"
+      },
+      "outputs": {
+        "text": "words"
+      },
+      "cases": [
+        {
+          "id": "a-1",
+          "input": {
+            "amount": 1
+          },
+          "expected": {
+            "text": "دينار جزائري واحد"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-2",
+          "input": {
+            "amount": 2
+          },
+          "expected": {
+            "text": "ديناران جزائريان"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-3",
+          "input": {
+            "amount": 3
+          },
+          "expected": {
+            "text": "ثلاثة دنانير جزائرية"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-15",
+          "input": {
+            "amount": 15
+          },
+          "expected": {
+            "text": "خمسة عشر دينارا جزائريا"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-100",
+          "input": {
+            "amount": 100
+          },
+          "expected": {
+            "text": "مائة دينار جزائري"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "a-1250-5",
+          "input": {
+            "amount": 1250.5
+          },
+          "expected": {
+            "text": "ألف ومائتان وخمسون دينارا جزائريا وخمسون سنتيما"
+          },
+          "source": "grammar-ar"
+        }
+      ]
+    },
+    {
+      "operation": "words.amount-fr",
+      "description": "DZD amount in French words, rounded to the centime.",
+      "rule": "language.amount-in-words",
+      "inputs": {
+        "amount": "amount in DA"
+      },
+      "outputs": {
+        "text": "words"
+      },
+      "cases": [
+        {
+          "id": "a-1",
+          "input": {
+            "amount": 1
+          },
+          "expected": {
+            "text": "un dinar algérien"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-2",
+          "input": {
+            "amount": 2
+          },
+          "expected": {
+            "text": "deux dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1250-5",
+          "input": {
+            "amount": 1250.5
+          },
+          "expected": {
+            "text": "mille deux cent cinquante dinars algériens et cinquante centimes"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-0-01",
+          "input": {
+            "amount": 0.01
+          },
+          "expected": {
+            "text": "zéro dinar algérien et un centime"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1000000",
+          "input": {
+            "amount": 1000000
+          },
+          "expected": {
+            "text": "un million de dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-1000100",
+          "input": {
+            "amount": 1000100
+          },
+          "expected": {
+            "text": "un million cent dinars algériens"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "a-10-999",
+          "input": {
+            "amount": 10.999
+          },
+          "expected": {
+            "text": "onze dinars algériens"
+          },
+          "source": "grammar-fr"
+        }
+      ]
+    },
+    {
+      "operation": "words.number-ar",
+      "description": "Non-negative integer in Arabic words (nominative, masculine counted noun).",
+      "rule": "language.amount-in-words",
+      "inputs": {
+        "number": "integer ≥ 0"
+      },
+      "outputs": {
+        "text": "words"
+      },
+      "cases": [
+        {
+          "id": "n-0",
+          "input": {
+            "number": 0
+          },
+          "expected": {
+            "text": "صفر"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-1",
+          "input": {
+            "number": 1
+          },
+          "expected": {
+            "text": "واحد"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-11",
+          "input": {
+            "number": 11
+          },
+          "expected": {
+            "text": "أحد عشر"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-12",
+          "input": {
+            "number": 12
+          },
+          "expected": {
+            "text": "اثنا عشر"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-13",
+          "input": {
+            "number": 13
+          },
+          "expected": {
+            "text": "ثلاثة عشر"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-21",
+          "input": {
+            "number": 21
+          },
+          "expected": {
+            "text": "واحد وعشرون"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-100",
+          "input": {
+            "number": 100
+          },
+          "expected": {
+            "text": "مائة"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-250",
+          "input": {
+            "number": 250
+          },
+          "expected": {
+            "text": "مائتان وخمسون"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-1000",
+          "input": {
+            "number": 1000
+          },
+          "expected": {
+            "text": "ألف"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-2000",
+          "input": {
+            "number": 2000
+          },
+          "expected": {
+            "text": "ألفان"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-3000",
+          "input": {
+            "number": 3000
+          },
+          "expected": {
+            "text": "ثلاثة آلاف"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-11000",
+          "input": {
+            "number": 11000
+          },
+          "expected": {
+            "text": "أحد عشر ألفا"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-100000",
+          "input": {
+            "number": 100000
+          },
+          "expected": {
+            "text": "مائة ألف"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-2500",
+          "input": {
+            "number": 2500
+          },
+          "expected": {
+            "text": "ألفان وخمسمائة"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-1000000",
+          "input": {
+            "number": 1000000
+          },
+          "expected": {
+            "text": "مليون"
+          },
+          "source": "grammar-ar"
+        },
+        {
+          "id": "n-5000000",
+          "input": {
+            "number": 5000000
+          },
+          "expected": {
+            "text": "خمسة ملايين"
+          },
+          "source": "grammar-ar"
+        }
+      ]
+    },
+    {
+      "operation": "words.number-fr",
+      "description": "Non-negative integer in French words (traditional spelling).",
+      "rule": "language.amount-in-words",
+      "inputs": {
+        "number": "integer ≥ 0"
+      },
+      "outputs": {
+        "text": "words"
+      },
+      "cases": [
+        {
+          "id": "n-0",
+          "input": {
+            "number": 0
+          },
+          "expected": {
+            "text": "zéro"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-1",
+          "input": {
+            "number": 1
+          },
+          "expected": {
+            "text": "un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-16",
+          "input": {
+            "number": 16
+          },
+          "expected": {
+            "text": "seize"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-17",
+          "input": {
+            "number": 17
+          },
+          "expected": {
+            "text": "dix-sept"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-21",
+          "input": {
+            "number": 21
+          },
+          "expected": {
+            "text": "vingt et un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-22",
+          "input": {
+            "number": 22
+          },
+          "expected": {
+            "text": "vingt-deux"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-71",
+          "input": {
+            "number": 71
+          },
+          "expected": {
+            "text": "soixante et onze"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-72",
+          "input": {
+            "number": 72
+          },
+          "expected": {
+            "text": "soixante-douze"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-80",
+          "input": {
+            "number": 80
+          },
+          "expected": {
+            "text": "quatre-vingts"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-81",
+          "input": {
+            "number": 81
+          },
+          "expected": {
+            "text": "quatre-vingt-un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-91",
+          "input": {
+            "number": 91
+          },
+          "expected": {
+            "text": "quatre-vingt-onze"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-99",
+          "input": {
+            "number": 99
+          },
+          "expected": {
+            "text": "quatre-vingt-dix-neuf"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-100",
+          "input": {
+            "number": 100
+          },
+          "expected": {
+            "text": "cent"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-101",
+          "input": {
+            "number": 101
+          },
+          "expected": {
+            "text": "cent un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-200",
+          "input": {
+            "number": 200
+          },
+          "expected": {
+            "text": "deux cents"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-201",
+          "input": {
+            "number": 201
+          },
+          "expected": {
+            "text": "deux cent un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-280",
+          "input": {
+            "number": 280
+          },
+          "expected": {
+            "text": "deux cent quatre-vingts"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-1000",
+          "input": {
+            "number": 1000
+          },
+          "expected": {
+            "text": "mille"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-1001",
+          "input": {
+            "number": 1001
+          },
+          "expected": {
+            "text": "mille un"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-2000",
+          "input": {
+            "number": 2000
+          },
+          "expected": {
+            "text": "deux mille"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-80000",
+          "input": {
+            "number": 80000
+          },
+          "expected": {
+            "text": "quatre-vingt mille"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-200000",
+          "input": {
+            "number": 200000
+          },
+          "expected": {
+            "text": "deux cent mille"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-1000000",
+          "input": {
+            "number": 1000000
+          },
+          "expected": {
+            "text": "un million"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-2000000",
+          "input": {
+            "number": 2000000
+          },
+          "expected": {
+            "text": "deux millions"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-80000000",
+          "input": {
+            "number": 80000000
+          },
+          "expected": {
+            "text": "quatre-vingts millions"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-200000000",
+          "input": {
+            "number": 200000000
+          },
+          "expected": {
+            "text": "deux cents millions"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-1280000",
+          "input": {
+            "number": 1280000
+          },
+          "expected": {
+            "text": "un million deux cent quatre-vingt mille"
+          },
+          "source": "grammar-fr"
+        },
+        {
+          "id": "n-3000000000",
+          "input": {
+            "number": 3000000000
+          },
+          "expected": {
+            "text": "trois milliards"
+          },
+          "source": "grammar-fr"
+        }
+      ]
+    }
+  ]
+}

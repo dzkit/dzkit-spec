@@ -1,0 +1,293 @@
+{
+  "operation": "words.number-fr",
+  "description": "Non-negative integer in French words (traditional spelling).",
+  "rule": "language.amount-in-words",
+  "inputs": {
+    "number": "integer ≥ 0"
+  },
+  "outputs": {
+    "text": "words"
+  },
+  "cases": [
+    {
+      "id": "n-0",
+      "input": {
+        "number": 0
+      },
+      "expected": {
+        "text": "zéro"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-1",
+      "input": {
+        "number": 1
+      },
+      "expected": {
+        "text": "un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-16",
+      "input": {
+        "number": 16
+      },
+      "expected": {
+        "text": "seize"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-17",
+      "input": {
+        "number": 17
+      },
+      "expected": {
+        "text": "dix-sept"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-21",
+      "input": {
+        "number": 21
+      },
+      "expected": {
+        "text": "vingt et un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-22",
+      "input": {
+        "number": 22
+      },
+      "expected": {
+        "text": "vingt-deux"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-71",
+      "input": {
+        "number": 71
+      },
+      "expected": {
+        "text": "soixante et onze"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-72",
+      "input": {
+        "number": 72
+      },
+      "expected": {
+        "text": "soixante-douze"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-80",
+      "input": {
+        "number": 80
+      },
+      "expected": {
+        "text": "quatre-vingts"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-81",
+      "input": {
+        "number": 81
+      },
+      "expected": {
+        "text": "quatre-vingt-un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-91",
+      "input": {
+        "number": 91
+      },
+      "expected": {
+        "text": "quatre-vingt-onze"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-99",
+      "input": {
+        "number": 99
+      },
+      "expected": {
+        "text": "quatre-vingt-dix-neuf"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-100",
+      "input": {
+        "number": 100
+      },
+      "expected": {
+        "text": "cent"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-101",
+      "input": {
+        "number": 101
+      },
+      "expected": {
+        "text": "cent un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-200",
+      "input": {
+        "number": 200
+      },
+      "expected": {
+        "text": "deux cents"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-201",
+      "input": {
+        "number": 201
+      },
+      "expected": {
+        "text": "deux cent un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-280",
+      "input": {
+        "number": 280
+      },
+      "expected": {
+        "text": "deux cent quatre-vingts"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-1000",
+      "input": {
+        "number": 1000
+      },
+      "expected": {
+        "text": "mille"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-1001",
+      "input": {
+        "number": 1001
+      },
+      "expected": {
+        "text": "mille un"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-2000",
+      "input": {
+        "number": 2000
+      },
+      "expected": {
+        "text": "deux mille"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-80000",
+      "input": {
+        "number": 80000
+      },
+      "expected": {
+        "text": "quatre-vingt mille"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-200000",
+      "input": {
+        "number": 200000
+      },
+      "expected": {
+        "text": "deux cent mille"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-1000000",
+      "input": {
+        "number": 1000000
+      },
+      "expected": {
+        "text": "un million"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-2000000",
+      "input": {
+        "number": 2000000
+      },
+      "expected": {
+        "text": "deux millions"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-80000000",
+      "input": {
+        "number": 80000000
+      },
+      "expected": {
+        "text": "quatre-vingts millions"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-200000000",
+      "input": {
+        "number": 200000000
+      },
+      "expected": {
+        "text": "deux cents millions"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-1280000",
+      "input": {
+        "number": 1280000
+      },
+      "expected": {
+        "text": "un million deux cent quatre-vingt mille"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "n-3000000000",
+      "input": {
+        "number": 3000000000
+      },
+      "expected": {
+        "text": "trois milliards"
+      },
+      "source": "grammar-fr"
+    }
+  ]
+}

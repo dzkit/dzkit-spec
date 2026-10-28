@@ -1,0 +1,73 @@
+{
+  "operation": "words.amount-ar",
+  "description": "DZD amount in Arabic words, rounded to the centime.",
+  "rule": "language.amount-in-words",
+  "inputs": {
+    "amount": "amount in DA"
+  },
+  "outputs": {
+    "text": "words"
+  },
+  "cases": [
+    {
+      "id": "a-1",
+      "input": {
+        "amount": 1
+      },
+      "expected": {
+        "text": "دينار جزائري واحد"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-2",
+      "input": {
+        "amount": 2
+      },
+      "expected": {
+        "text": "ديناران جزائريان"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-3",
+      "input": {
+        "amount": 3
+      },
+      "expected": {
+        "text": "ثلاثة دنانير جزائرية"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-15",
+      "input": {
+        "amount": 15
+      },
+      "expected": {
+        "text": "خمسة عشر دينارا جزائريا"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-100",
+      "input": {
+        "amount": 100
+      },
+      "expected": {
+        "text": "مائة دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-1250-5",
+      "input": {
+        "amount": 1250.5
+      },
+      "expected": {
+        "text": "ألف ومائتان وخمسون دينارا جزائريا وخمسون سنتيما"
+      },
+      "source": "grammar-ar"
+    }
+  ]
+}

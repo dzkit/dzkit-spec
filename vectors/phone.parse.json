@@ -1,0 +1,248 @@
+{
+  "operation": "phone.parse",
+  "description": "Parse an Algerian phone number written nationally or internationally.",
+  "rule": "telecom.phone",
+  "inputs": {
+    "number": "number as typed"
+  },
+  "outputs": {
+    "type": "mobile, landline, service or voip",
+    "national": "with leading 0, digits only",
+    "e164": "+213…",
+    "operator": "mobile operator from the prefix",
+    "allocated": "in a block ARPCE has assigned (not given for landlines)",
+    "area_code": "landlines only",
+    "freephone": "service numbers only"
+  },
+  "cases": [
+    {
+      "id": "ooredoo",
+      "input": {
+        "number": "0551234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0551234567",
+        "e164": "+213551234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "mobilis-intl",
+      "input": {
+        "number": "+213 661 23 45 67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0661234567",
+        "e164": "+213661234567",
+        "operator": "Mobilis",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "djezzy-00213",
+      "input": {
+        "number": "00213771234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0771234567",
+        "e164": "+213771234567",
+        "operator": "Djezzy",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "djezzy-no-plus",
+      "input": {
+        "number": "213771234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0771234567",
+        "e164": "+213771234567",
+        "operator": "Djezzy",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "extra-zero",
+      "input": {
+        "number": "+213 0771 23 45 67"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0771234567",
+        "e164": "+213771234567",
+        "operator": "Djezzy",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "mobilis-unallocated",
+      "input": {
+        "number": "0685234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0685234567",
+        "e164": "+213685234567",
+        "operator": "Mobilis",
+        "allocated": false
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "ooredoo-0541",
+      "input": {
+        "number": "0541234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0541234567",
+        "e164": "+213541234567",
+        "operator": "Ooredoo",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "ooredoo-0563-unallocated",
+      "input": {
+        "number": "0563234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0563234567",
+        "e164": "+213563234567",
+        "operator": "Ooredoo",
+        "allocated": false
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "djezzy-0785-unallocated",
+      "input": {
+        "number": "0785234567"
+      },
+      "expected": {
+        "type": "mobile",
+        "national": "0785234567",
+        "e164": "+213785234567",
+        "operator": "Djezzy",
+        "allocated": false
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "landline-algiers",
+      "input": {
+        "number": "021 23 45 67"
+      },
+      "expected": {
+        "type": "landline",
+        "national": "021234567",
+        "e164": "+21321234567",
+        "area_code": "21"
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "freephone",
+      "input": {
+        "number": "0800 12 34 56"
+      },
+      "expected": {
+        "type": "service",
+        "national": "0800123456",
+        "e164": "+213800123456",
+        "allocated": true,
+        "freephone": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "service-unallocated",
+      "input": {
+        "number": "0807 12 34 56"
+      },
+      "expected": {
+        "type": "service",
+        "national": "0807123456",
+        "e164": "+213807123456",
+        "allocated": false,
+        "freephone": false
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "voip",
+      "input": {
+        "number": "0982 12 34 56"
+      },
+      "expected": {
+        "type": "voip",
+        "national": "0982123456",
+        "e164": "+213982123456",
+        "allocated": true
+      },
+      "source": "arpce-pnn"
+    },
+    {
+      "id": "too-short",
+      "input": {
+        "number": "055123456"
+      },
+      "expected": null
+    },
+    {
+      "id": "too-long",
+      "input": {
+        "number": "05512345678"
+      },
+      "expected": null
+    },
+    {
+      "id": "starts-with-1",
+      "input": {
+        "number": "0151234567"
+      },
+      "expected": null
+    },
+    {
+      "id": "no-prefix",
+      "input": {
+        "number": "551234567"
+      },
+      "expected": null
+    },
+    {
+      "id": "letters",
+      "input": {
+        "number": "abc"
+      },
+      "expected": null
+    },
+    {
+      "id": "empty",
+      "input": {
+        "number": ""
+      },
+      "expected": null
+    },
+    {
+      "id": "french-number",
+      "input": {
+        "number": "+33612345678"
+      },
+      "expected": null
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dzkit/dzkit-spec/schema/rule.schema.json",
+  "title": "dzkit rule",
+  "description": "One rule, with every version it has had. Each version says when it applies and which sources back it.",
+  "type": "object",
+  "required": ["id", "title", "versions"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Dotted identifier, e.g. payroll.irg-salary.",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)+$"
+    },
+    "title": { "$ref": "sources.schema.json#/$defs/localized" },
+    "description": { "type": "string" },
+    "versions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/version" }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "object",
+      "required": ["valid_from", "valid_to", "status", "sources", "data"],
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "description": "First day the version applies. null means it applied at least since the earliest source but the exact start is not recorded.",
+          "oneOf": [{ "$ref": "sources.schema.json#/$defs/date" }, { "type": "null" }]
+        },
+        "valid_to": {
+          "description": "Last day the version applies. null means still in force.",
+          "oneOf": [{ "$ref": "sources.schema.json#/$defs/date" }, { "type": "null" }]
+        },
+        "status": {
+          "description": "official: from an official text. confirmed: no official text is published, but real examples match. convention: standard practice.",
+          "enum": ["official", "confirmed", "convention"]
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" },
+        "data": {
+          "description": "The rule's values. Their shape is specific to each rule and documented in the rule file.",
+          "type": ["object", "array"]
+        }
+      }
+    }
+  }
+}

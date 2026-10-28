@@ -1,0 +1,51 @@
+{
+  "operation": "salary.gross-to-net",
+  "description": "Monthly gross-to-net for a regular salary fully subject to CNAS and IRG.",
+  "rule": "payroll.irg-salary",
+  "inputs": {
+    "gross": "monthly gross salary in DA",
+    "regime": "salaried, retired or disabled",
+    "date": "date the salary relates to (ISO)"
+  },
+  "outputs": {
+    "cnas_employee": "9 % of gross",
+    "taxable": "gross minus cnas_employee",
+    "irg": "IRG on taxable",
+    "net": "taxable minus irg",
+    "cnas_employer": "25.5 % of gross (25 % + 0.5 % social services)"
+  },
+  "cases": [
+    {
+      "id": "gross-60000",
+      "input": {
+        "gross": 60000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "cnas_employee": 5400,
+        "taxable": 54600,
+        "irg": 7042,
+        "net": 47558,
+        "cnas_employer": 15300
+      },
+      "source": "upgrowth-salary"
+    },
+    {
+      "id": "minimum-wage",
+      "input": {
+        "gross": 24000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "cnas_employee": 2160,
+        "taxable": 21840,
+        "irg": 0,
+        "net": 21840,
+        "cnas_employer": 6120
+      },
+      "source": "upgrowth-salary"
+    }
+  ]
+}

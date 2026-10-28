@@ -1,0 +1,94 @@
+{
+  "operation": "wilaya.lookup",
+  "description": "Find a wilaya by its code.",
+  "rule": "administrative.wilayas",
+  "inputs": {
+    "code": "code as number or string"
+  },
+  "outputs": {
+    "name_fr": "French name",
+    "name_ar": "Arabic name"
+  },
+  "cases": [
+    {
+      "id": "alger",
+      "input": {
+        "code": 16
+      },
+      "expected": {
+        "name_fr": "Alger",
+        "name_ar": "الجزائر"
+      },
+      "source": "wikipedia-provinces"
+    },
+    {
+      "id": "string-code",
+      "input": {
+        "code": "09"
+      },
+      "expected": {
+        "name_fr": "Blida",
+        "name_ar": "البليدة"
+      },
+      "source": "wikipedia-provinces"
+    },
+    {
+      "id": "code-60",
+      "input": {
+        "code": 60
+      },
+      "expected": {
+        "name_fr": "Barika",
+        "name_ar": "بريكة"
+      },
+      "source": "decret-presidentiel-26-206"
+    },
+    {
+      "id": "code-64",
+      "input": {
+        "code": 64
+      },
+      "expected": {
+        "name_fr": "Ksar Chellala",
+        "name_ar": "قصر الشلالة"
+      },
+      "source": "decret-presidentiel-26-206"
+    },
+    {
+      "id": "code-68",
+      "input": {
+        "code": 68
+      },
+      "expected": {
+        "name_fr": "Bou Saâda",
+        "name_ar": "بوسعادة"
+      },
+      "source": "decret-presidentiel-26-206"
+    },
+    {
+      "id": "code-69",
+      "input": {
+        "code": 69
+      },
+      "expected": {
+        "name_fr": "El Abiodh Sidi Cheikh",
+        "name_ar": "الأبيض سيدي الشيخ"
+      },
+      "source": "decret-presidentiel-26-206"
+    },
+    {
+      "id": "code-0",
+      "input": {
+        "code": 0
+      },
+      "expected": null
+    },
+    {
+      "id": "code-70",
+      "input": {
+        "code": 70
+      },
+      "expected": null
+    }
+  ]
+}

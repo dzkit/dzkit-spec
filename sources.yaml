@@ -1,0 +1,280 @@
+# Every text or reference a rule relies on.
+# For texts published in the Journal officiel, give `jo: { year, issue }`: the build
+# generates the links to the official PDFs on joradp.dz (Arabic and French).
+# The Arabic edition is the legally authoritative one.
+
+# ---------- Wilayas ----------
+
+- id: loi-26-06
+  kind: law
+  number: 26-06
+  date: 2026-04-04
+  title:
+    fr: Loi modifiant et complétant la loi n° 84-09 relative à l'organisation territoriale du pays
+  jo: { year: 2026, issue: 25 }
+  read_via:
+    - https://www.upgrowth.dz/ar/datasets/wilayas-2026
+    - https://www.algerie360.com/organisation-territoriale-lalgerie-passe-officiellement-a-69-wilayas/
+  checked: 2026-10-28
+  notes: Raises the number of wilayas to 69. The new wilayas exercise their full powers from 1 January 2027.
+
+- id: decret-presidentiel-26-206
+  kind: presidential-decree
+  number: 26-206
+  date: 2026-05-25
+  title:
+    fr: Décret présidentiel complétant le décret n° 84-79 fixant les noms et chefs-lieux des wilayas
+  jo: { year: 2026, issue: 40 }
+  read_via:
+    - https://algerie-eco.com/2026/06/05/algerie-les-noms-et-les-numeros-des-nouvelles-wilayas-fixes/
+    - https://dzbuild.com/blog/algeria-69-wilayas-list-2026
+  checked: 2026-10-28
+  notes: Fixes the names and numbers 59 to 69. A different order circulated in the press in November 2025; this decree replaces it.
+
+- id: upgrowth-wilayas-2026
+  kind: dataset
+  title:
+    en: UpGrowth, wilayas of Algeria 2026 (CC BY 4.0)
+  url: https://www.upgrowth.dz/ar/datasets/wilayas-2026
+  checked: 2026-10-28
+  notes: Independent list of all 69 wilayas in Arabic and Latin script, with the parent wilaya of codes 59 to 69. Used as a cross-check.
+
+- id: wikipedia-provinces
+  kind: reference
+  title:
+    en: Wikipedia, Provinces of Algeria
+  url: https://en.wikipedia.org/wiki/Provinces_of_Algeria
+  checked: 2026-10-28
+  notes: Cross-check for the names of codes 1 to 58.
+
+# ---------- Licence plates ----------
+
+- id: arrete-1988-plates
+  kind: arrete
+  date: 1988-05-05
+  title:
+    fr: Arrêté fixant les règles administratives applicables aux numéros d'immatriculation des véhicules
+  checked: 2026-10-28
+  notes: Base text, amended in 2023 and 2026. Journal officiel issue not recorded yet.
+
+- id: arrete-plates-2023
+  kind: arrete
+  title:
+    fr: Arrêté modifiant l'arrêté du 5 mai 1988 (immatriculation des véhicules)
+  jo: { year: 2023, issue: 3, date: 2023-01-17 }
+  read_via:
+    - https://www.algerie360.com/immatriculation-des-vehicules-en-algerie-que-va-t-il-changer/
+    - https://algerie-eco.com/?p=136105
+  checked: 2026-10-28
+  notes: Plate layout (serial of up to 6 digits, category and year, wilaya code); unknown year written 33.
+
+- id: arrete-plates-2026
+  kind: arrete
+  title:
+    fr: Arrêté modifiant l'arrêté du 5 mai 1988, codes d'immatriculation des wilayas 59 à 69
+  jo: { year: 2026, issue: 50, date: 2026-06-17 }
+  read_via:
+    - https://algerie-eco.com/2026/07/20/immatriculation-des-vehicules-voici-les-codes-des-11-nouvelles-wilayas-qui-entreront-en-vigueur-le-1er-janvier-2027/
+    - https://www.algerie360.com/plaques-dimmatriculation-ce-qui-change-des-le-1er-janvier-2027-journal-officiel/
+  checked: 2026-10-28
+  notes: Codes 59 to 69 in force from 1 January 2027.
+
+- id: wikipedia-plates
+  kind: reference
+  title:
+    en: Wikipedia, Vehicle registration plates of Algeria
+  url: https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Algeria
+  checked: 2026-10-28
+  notes: Real plate examples (02639-126-09, 76739-125-10) and category examples.
+
+# ---------- Phone numbers ----------
+
+- id: arpce-pnn
+  kind: regulator
+  issuer: ARPCE
+  title:
+    fr: Plan national de numérotation (PNN)
+    en: National numbering plan
+  date: 2008-02-22
+  url: https://www.arpce.dz/en/service/num
+  checked: 2026-10-28
+  notes: Page updated 11 March 2025. Lists the mobile blocks allocated to each operator and the 08 / 09 ranges.
+
+# ---------- CCP and RIP ----------
+
+- id: babalweb-rip
+  kind: reference
+  title:
+    fr: Vérificateur de RIP CCP Algérie Poste
+  url: https://www.babalweb.net/finance/verificateur-rip-ccp.php
+  checked: 2026-10-28
+  notes: RIP layout 007 99999 + account + key.
+
+- id: experts-univers-rip
+  kind: reference
+  title:
+    fr: RIP CCP Algérie, formule de la clé et exemples
+  url: http://experts-univers.com/rip-ccp-algerie.2.html
+  checked: 2026-10-28
+  notes: RIP key formula and real RIP numbers.
+
+- id: excel-downloads-rip
+  kind: reference
+  title:
+    fr: Calcul clé CCP, RIP et RIB banques algériennes
+  url: https://excel-downloads.com/threads/calcul-cle-ccp-rip-rib-banques-algeriennes.182912/
+  checked: 2026-10-28
+  notes: Real RIP 00799999002311500797 with key 97, which a widely shared formula gets wrong.
+
+- id: mouh2020-algeria
+  kind: reference
+  title:
+    en: mouh2020/algeria (Python library)
+  url: https://github.com/mouh2020/algeria
+  checked: 2026-10-28
+  notes: Published example 1234567890 → CCP key 45, RIP key 06.
+
+# ---------- NIF and NIS ----------
+
+- id: python-stdnum-nif
+  kind: reference
+  title:
+    en: python-stdnum, Algerian NIF
+  url: https://arthurdejong.org/python-stdnum/doc/stdnum.dz.nif
+  checked: 2026-10-28
+  notes: 15 digits, or 20 for a branch. Cites the DGI and CNRC pages.
+
+- id: upgrowth-nif
+  kind: reference
+  title:
+    en: UpGrowth, verify an Algerian NIF
+  url: https://www.upgrowth.dz/en/verify-nif-algeria
+  checked: 2026-10-28
+  notes: Format only; reports testing 152 real NIFs against 27 moduli without finding a check key.
+
+- id: decret-executif-97-396
+  kind: executive-decree
+  number: 97-396
+  date: 1997-10-28
+  title:
+    fr: Décret exécutif relatif au numéro d'identification statistique (NIS)
+  articles: ['4', '5']
+  quote:
+    fr: Le numéro d'identification statistique est composé de quinze (15) chiffres.
+  read_via:
+    - https://legal-doctrine.com/edition/attribution-du-numero-d-identification-statistique-en-algerie
+  checked: 2026-10-28
+  notes: 15 digits; a secondary establishment adds a 3-digit sequence number. Journal officiel issue not recorded yet.
+
+# ---------- IRG ----------
+
+- id: loi-21-16
+  kind: law
+  number: 21-16
+  date: 2021-12-30
+  title:
+    fr: Loi de finances pour 2022
+  jo: { year: 2021, issue: 100, date: 2021-12-30 }
+  articles: ['31']
+  quote:
+    fr: IRG = IRG (selon le premier abattement) x (137/51) – (27 925/8)
+  read_via:
+    - https://www.sipri.org/sites/default/files/2023-05/20211230_mof_alg_loi_de_finance_2022.pdf
+  checked: 2026-10-28
+  notes: Article 31 rewrites article 104 of the CIDTA (scale, 40 % abatement bounded to 12 000–18 000 DA a year, exemption up to 30 000 DA, smoothing formulas).
+
+- id: cidta-2026
+  kind: code
+  issuer: DGI
+  title:
+    fr: Code des impôts directs et taxes assimilées, édition 2026
+  articles: ['104']
+  url: https://www.mfdgi.gov.dz/files/803/2026/3726/CodedesImpotsDirectsetTaxesAssimilees2026frpdf?preview=1
+  read_via:
+    - https://www.teamed.global/country-hiring-guides/algeria/tax-and-payroll
+  checked: 2026-10-28
+  notes: Consolidated text; the 2026 finance law did not change article 104 for salaries.
+
+- id: dgi-bareme-irg
+  kind: official-site
+  issuer: DGI
+  title:
+    fr: Barème de l'impôt sur le revenu global (IRG) 2022
+  url: https://www.mfdgi.gov.dz/files/509/Bareme-de-l-Impot-sur-le-revenu-global-IRG/94/Bareme-IRG-2022
+  read_via:
+    - https://www.algerie360.com/irg-salaires-exoneration-30000-da-abattements/
+    - https://www.teamed.global/country-hiring-guides/algeria/tax-and-payroll
+  checked: 2026-10-28
+  notes: Monthly table, rounded down to the tenth of a dinar. Source of the IRG test values.
+
+- id: upgrowth-salary
+  kind: reference
+  title:
+    fr: UpGrowth, calcul du salaire net en Algérie 2026
+  url: https://www.upgrowth.dz/calcul-salaire-net-algerie-2026
+  checked: 2026-10-28
+  notes: Independent worked example, 60 000 DA gross → 47 558 DA net.
+
+# ---------- CNAS ----------
+
+- id: cnas-employer
+  kind: official-site
+  issuer: CNAS
+  title:
+    fr: CNAS, espace employeur
+  url: https://cnas.dz/
+  read_via:
+    - https://www.teamed.global/country-hiring-guides/algeria/tax-and-payroll
+    - https://www.upgrowth.dz/calcul-salaire-net-algerie-2026
+  checked: 2026-10-28
+  notes: 25 % employer, 9 % employee, 0.5 % social services; no ceiling for employees.
+
+- id: cleiss-algerie
+  kind: reference
+  issuer: CLEISS
+  title:
+    fr: Les cotisations en Algérie (au 1er janvier 2024)
+  url: https://www.cleiss.fr/docs/cotisations/algerie.html
+  checked: 2026-10-28
+  notes: Breakdown of the 34.5 % by branch.
+
+# ---------- Minimum wage (SNMG) ----------
+
+- id: decret-presidentiel-21-137
+  kind: presidential-decree
+  number: 21-137
+  date: 2021-04-07
+  title:
+    fr: Décret présidentiel fixant le salaire national minimum garanti
+  jo: { year: 2021, issue: 30 }
+  read_via:
+    - https://algerie-eco.com/?p=129766
+  checked: 2026-10-28
+  notes: 20 000 DA a month, taking effect from 1 June 2020.
+
+- id: decret-presidentiel-26-01
+  kind: presidential-decree
+  number: 26-01
+  date: 2026-01-07
+  title:
+    fr: Décret présidentiel fixant le salaire national minimum garanti
+  jo: { year: 2026, issue: 1, date: 2026-01-08 }
+  read_via:
+    - https://www.upgrowth.dz/calcul-salaire-net-algerie-2026
+    - https://www.algerie360.com/salaire-minimum-la-hausse-du-a-24-000-da-officiellement-entree-en-vigueur/
+  checked: 2026-10-28
+  notes: 24 000 DA a month from 1 January 2026.
+
+# ---------- Amounts in words ----------
+
+- id: grammar-fr
+  kind: reference
+  title:
+    en: French numeral spelling, traditional rules (agreement of vingt and cent, mille invariable, « un million de »)
+  checked: 2026-10-28
+
+- id: grammar-ar
+  kind: reference
+  title:
+    en: Arabic counted-noun rules (number agreement and the form of the counted noun)
+  checked: 2026-10-28

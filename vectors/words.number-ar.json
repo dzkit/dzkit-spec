@@ -1,0 +1,173 @@
+{
+  "operation": "words.number-ar",
+  "description": "Non-negative integer in Arabic words (nominative, masculine counted noun).",
+  "rule": "language.amount-in-words",
+  "inputs": {
+    "number": "integer ≥ 0"
+  },
+  "outputs": {
+    "text": "words"
+  },
+  "cases": [
+    {
+      "id": "n-0",
+      "input": {
+        "number": 0
+      },
+      "expected": {
+        "text": "صفر"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-1",
+      "input": {
+        "number": 1
+      },
+      "expected": {
+        "text": "واحد"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-11",
+      "input": {
+        "number": 11
+      },
+      "expected": {
+        "text": "أحد عشر"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-12",
+      "input": {
+        "number": 12
+      },
+      "expected": {
+        "text": "اثنا عشر"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-13",
+      "input": {
+        "number": 13
+      },
+      "expected": {
+        "text": "ثلاثة عشر"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-21",
+      "input": {
+        "number": 21
+      },
+      "expected": {
+        "text": "واحد وعشرون"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-100",
+      "input": {
+        "number": 100
+      },
+      "expected": {
+        "text": "مائة"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-250",
+      "input": {
+        "number": 250
+      },
+      "expected": {
+        "text": "مائتان وخمسون"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-1000",
+      "input": {
+        "number": 1000
+      },
+      "expected": {
+        "text": "ألف"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-2000",
+      "input": {
+        "number": 2000
+      },
+      "expected": {
+        "text": "ألفان"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-3000",
+      "input": {
+        "number": 3000
+      },
+      "expected": {
+        "text": "ثلاثة آلاف"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-11000",
+      "input": {
+        "number": 11000
+      },
+      "expected": {
+        "text": "أحد عشر ألفا"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-100000",
+      "input": {
+        "number": 100000
+      },
+      "expected": {
+        "text": "مائة ألف"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-2500",
+      "input": {
+        "number": 2500
+      },
+      "expected": {
+        "text": "ألفان وخمسمائة"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-1000000",
+      "input": {
+        "number": 1000000
+      },
+      "expected": {
+        "text": "مليون"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-5000000",
+      "input": {
+        "number": 5000000
+      },
+      "expected": {
+        "text": "خمسة ملايين"
+      },
+      "source": "grammar-ar"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "operation": "nif.validate",
+  "description": "Check the format of a NIF.",
+  "rule": "business.nif-nis",
+  "inputs": {
+    "value": "NIF as typed"
+  },
+  "outputs": {
+    "valid": "format is valid"
+  },
+  "cases": [
+    {
+      "id": "fifteen",
+      "input": {
+        "value": "408 020 000 150 039"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "python-stdnum-nif"
+    },
+    {
+      "id": "twenty",
+      "input": {
+        "value": "41201600000606600001"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "python-stdnum-nif"
+    },
+    {
+      "id": "twenty-spaced",
+      "input": {
+        "value": "000 216 001 808 337 13010"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "python-stdnum-nif"
+    },
+    {
+      "id": "too-short",
+      "input": {
+        "value": "12345"
+      },
+      "expected": {
+        "valid": false
+      },
+      "source": "python-stdnum-nif"
+    },
+    {
+      "id": "letters",
+      "input": {
+        "value": "X1600100000000V"
+      },
+      "expected": {
+        "valid": false
+      },
+      "source": "python-stdnum-nif"
+    }
+  ]
+}

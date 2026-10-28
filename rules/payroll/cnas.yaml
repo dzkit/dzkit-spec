@@ -1,0 +1,29 @@
+id: payroll.cnas
+title:
+  fr: Cotisations de sécurité sociale (salariés)
+  ar: اشتراكات الضمان الاجتماعي (الأجراء)
+  en: Social security contributions (employees)
+description: >
+  Rates applied to the gross salary subject to contributions. `employer` and
+  `employee` are totals; `branches` gives the breakdown. `social_services` is paid
+  by the employer on top of `employer`. There is no ceiling for employees, and the
+  base may not be lower than the minimum wage (see payroll.minimum-wage).
+versions:
+  - valid_from: null
+    valid_to: null
+    status: official
+    sources: [cnas-employer, cleiss-algerie]
+    notes: Rates confirmed as in force on 1 January 2024 and in October 2026; their start date is not recorded.
+    data:
+      employer: 0.25
+      employee: 0.09
+      social_services: 0.005
+      total: 0.345
+      ceiling: null
+      branches:
+        - { branch: sickness-maternity-disability-death, employer: 0.115, employee: 0.015 }
+        - { branch: work-accidents, employer: 0.0125, employee: 0 }
+        - { branch: pension, employer: 0.11, employee: 0.0675, social_services: 0.005 }
+        - { branch: early-pension, employer: 0.0025, employee: 0.0025 }
+        - { branch: unemployment, employer: 0.01, employee: 0.005 }
+      construction_extra: { employer: 0.00375, employee: 0.00375, fund: CACOBATPH }

@@ -1,0 +1,41 @@
+id: vehicles.plates
+title:
+  fr: Plaques d'immatriculation
+  ar: لوحات الترقيم
+  en: Licence plates
+description: >
+  Standard plates read SERIAL-CYY-WW: a chronological serial number, then one
+  group of three digits (vehicle category C followed by the last two digits YY of
+  the year of first registration), then the wilaya code WW.
+  `pattern` is a regular expression for the separated form; `wilaya_codes` lists
+  the codes accepted on plates in that version.
+versions:
+  - valid_from: 2023-01-17
+    valid_to: 2026-12-31
+    status: official
+    sources: [arrete-1988-plates, arrete-plates-2023, wikipedia-plates]
+    notes: Codes 59 to 69 are not yet issued during this period.
+    data: &plates_common
+      pattern: '^(\d{1,6})[\s-]+([1-9])(\d{2})[\s-]+(\d{2})$'
+      serial: { min_digits: 1, max_digits: 6, min_value: 1, max_value: 999999, display_digits: 5 }
+      unknown_year_code: '33'
+      examples: ['02639-126-09', '76739-125-10']
+      categories:
+        - { code: 1, fr: Véhicule de tourisme, ar: سيارة سياحية, en: Passenger car }
+        - { code: 2, fr: Camion, ar: شاحنة, en: Truck }
+        - { code: 3, fr: Camionnette, ar: شاحنة صغيرة, en: Van }
+        - { code: 4, fr: Autocar ou autobus, ar: حافلة, en: Coach or bus }
+        - { code: 5, fr: Tracteur routier, ar: جرار طريق, en: Road tractor }
+        - { code: 6, fr: Autre tracteur, ar: جرار آخر, en: Other tractor }
+        - { code: 7, fr: Véhicule spécial, ar: مركبة خاصة, en: Special vehicle }
+        - { code: 8, fr: Remorque ou semi-remorque, ar: مقطورة أو نصف مقطورة, en: Trailer or semi-trailer }
+        - { code: 9, fr: Motocyclette, ar: دراجة نارية, en: Motorcycle }
+      wilaya_codes: { from: 1, to: 58 }
+
+  - valid_from: 2027-01-01
+    valid_to: null
+    status: official
+    sources: [arrete-plates-2026, decret-presidentiel-26-206]
+    data:
+      <<: *plates_common
+      wilaya_codes: { from: 1, to: 69 }

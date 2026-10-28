@@ -1,0 +1,47 @@
+id: telecom.phone
+title:
+  fr: Numéros de téléphone
+  ar: أرقام الهاتف
+  en: Phone numbers
+description: >
+  ARPCE's national numbering plan. Numbers are written nationally with a leading 0,
+  internationally with +213 and without it. `types` describes each kind of number
+  by its first digit after the 0 and its length (without the 0). `mobile_blocks`
+  and `allocated_blocks` give, as inclusive ranges of the first three digits after
+  the 0, the blocks ARPCE has assigned. Implementations should accept any number
+  of the right shape and report allocation separately, because ARPCE assigns new
+  blocks over time.
+versions:
+  - valid_from: 2008-02-22
+    valid_to: null
+    status: official
+    sources: [arpce-pnn]
+    notes: Blocks as listed on ARPCE's page updated 11 March 2025. Algeria has no mobile number portability, so the prefix identifies the operator.
+    data:
+      country_code: '213'
+      trunk_prefix: '0'
+      types:
+        - { type: mobile, first_digits: ['5', '6', '7'], length: 9 }
+        - { type: landline, first_digits: ['2', '3', '4'], length: 8 }
+        - { type: service, first_digits: ['8'], length: 9 }
+        - { type: voip, first_digits: ['9'], length: 9 }
+      operators:
+        - { first_digit: '5', operator: Ooredoo, licensee: Wataniya Télécom Algérie }
+        - { first_digit: '6', operator: Mobilis, licensee: Algérie Télécom Mobile }
+        - { first_digit: '7', operator: Djezzy, licensee: Optimum Télécom Algérie }
+      mobile_blocks:
+        Ooredoo: [[540, 542], [549, 549], [550, 559], [560, 562]]
+        Mobilis: [[655, 659], [660, 669], [670, 676], [696, 699]]
+        Djezzy: [[770, 779], [780, 784], [790, 799]]
+      allocated_blocks:
+        service:
+          - { range: [800, 800], use: freephone }
+          - { range: [801, 806], use: value-added }
+          - { range: [808, 809], use: games-and-competitions }
+        voip:
+          - { range: [961, 961], use: vsat }
+          - { range: [982, 982], use: non-geographic-voip }
+      formats:
+        national_mobile: '0XXX XX XX XX'
+        national_landline: '0XX XX XX XX'
+        international_mobile: '+213 XXX XX XX XX'

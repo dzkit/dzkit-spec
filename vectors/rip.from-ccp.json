@@ -1,0 +1,78 @@
+{
+  "operation": "rip.from-ccp",
+  "description": "Build the RIP and both keys from a CCP account number (1 to 10 digits).",
+  "rule": "banking.ccp-rip",
+  "inputs": {
+    "account": "CCP account number, with or without leading zeros"
+  },
+  "outputs": {
+    "rip": "20-digit RIP",
+    "ccp_key": "key written after the account number",
+    "rip_key": "last two digits of the RIP"
+  },
+  "cases": [
+    {
+      "id": "example-1234567890",
+      "input": {
+        "account": "1234567890"
+      },
+      "expected": {
+        "rip": "00799999123456789006",
+        "ccp_key": "45",
+        "rip_key": "06"
+      },
+      "source": "mouh2020-algeria"
+    },
+    {
+      "id": "short-account",
+      "input": {
+        "account": "23115007"
+      },
+      "expected": {
+        "rip": "00799999002311500797",
+        "ccp_key": "32",
+        "rip_key": "97"
+      },
+      "source": "excel-downloads-rip"
+    },
+    {
+      "id": "seven-digits",
+      "input": {
+        "account": "6334829"
+      },
+      "expected": {
+        "rip": "00799999000633482956",
+        "ccp_key": "33",
+        "rip_key": "56"
+      },
+      "source": "experts-univers-rip",
+      "notes": "The RIP comes from a real document; the CCP key is computed with the confirmed algorithm."
+    },
+    {
+      "id": "one-digit",
+      "input": {
+        "account": "1"
+      },
+      "expected": {
+        "rip": "00799999000000000109",
+        "ccp_key": "04",
+        "rip_key": "09"
+      },
+      "notes": "0000000001 → 1 × 4 = 4."
+    },
+    {
+      "id": "too-long",
+      "input": {
+        "account": "12345678901"
+      },
+      "expected": null
+    },
+    {
+      "id": "not-digits",
+      "input": {
+        "account": "abc"
+      },
+      "expected": null
+    }
+  ]
+}

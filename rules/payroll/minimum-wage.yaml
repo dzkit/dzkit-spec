@@ -1,0 +1,19 @@
+id: payroll.minimum-wage
+title:
+  fr: Salaire national minimum garanti (SNMG)
+  ar: الأجر الوطني الأدنى المضمون
+  en: Guaranteed national minimum wage (SNMG)
+description: Monthly amount in DA.
+versions:
+  - valid_from: 2020-06-01
+    valid_to: 2025-12-31
+    status: official
+    sources: [decret-presidentiel-21-137]
+    notes: Decree of April 2021 taking effect from 1 June 2020.
+    data: { monthly: 20000 }
+
+  - valid_from: 2026-01-01
+    valid_to: null
+    status: official
+    sources: [decret-presidentiel-26-01]
+    data: { monthly: 24000 }

@@ -1,0 +1,83 @@
+{
+  "operation": "words.amount-fr",
+  "description": "DZD amount in French words, rounded to the centime.",
+  "rule": "language.amount-in-words",
+  "inputs": {
+    "amount": "amount in DA"
+  },
+  "outputs": {
+    "text": "words"
+  },
+  "cases": [
+    {
+      "id": "a-1",
+      "input": {
+        "amount": 1
+      },
+      "expected": {
+        "text": "un dinar algérien"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-2",
+      "input": {
+        "amount": 2
+      },
+      "expected": {
+        "text": "deux dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1250-5",
+      "input": {
+        "amount": 1250.5
+      },
+      "expected": {
+        "text": "mille deux cent cinquante dinars algériens et cinquante centimes"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-0-01",
+      "input": {
+        "amount": 0.01
+      },
+      "expected": {
+        "text": "zéro dinar algérien et un centime"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1000000",
+      "input": {
+        "amount": 1000000
+      },
+      "expected": {
+        "text": "un million de dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1000100",
+      "input": {
+        "amount": 1000100
+      },
+      "expected": {
+        "text": "un million cent dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-10-999",
+      "input": {
+        "amount": 10.999
+      },
+      "expected": {
+        "text": "onze dinars algériens"
+      },
+      "source": "grammar-fr"
+    }
+  ]
+}

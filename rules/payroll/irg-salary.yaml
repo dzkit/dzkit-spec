@@ -1,0 +1,58 @@
+id: payroll.irg-salary
+title:
+  fr: IRG sur les traitements et salaires
+  ar: الضريبة على الدخل الإجمالي على الأجور
+  en: Income tax (IRG) withheld on salaries
+description: >
+  Monthly IRG on a regular salary or pension, computed on the monthly taxable
+  income (gross minus the employee's social security contribution):
+
+  1. taxable ≤ exemption_threshold → IRG = 0
+  2. scale_irg = progressive monthly scale (`brackets`, upper bounds in DA, last one null = no limit)
+  3. abatement = scale_irg × abatement.rate, bounded to [abatement.min, abatement.max]
+  4. irg = scale_irg − abatement
+  5. if a `smoothing` entry applies to the regime and exemption_threshold < taxable < below:
+     irg = irg × multiplier − subtract  (both given as fractions [numerator, denominator])
+  6. irg = max(0, irg) rounded down to `rounding.step`
+
+  Smoothing entries are not cumulative: use the first one whose `regimes` contains
+  the taxpayer's regime.
+versions:
+  - valid_from: 2022-01-01
+    valid_to: null
+    status: official
+    sources: [loi-21-16, cidta-2026, dgi-bareme-irg]
+    notes: The annual scale of article 104 divided by 12. Earlier scales are not recorded yet.
+    data:
+      period: month
+      brackets:
+        - { up_to: 20000, rate: 0 }
+        - { up_to: 40000, rate: 0.23 }
+        - { up_to: 80000, rate: 0.27 }
+        - { up_to: 160000, rate: 0.30 }
+        - { up_to: 320000, rate: 0.33 }
+        - { up_to: null, rate: 0.35 }
+      annual_brackets:
+        - { up_to: 240000, rate: 0 }
+        - { up_to: 480000, rate: 0.23 }
+        - { up_to: 960000, rate: 0.27 }
+        - { up_to: 1920000, rate: 0.30 }
+        - { up_to: 3840000, rate: 0.33 }
+        - { up_to: null, rate: 0.35 }
+      exemption_threshold: 30000
+      abatement: { rate: 0.40, min: 1000, max: 1500 }
+      smoothing:
+        - regimes: [retired, disabled]
+          below: 42500
+          multiplier: [93, 61]
+          subtract: [81213, 41]
+        - regimes: [salaried]
+          below: 35000
+          multiplier: [137, 51]
+          subtract: [27925, 8]
+      rounding: { mode: floor, step: 0.1 }
+      regimes:
+        salaried: Employees
+        retired: Retired workers of the régime général
+        disabled: Workers with a motor, mental, visual or hearing disability
+      non_monthly_bonus_rate: 0.10

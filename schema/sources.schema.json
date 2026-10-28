@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dzkit/dzkit-spec/schema/sources.schema.json",
+  "title": "dzkit sources",
+  "description": "Every legal text or reference that a rule relies on.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/source" },
+  "$defs": {
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "localized": {
+      "type": "object",
+      "properties": {
+        "fr": { "type": "string" },
+        "ar": { "type": "string" },
+        "en": { "type": "string" }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["id", "kind", "title", "checked"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable identifier used by rules and test cases, e.g. loi-21-16.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "kind": {
+          "enum": ["law", "ordinance", "presidential-decree", "executive-decree", "arrete", "code", "regulator", "official-site", "reference", "press", "dataset"]
+        },
+        "number": { "description": "Official number of the text, e.g. 21-16.", "type": "string" },
+        "date": { "$ref": "#/$defs/date" },
+        "title": { "$ref": "#/$defs/localized" },
+        "issuer": { "type": "string" },
+        "jo": {
+          "description": "Journal officiel issue. Links to the PDFs on joradp.dz are generated from it.",
+          "type": "object",
+          "required": ["year", "issue"],
+          "additionalProperties": false,
+          "properties": {
+            "year": { "type": "integer", "minimum": 1962 },
+            "issue": { "type": "integer", "minimum": 1 },
+            "date": { "$ref": "#/$defs/date" }
+          }
+        },
+        "articles": { "type": "array", "items": { "type": "string" } },
+        "url": { "description": "Where the text can be read, when it is not (only) in the Journal officiel.", "type": "string", "format": "uri" },
+        "quote": {
+          "description": "Short extract of the relevant passage, so anyone can check it quickly.",
+          "$ref": "#/$defs/localized"
+        },
+        "read_via": {
+          "description": "Pages through which the text was read, when the official file was not opened directly.",
+          "type": "array",
+          "items": { "type": "string", "format": "uri" }
+        },
+        "checked": { "description": "Date the source was last checked.", "$ref": "#/$defs/date" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

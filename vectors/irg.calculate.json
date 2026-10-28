@@ -1,0 +1,243 @@
+{
+  "operation": "irg.calculate",
+  "description": "Monthly IRG withheld on a salary or pension.",
+  "rule": "payroll.irg-salary",
+  "inputs": {
+    "taxable": "monthly taxable income in DA (gross minus employee social security)",
+    "regime": "salaried, retired or disabled",
+    "date": "date the salary relates to (ISO)"
+  },
+  "outputs": {
+    "irg": "IRG in DA, rounded down to the tenth"
+  },
+  "cases": [
+    {
+      "id": "salaried-30000",
+      "input": {
+        "taxable": 30000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 0
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-32000",
+      "input": {
+        "taxable": 32000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 957.8
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-35000",
+      "input": {
+        "taxable": 35000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 2070
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-40000",
+      "input": {
+        "taxable": 40000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 3100
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-50000",
+      "input": {
+        "taxable": 50000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 5800
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-60000",
+      "input": {
+        "taxable": 60000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 8500
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-70000",
+      "input": {
+        "taxable": 70000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 11200
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-150000",
+      "input": {
+        "taxable": 150000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 34900
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "salaried-300000",
+      "input": {
+        "taxable": 300000,
+        "regime": "salaried",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 84100
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-30000",
+      "input": {
+        "taxable": 30000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 0
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-32000",
+      "input": {
+        "taxable": 32000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 543.9
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-35000",
+      "input": {
+        "taxable": 35000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 1175
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-40000",
+      "input": {
+        "taxable": 40000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 2745.4
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-50000",
+      "input": {
+        "taxable": 50000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 5800
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "retired-70000",
+      "input": {
+        "taxable": 70000,
+        "regime": "retired",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 11200
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "disabled-30000",
+      "input": {
+        "taxable": 30000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 0
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "disabled-32000",
+      "input": {
+        "taxable": 32000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 543.9
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "disabled-35000",
+      "input": {
+        "taxable": 35000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 1175
+      },
+      "source": "dgi-bareme-irg"
+    },
+    {
+      "id": "disabled-40000",
+      "input": {
+        "taxable": 40000,
+        "regime": "disabled",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "irg": 2745.4
+      },
+      "source": "dgi-bareme-irg"
+    }
+  ]
+}

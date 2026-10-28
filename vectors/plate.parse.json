@@ -1,0 +1,175 @@
+{
+  "operation": "plate.parse",
+  "description": "Parse a standard licence plate as of a given date.",
+  "rule": "vehicles.plates",
+  "inputs": {
+    "plate": "plate as typed",
+    "date": "date of the check (ISO), because codes 59–69 start on 2027-01-01"
+  },
+  "outputs": {
+    "serial": "serial as written",
+    "category": "vehicle category 1–9",
+    "year": "two-digit year as written",
+    "wilaya": "wilaya code"
+  },
+  "cases": [
+    {
+      "id": "blida-2026",
+      "input": {
+        "plate": "02639-126-09",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "02639",
+        "category": 1,
+        "year": "26",
+        "wilaya": 9
+      },
+      "source": "wikipedia-plates"
+    },
+    {
+      "id": "bouira-2025",
+      "input": {
+        "plate": "76739-125-10",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "76739",
+        "category": 1,
+        "year": "25",
+        "wilaya": 10
+      },
+      "source": "wikipedia-plates"
+    },
+    {
+      "id": "spaces",
+      "input": {
+        "plate": "12345 119 16",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "19",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "no-separators",
+      "input": {
+        "plate": "1234511916",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "19",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "motorcycle",
+      "input": {
+        "plate": "15843-919-16",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "15843",
+        "category": 9,
+        "year": "19",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "unknown-year",
+      "input": {
+        "plate": "12345-133-16",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "33",
+        "wilaya": 16
+      },
+      "source": "arrete-plates-2023"
+    },
+    {
+      "id": "new-wilaya-before-2027",
+      "input": {
+        "plate": "12345-127-64",
+        "date": "2026-10-28"
+      },
+      "expected": null,
+      "source": "arrete-plates-2026"
+    },
+    {
+      "id": "new-wilaya-after-2027",
+      "input": {
+        "plate": "12345-127-64",
+        "date": "2027-06-01"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "27",
+        "wilaya": 64
+      },
+      "source": "arrete-plates-2026"
+    },
+    {
+      "id": "code-69-after-2027",
+      "input": {
+        "plate": "00412-127-69",
+        "date": "2027-06-01"
+      },
+      "expected": {
+        "serial": "00412",
+        "category": 1,
+        "year": "27",
+        "wilaya": 69
+      },
+      "source": "arrete-plates-2026"
+    },
+    {
+      "id": "code-70",
+      "input": {
+        "plate": "12345-126-70",
+        "date": "2027-06-01"
+      },
+      "expected": null
+    },
+    {
+      "id": "category-0",
+      "input": {
+        "plate": "12345-026-16",
+        "date": "2027-06-01"
+      },
+      "expected": null
+    },
+    {
+      "id": "serial-zero",
+      "input": {
+        "plate": "00000-126-16",
+        "date": "2027-06-01"
+      },
+      "expected": null
+    },
+    {
+      "id": "serial-too-long",
+      "input": {
+        "plate": "1234567-126-16",
+        "date": "2027-06-01"
+      },
+      "expected": null
+    },
+    {
+      "id": "middle-two-digits",
+      "input": {
+        "plate": "06390-00-09",
+        "date": "2027-06-01"
+      },
+      "expected": null
+    }
+  ]
+}

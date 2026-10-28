@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dzkit/dzkit-spec/schema/vectors.schema.json",
+  "title": "dzkit test cases",
+  "description": "Inputs and expected outputs that every dzkit implementation, in any language, must reproduce.",
+  "type": "object",
+  "required": ["operation", "description", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "operation": {
+      "description": "Language-neutral name of the operation, e.g. irg.calculate. Each implementation maps it to its own function name.",
+      "type": "string",
+      "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$"
+    },
+    "description": { "type": "string" },
+    "rule": { "description": "Rule these cases exercise.", "type": "string" },
+    "inputs": {
+      "description": "Meaning of each input field.",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "outputs": {
+      "description": "Meaning of each expected field.",
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "input", "expected"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "input": { "type": "object" },
+          "expected": {
+            "description": "Expected result. null means the input must be rejected (null, false, an error or an exception, depending on the language).",
+            "type": ["object", "null"]
+          },
+          "source": { "description": "Source id the expected value comes from.", "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

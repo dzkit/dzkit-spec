@@ -1,0 +1,43 @@
+{
+  "operation": "nis.validate",
+  "description": "Check the format of a NIS.",
+  "rule": "business.nif-nis",
+  "inputs": {
+    "value": "NIS as typed"
+  },
+  "outputs": {
+    "valid": "format is valid"
+  },
+  "cases": [
+    {
+      "id": "fifteen",
+      "input": {
+        "value": "098716010002343"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "decret-executif-97-396"
+    },
+    {
+      "id": "eighteen",
+      "input": {
+        "value": "098716010002343001"
+      },
+      "expected": {
+        "valid": true
+      },
+      "source": "decret-executif-97-396"
+    },
+    {
+      "id": "sixteen",
+      "input": {
+        "value": "0987160100023430"
+      },
+      "expected": {
+        "valid": false
+      },
+      "source": "decret-executif-97-396"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "operation": "rip.validate",
+  "description": "Validate a 20-digit RIP. Spaces and dashes are allowed.",
+  "rule": "banking.ccp-rip",
+  "inputs": {
+    "rip": "RIP as typed"
+  },
+  "outputs": {
+    "valid": "true when the RIP is valid",
+    "account": "10-digit account",
+    "key": "2-digit RIP key"
+  },
+  "cases": [
+    {
+      "id": "real-002311500797",
+      "input": {
+        "rip": "00799999002311500797"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0023115007",
+        "key": "97"
+      },
+      "source": "excel-downloads-rip",
+      "notes": "Key 97: a widely shared formula returns 00 here."
+    },
+    {
+      "id": "real-000633482956",
+      "input": {
+        "rip": "00799999000633482956"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0006334829",
+        "key": "56"
+      },
+      "source": "experts-univers-rip"
+    },
+    {
+      "id": "real-000169242896",
+      "input": {
+        "rip": "00799999000169242896"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0001692428",
+        "key": "96"
+      },
+      "source": "experts-univers-rip"
+    },
+    {
+      "id": "real-001880462576",
+      "input": {
+        "rip": "00799999001880462576"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0018804625",
+        "key": "76"
+      },
+      "source": "experts-univers-rip"
+    },
+    {
+      "id": "real-123456789006",
+      "input": {
+        "rip": "00799999123456789006"
+      },
+      "expected": {
+        "valid": true,
+        "account": "1234567890",
+        "key": "06"
+      },
+      "source": "mouh2020-algeria"
+    },
+    {
+      "id": "spaces-and-dashes",
+      "input": {
+        "rip": "007 99999 0023115007 97"
+      },
+      "expected": {
+        "valid": true,
+        "account": "0023115007",
+        "key": "97"
+      },
+      "source": "excel-downloads-rip"
+    },
+    {
+      "id": "wrong-key",
+      "input": {
+        "rip": "00799999002311500796"
+      },
+      "expected": null
+    },
+    {
+      "id": "wrong-prefix",
+      "input": {
+        "rip": "00899999002311500797"
+      },
+      "expected": null
+    },
+    {
+      "id": "too-short",
+      "input": {
+        "rip": "0079999900231150079"
+      },
+      "expected": null
+    },
+    {
+      "id": "letters",
+      "input": {
+        "rip": "0079999900231150079a"
+      },
+      "expected": null
+    }
+  ]
+}
