@@ -1,0 +1,40 @@
+name: I checked an official text
+description: You opened the official text of a source and it confirms (or contradicts) dzkit-spec
+labels: [verification]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        TRUST.md lists the official texts that still need opening. Thank you for checking one!
+        Vous pouvez écrire en français · يمكنك الكتابة بالعربية
+  - type: input
+    id: source
+    attributes:
+      label: Source id
+      placeholder: "e.g. decret-presidentiel-26-206"
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where you read it
+      placeholder: "Link to the Journal officiel PDF, page number"
+    validations:
+      required: true
+  - type: dropdown
+    id: result
+    attributes:
+      label: Result
+      options:
+        - It confirms the data
+        - It contradicts the data
+        - It confirms part of it
+    validations:
+      required: true
+  - type: textarea
+    id: quote
+    attributes:
+      label: The relevant passage
+      description: A short quote, in Arabic and/or French
+    validations:
+      required: true

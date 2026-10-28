@@ -16,6 +16,11 @@ description: >
 
   Algérie Poste does not publish these algorithms; they are confirmed against real
   RIP numbers (see vectors/rip.*.json).
+review:
+  every_months: 24
+  triggers: [Algérie Poste changes the RIP format]
+watch:
+  fr: [releve d'identite postal, compte courant postal]
 versions:
   - valid_from: null
     valid_to: null

@@ -8,11 +8,20 @@ description: >
   can only check the format (digits only, allowed lengths). Spaces, dots and
   dashes are commonly used as separators and should be ignored. To confirm a NIF
   exists, use the DGI portal.
+review:
+  every_months: 24
+  triggers: [change to the NIF or NIS format, introduction of the national identification number for companies]
+watch:
+  fr: [numero d'identification fiscale, numero d'identification statistique]
+  ar: [رقم التعريف الجبائي, رقم التعريف الإحصائي]
 versions:
   - valid_from: null
     valid_to: null
     status: official
-    sources: [python-stdnum-nif, upgrowth-nif, decret-executif-97-396]
+    sources:
+      - { source: python-stdnum-nif, supports: NIF lengths }
+      - { source: upgrowth-nif, supports: NIF lengths and absence of a check key }
+      - { source: decret-executif-97-396, articles: ['4', '5'], supports: NIS lengths }
     data:
       nif:
         lengths: [15, 20]

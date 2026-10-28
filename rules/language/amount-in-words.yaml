@@ -13,6 +13,8 @@ description: >
   the number: 1 singular followed by واحد, 2 dual, 3–10 plural (the number takes
   the ة form), 11–99 singular accusative, otherwise singular. The vectors in
   vectors/words-*.json are the reference.
+review:
+  every_months: 60
 versions:
   - valid_from: null
     valid_to: null

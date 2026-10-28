@@ -1,0 +1,28 @@
+name: Wrong value
+description: A value in dzkit-spec doesn't match reality
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please anonymise real data (no names or full identifiers of real people). Vous pouvez écrire en français · يمكنك الكتابة بالعربية
+  - type: input
+    id: where
+    attributes:
+      label: Rule or test case
+      placeholder: "e.g. payroll.irg-salary, or vectors/irg.calculate.json case salaried-32000"
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What dzkit-spec says
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should say, and where that comes from
+      placeholder: "Payslip, official table, Journal officiel text…"
+    validations:
+      required: true

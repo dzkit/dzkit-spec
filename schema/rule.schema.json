@@ -4,16 +4,35 @@
   "title": "dzkit rule",
   "description": "One rule, with every version it has had. Each version says when it applies and which sources back it.",
   "type": "object",
-  "required": ["id", "title", "versions"],
+  "required": ["id", "title", "review", "versions"],
   "additionalProperties": false,
   "properties": {
     "id": {
-      "description": "Dotted identifier, e.g. payroll.irg-salary.",
+      "description": "Dotted identifier, e.g. payroll.irg-salary. Never changes once published.",
       "type": "string",
       "pattern": "^[a-z0-9-]+(\\.[a-z0-9-]+)+$"
     },
     "title": { "$ref": "sources.schema.json#/$defs/localized" },
     "description": { "type": "string" },
+    "review": {
+      "description": "How often the rule must be re-checked, and which events should trigger a check.",
+      "type": "object",
+      "required": ["every_months"],
+      "additionalProperties": false,
+      "properties": {
+        "every_months": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "triggers": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "watch": {
+      "description": "Phrases that, when found in a new Journal officiel issue, may mean this rule changed. Matched without case or accents.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fr": { "type": "array", "items": { "type": "string", "minLength": 4 } },
+        "ar": { "type": "array", "items": { "type": "string", "minLength": 3 } }
+      }
+    },
     "versions": {
       "type": "array",
       "minItems": 1,
@@ -21,6 +40,22 @@
     }
   },
   "$defs": {
+    "citation": {
+      "description": "A source id, or an object saying which articles of the source support which part of the data.",
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "required": ["source"],
+          "additionalProperties": false,
+          "properties": {
+            "source": { "type": "string" },
+            "articles": { "type": "array", "items": { "type": "string" } },
+            "supports": { "description": "Which part of the data this source supports.", "type": "string" }
+          }
+        }
+      ]
+    },
     "version": {
       "type": "object",
       "required": ["valid_from", "valid_to", "status", "sources", "data"],
@@ -35,17 +70,17 @@
           "oneOf": [{ "$ref": "sources.schema.json#/$defs/date" }, { "type": "null" }]
         },
         "status": {
-          "description": "official: from an official text. confirmed: no official text is published, but real examples match. convention: standard practice.",
+          "description": "official: set by a binding text. confirmed: no binding text is published, but real examples match. convention: standard practice.",
           "enum": ["official", "confirmed", "convention"]
         },
         "sources": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": { "$ref": "#/$defs/citation" }
         },
         "notes": { "type": "string" },
         "data": {
-          "description": "The rule's values. Their shape is specific to each rule and documented in the rule file.",
+          "description": "The rule's values. Their shape is specific to each rule and documented in the rule's description.",
           "type": ["object", "array"]
         }
       }

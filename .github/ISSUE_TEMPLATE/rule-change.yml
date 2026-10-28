@@ -1,0 +1,42 @@
+name: A rule changed
+description: A law, decree, arrêté or regulator changed a rule in dzkit-spec
+labels: [rule-change]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! You don't need to edit any file. Vous pouvez écrire en français · يمكنك الكتابة بالعربية
+  - type: input
+    id: rule
+    attributes:
+      label: Which rule?
+      placeholder: "e.g. payroll.irg-salary, or describe it"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What changed?
+    validations:
+      required: true
+  - type: input
+    id: text
+    attributes:
+      label: Official text
+      placeholder: "e.g. Loi de finances pour 2027, article 12"
+    validations:
+      required: true
+  - type: input
+    id: jo
+    attributes:
+      label: Journal officiel issue
+      placeholder: "e.g. JO 2025 nº 88, or a link to joradp.dz"
+  - type: input
+    id: date
+    attributes:
+      label: From which date does it apply?
+      placeholder: "e.g. 1 January 2027"
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example values from the text, if any

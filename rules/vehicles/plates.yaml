@@ -9,11 +9,20 @@ description: >
   the year of first registration), then the wilaya code WW.
   `pattern` is a regular expression for the separated form; `wilaya_codes` lists
   the codes accepted on plates in that version.
+review:
+  every_months: 12
+  triggers: [new wilayas, change to plate rules]
+watch:
+  fr: [immatriculation des vehicules, numero d'immatriculation, plaques d'immatriculation]
+  ar: [ترقيم المركبات, لوحات الترقيم]
 versions:
   - valid_from: 2023-01-17
     valid_to: 2026-12-31
     status: official
-    sources: [arrete-1988-plates, arrete-plates-2023, wikipedia-plates]
+    sources:
+      - { source: arrete-1988-plates, supports: base rules }
+      - { source: arrete-plates-2023, supports: layout and unknown-year code 33 }
+      - { source: wikipedia-plates, supports: real examples }
     notes: Codes 59 to 69 are not yet issued during this period.
     data: &plates_common
       pattern: '^(\d{1,6})[\s-]+([1-9])(\d{2})[\s-]+(\d{2})$'
@@ -35,7 +44,9 @@ versions:
   - valid_from: 2027-01-01
     valid_to: null
     status: official
-    sources: [arrete-plates-2026, decret-presidentiel-26-206]
+    sources:
+      - { source: arrete-plates-2026, supports: codes 59-69 from 1 January 2027 }
+      - { source: decret-presidentiel-26-206, supports: numbering of the new wilayas }
     data:
       <<: *plates_common
       wilaya_codes: { from: 1, to: 69 }

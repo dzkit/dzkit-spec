@@ -4,6 +4,12 @@ title:
   ar: الأجر الوطني الأدنى المضمون
   en: Guaranteed national minimum wage (SNMG)
 description: Monthly amount in DA.
+review:
+  every_months: 12
+  triggers: [presidential decree on the SNMG, loi de finances]
+watch:
+  fr: [salaire national minimum garanti]
+  ar: [الأجر الوطني الأدنى المضمون]
 versions:
   - valid_from: 2020-06-01
     valid_to: 2025-12-31
