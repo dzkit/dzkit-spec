@@ -29,13 +29,15 @@ Everything is bundled into two JSON files in [`dist/`](dist):
 - **`dist/dzkit-spec.json`**: all sources and rules
 - **`dist/vectors.json`**: all test cases
 
-Fetch them from a tagged release so your app doesn't change under you:
+Download them from a release, so your app doesn't change under you:
 
 ```
-https://raw.githubusercontent.com/dzkit/dzkit-spec/v0.2.0/dist/dzkit-spec.json
+https://github.com/dzkit/dzkit-spec/releases/download/v0.2.0/dzkit-spec.json
+https://github.com/dzkit/dzkit-spec/releases/download/v0.2.0/vectors.json
+https://github.com/dzkit/dzkit-spec/releases/download/v0.2.0/SHA256SUMS
 ```
 
-or copy them into your project. They're small and change only when a rule changes. Check `schema_version` (currently 2): it only changes when the format breaks.
+`SHA256SUMS` lets you check the files weren't altered (`sha256sum -c SHA256SUMS`). You can also copy them into your project. They're small and change only when a rule changes. Check `schema_version` (currently 2): it only changes when the format breaks.
 
 **JavaScript**
 ```js

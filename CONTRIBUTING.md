@@ -45,3 +45,11 @@ When in doubt, use the lower level and explain in `notes`.
 - Every value needs a source. If you can't find one, open an issue instead.
 - Keep quotes short: a sentence, not a page.
 - Never commit personal data: anonymise real examples (keep only what the rule needs).
+
+## Releasing (maintainers)
+
+1. In a pull request, update `version` in `package.json`, add a `## X.Y.Z — date` section to `CHANGELOG.md` and run `npm run build`.
+2. Once it's merged, create a release on GitHub with the tag `vX.Y.Z`, targeting `main`, and publish it.
+3. The release workflow checks the tag, `package.json` and `CHANGELOG.md` agree, validates everything, and attaches `dzkit-spec.json`, `vectors.json` and `SHA256SUMS` to the release.
+
+If it fails, fix the cause in a pull request, then run the workflow again from the Actions tab with the tag. Use a new patch version for any data change: a published version never changes.
