@@ -14,18 +14,22 @@ watch:
   fr: [organisation territoriale, noms et chefs-lieux des wilayas, wilaya deleguee]
   ar: [التنظيم الإقليمي, أسماء الولايات]
 versions:
-  - valid_from: 2026-04-04
+  - valid_from: 1984-02-04
     valid_to: null
     status: official
     sources:
       - { source: loi-84-09, supports: codes and names 1-48 }
       - { source: decret-84-79, supports: names and chefs-lieux }
+      - { source: loi-19-12, supports: 'wilayas 49-58, from the wilayas they were created from' }
+      - { source: decret-presidentiel-21-117, supports: names and chefs-lieux of 49-58 }
       - { source: loi-26-06, supports: the 69 wilayas }
       - { source: decret-presidentiel-26-206, supports: names and numbers of 59-69 }
       - { source: upgrowth-wilayas-2026, supports: cross-check of all names and parents of 59-69 }
       - { source: wikipedia-provinces, supports: cross-check of names 1-58 }
     notes: >
-      Codes 59 to 69 exist since loi n° 26-06 and were numbered by décret présidentiel
+      The 48 wilayas of loi n° 84-09 exist since 1984 (earlier divisions are not recorded,
+      so dates before 1984-02-04 have no version). Codes 49 to 58 exist since loi n° 19-12;
+      their entries carry valid_from and parent. Codes 59 to 69 exist since loi n° 26-06 and were numbered by décret présidentiel
       n° 26-206. They exercise their full powers from 1 January 2027; until then
       their parent wilaya runs them. Plate codes 59 to 69 start on 1 January 2027
       (see vehicles.plates).
@@ -78,16 +82,16 @@ versions:
       - { code: 46, name_fr: "Aïn Témouchent", name_ar: "عين تموشنت" }
       - { code: 47, name_fr: "Ghardaïa", name_ar: "غرداية" }
       - { code: 48, name_fr: "Relizane", name_ar: "غليزان" }
-      - { code: 49, name_fr: "Timimoun", name_ar: "تيميمون" }
-      - { code: 50, name_fr: "Bordj Badji Mokhtar", name_ar: "برج باجي مختار" }
-      - { code: 51, name_fr: "Ouled Djellal", name_ar: "أولاد جلال" }
-      - { code: 52, name_fr: "Béni Abbès", name_ar: "بني عباس" }
-      - { code: 53, name_fr: "In Salah", name_ar: "عين صالح" }
-      - { code: 54, name_fr: "In Guezzam", name_ar: "عين قزام" }
-      - { code: 55, name_fr: "Touggourt", name_ar: "تقرت" }
-      - { code: 56, name_fr: "Djanet", name_ar: "جانت" }
-      - { code: 57, name_fr: "El M'Ghair", name_ar: "المغير" }
-      - { code: 58, name_fr: "El Menia", name_ar: "المنيعة" }
+      - { code: 49, name_fr: "Timimoun", name_ar: "تيميمون", parent: 1, valid_from: 2019-12-11 }
+      - { code: 50, name_fr: "Bordj Badji Mokhtar", name_ar: "برج باجي مختار", parent: 1, valid_from: 2019-12-11 }
+      - { code: 51, name_fr: "Ouled Djellal", name_ar: "أولاد جلال", parent: 7, valid_from: 2019-12-11 }
+      - { code: 52, name_fr: "Béni Abbès", name_ar: "بني عباس", parent: 8, valid_from: 2019-12-11 }
+      - { code: 53, name_fr: "In Salah", name_ar: "عين صالح", parent: 11, valid_from: 2019-12-11 }
+      - { code: 54, name_fr: "In Guezzam", name_ar: "عين قزام", parent: 11, valid_from: 2019-12-11 }
+      - { code: 55, name_fr: "Touggourt", name_ar: "تقرت", parent: 30, valid_from: 2019-12-11 }
+      - { code: 56, name_fr: "Djanet", name_ar: "جانت", parent: 33, valid_from: 2019-12-11 }
+      - { code: 57, name_fr: "El M'Ghair", name_ar: "المغير", parent: 39, valid_from: 2019-12-11 }
+      - { code: 58, name_fr: "El Menia", name_ar: "المنيعة", parent: 47, valid_from: 2019-12-11 }
       - { code: 59, name_fr: "Aflou", name_ar: "آفلو", parent: 3, valid_from: 2026-04-04 }
       - { code: 60, name_fr: "Barika", name_ar: "بريكة", parent: 5, valid_from: 2026-04-04 }
       - { code: 61, name_fr: "El Kantara", name_ar: "القنطرة", parent: 7, valid_from: 2026-04-04 }

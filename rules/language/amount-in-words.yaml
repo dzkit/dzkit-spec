@@ -11,8 +11,13 @@ description: >
   millions) and take "de" before the currency when nothing follows (un million de
   dinars). Arabic chooses the form of the counted noun from the last two digits of
   the number: 1 singular followed by واحد, 2 dual, 3–10 plural (the number takes
-  the ة form), 11–99 singular accusative, otherwise singular. The vectors in
-  vectors/words-*.json are the reference.
+  the ة form), 11–99 singular accusative, otherwise singular. When a number is
+  directly followed by the noun it counts (a scale word such as ألف, or the
+  currency), its last word takes the construct form: the dual loses its ن (مائتا ألف،
+  ألفا دينار، مليونا دينار) and the accusative ألفا / مليونا / مليارا becomes ألف / مليون /
+  مليار (خمسون ألف دينار). Amounts go from 0 to 999 999 999 999.99 DA; zero dinars is
+  written (zéro dinar algérien, صفر دينار جزائري). See OPERATIONS.md for rounding to
+  the centime. The test cases in vectors/words.*.json are the reference.
 review:
   every_months: 60
 versions:

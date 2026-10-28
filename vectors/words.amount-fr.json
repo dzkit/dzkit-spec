@@ -78,6 +78,129 @@
         "text": "onze dinars algériens"
       },
       "source": "grammar-fr"
+    },
+    {
+      "id": "a-200",
+      "input": {
+        "amount": 200
+      },
+      "expected": {
+        "text": "deux cents dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1200",
+      "input": {
+        "amount": 1200
+      },
+      "expected": {
+        "text": "mille deux cents dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-80",
+      "input": {
+        "amount": 80
+      },
+      "expected": {
+        "text": "quatre-vingts dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-2000000",
+      "input": {
+        "amount": 2000000
+      },
+      "expected": {
+        "text": "deux millions de dinars algériens"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1000080",
+      "input": {
+        "amount": 1000080
+      },
+      "expected": {
+        "text": "un million quatre-vingts dinars algériens"
+      },
+      "source": "grammar-fr",
+      "notes": "no « de » when something follows million"
+    },
+    {
+      "id": "a-0-50",
+      "input": {
+        "amount": 0.5
+      },
+      "expected": {
+        "text": "zéro dinar algérien et cinquante centimes"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1-005",
+      "input": {
+        "amount": 1.005
+      },
+      "expected": {
+        "text": "un dinar algérien et un centime"
+      },
+      "source": "grammar-fr",
+      "notes": "half up on the amount as written: 1.005 × 100 is 100.4999… in binary"
+    },
+    {
+      "id": "a-2-675",
+      "input": {
+        "amount": 2.675
+      },
+      "expected": {
+        "text": "deux dinars algériens et soixante-huit centimes"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-1-004",
+      "input": {
+        "amount": 1.004
+      },
+      "expected": {
+        "text": "un dinar algérien"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "a-max",
+      "input": {
+        "amount": 999999999999.99
+      },
+      "expected": {
+        "text": "neuf cent quatre-vingt-dix-neuf milliards neuf cent quatre-vingt-dix-neuf millions neuf cent quatre-vingt-dix-neuf mille neuf cent quatre-vingt-dix-neuf dinars algériens et quatre-vingt-dix-neuf centimes"
+      },
+      "source": "grammar-fr"
+    },
+    {
+      "id": "negative",
+      "input": {
+        "amount": -0.01
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "too-large",
+      "input": {
+        "amount": 1000000000000
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "not-a-number",
+      "input": {
+        "amount": "12"
+      },
+      "error": "invalid-amount"
     }
   ]
 }

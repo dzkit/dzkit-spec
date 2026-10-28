@@ -8,7 +8,8 @@ description: >
   income (gross minus the employee's social security contribution):
 
   1. taxable ≤ exemption_threshold → IRG = 0
-  2. scale_irg = progressive monthly scale (`brackets`, upper bounds in DA, last one null = no limit)
+  2. scale_irg = progressive monthly scale (`brackets`, upper bounds in DA, last one null = no limit),
+     rounded half up to the centime
   3. abatement = scale_irg × abatement.rate, bounded to [abatement.min, abatement.max]
   4. irg = scale_irg − abatement
   5. if a `smoothing` entry applies to the regime and exemption_threshold < taxable < below:
@@ -16,7 +17,8 @@ description: >
   6. irg = max(0, irg) rounded down to `rounding.step`
 
   Smoothing entries are not cumulative: use the first one whose `regimes` contains
-  the taxpayer's regime.
+  the taxpayer's regime. Compute exactly (decimal or rational arithmetic); the only
+  roundings are in steps 2 and 6. See OPERATIONS.md, irg.calculate.
 review:
   every_months: 12
   triggers: [loi de finances, loi de finances complémentaire]

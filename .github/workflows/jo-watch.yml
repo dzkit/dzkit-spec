@@ -12,6 +12,7 @@ on:
 permissions:
   contents: read
   issues: write
+  actions: write # to keep the weekly schedules enabled
 
 concurrency:
   group: jo-watch
@@ -28,6 +29,14 @@ jobs:
           node-version: 22
       - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils
 
+      # GitHub turns off scheduled workflows after 60 days without a commit. Re-enabling
+      # them every week keeps both weekly checks running while the repository is quiet.
+      - name: Keep the weekly schedules active
+        run: |
+          for wf in jo-watch.yml health.yml; do
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/$wf/enable" || echo "::warning::could not re-enable $wf"
+          done
+
       - name: Read the last issue seen
         id: state
         run: |
@@ -42,6 +51,8 @@ jobs:
           echo "last=$last" >> "$GITHUB_OUTPUT"
           echo "State issue: ${number:-none}; last seen: ${last:-none}"
 
+      # Fails when joradp.dz can't be reached: GitHub then shows a failed run and
+      # emails the maintainers, instead of a green run that scanned nothing.
       - name: Scan new Journal officiel issues
         run: |
           if [ -n "${{ steps.state.outputs.last }}" ]; then

@@ -14,7 +14,8 @@ This is the shared source for the dzkit packages ([dzkit-js](https://github.com/
 | Licence plate format, categories, codes by date | `vehicles.plates` |
 | Phone numbering plan and allocated blocks | `telecom.phone` |
 | CCP key and RIP key | `banking.ccp-rip` |
-| NIF and NIS formats | `business.nif-nis` |
+| NIF format | `business.nif` |
+| NIS format | `business.nis` |
 | IRG on salaries (scale, abatements, smoothing) | `payroll.irg-salary` |
 | CNAS contribution rates | `payroll.cnas` |
 | Minimum wage (SNMG) since 2020 | `payroll.minimum-wage` |
@@ -37,7 +38,7 @@ https://github.com/dzkit/dzkit-spec/releases/download/v0.2.0/vectors.json
 https://github.com/dzkit/dzkit-spec/releases/download/v0.2.0/SHA256SUMS
 ```
 
-`SHA256SUMS` lets you check the files weren't altered (`sha256sum -c SHA256SUMS`). You can also copy them into your project. They're small and change only when a rule changes. Check `schema_version` (currently 2): it only changes when the format breaks.
+`SHA256SUMS` lets you check the files weren't altered (`sha256sum -c SHA256SUMS`). You can also copy them into your project. They're small and change only when a rule changes. Check `schema_version` (currently 3): it only changes when the format breaks.
 
 **JavaScript**
 ```js
@@ -141,7 +142,9 @@ sources:
 }
 ```
 
-An implementation maps each operation to its own function (`calculateIrg` in JS, `calculate_irg` in Python…) and runs every case. `expected: null` means the input must be rejected. Each expected value names the source it comes from. dzkit-js passes all 144 cases.
+An implementation maps each operation to its own function (`calculateIrg` in JS, `calculate_irg` in Python…) and runs every case. A case has either `expected` (the result; `null` means the input must be rejected) or `error` (the call must fail with that code, such as `invalid-amount`). Expected values name the source they come from when there is one.
+
+**What each operation must do** (accepted inputs, Arabic-Indic digits, separators, rejection versus error, rounding, dates) is written in [OPERATIONS.md](OPERATIONS.md). The rules give the data; OPERATIONS.md gives the behaviour; the test cases check both.
 
 | Operation | What it checks |
 |---|---|
@@ -149,13 +152,16 @@ An implementation maps each operation to its own function (`calculateIrg` in JS,
 | `phone.parse` | Types, operators, allocated blocks, rejected inputs |
 | `plate.parse` | Plates before and after 1 January 2027 |
 | `nif.validate`, `nis.validate` | Identifier formats |
-| `irg.calculate`, `salary.gross-to-net` | The DGI's published IRG amounts |
-| `words.number-fr`, `words.amount-fr`, `words.number-ar`, `words.amount-ar` | Spelling and agreement |
-| `wilaya.lookup` | Names, including the 2026 wilayas |
+| `irg.calculate`, `salary.gross-to-net` | The DGI's published IRG amounts, every bracket and abatement boundary, errors |
+| `words.number-fr`, `words.amount-fr`, `words.number-ar`, `words.amount-ar` | Spelling, agreement, Arabic construct forms, rounding to the centime, limits |
+| `wilaya.lookup` | Names, the 2019 and 2026 wilayas by date, strict codes |
+
+Every identifier operation also checks Arabic-Indic digits, separators and non-text input.
 
 ## Repository layout
 
 ```
+OPERATIONS.md           what every implementation must do with each operation
 hierarchy.yaml          kinds of legal texts, ranked
 sources.yaml            every text a rule relies on, and how it was verified
 rules/<area>/*.yaml     one file per rule, with its dated versions
@@ -176,7 +182,7 @@ npm run check    # what CI runs: validate and check the generated files are up t
 npm run links    # check every source link (needs network)
 ```
 
-The build checks the files against the schemas, and also that every source and kind exists, that rules marked official cite a legal text or official publication, that versions don't overlap, that wilaya codes run without gaps, that IRG brackets increase, and that CNAS branches add up.
+The build checks the files against the schemas, and also that every source and kind exists, that rules marked official cite a legal text or official publication, that versions neither overlap nor leave gaps, that wilaya codes run without gaps and start after their parent, that IRG brackets increase, and that CNAS branches add up.
 
 ## Sources
 

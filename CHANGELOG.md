@@ -2,6 +2,31 @@
 
 Every data change is listed with its source. See [GOVERNANCE.md](GOVERNANCE.md) for how versions are numbered.
 
+## 0.3.0 — 2026-10-28
+
+The behaviour contract. Implementations must be updated: `schema_version` is now 3, and the rule `business.nif-nis` is split in two.
+
+### Format
+- **OPERATIONS.md** defines what every implementation must do for each operation: accepted inputs and separators, Arabic-Indic digits (٠–٩ and ۰–۹), rejection versus error, rounding to the centime (half up on the amount as written), and how dates select a rule version.
+- Test cases can now expect an error: a case has either `expected` (`null` = rejected) or `error` (`invalid-amount`, `invalid-option` or `no-rule-for-date`). `schema_version` is 3.
+- The build fails when two versions of a rule leave a gap, when a wilaya starts before its rule version, or before the wilaya it was created from.
+
+### Data
+- `business.nif-nis` is split into **`business.nif`** (status `confirmed`: the lengths come from references, no legal text found yet) and **`business.nis`** (status `official`, décret exécutif n° 97-396). The trust report no longer gives the NIF the decree's level.
+- `administrative.wilayas` now applies from 1984-02-04 (loi n° 84-09). Codes 49 to 58 carry `valid_from: 2019-12-11` and their `parent`. New sources: loi n° 19-12 (wilayas 49–58) and décret présidentiel n° 21-117 (JO 2021 nº 22, their names). A lookup before 1984 or before a wilaya existed is rejected.
+- `vehicles.plates`: the first version has no start date, so plates issued before 2023 are covered.
+- `payroll.irg-salary`: the result of the progressive scale is rounded half up to the centime before the abatements; the only other rounding is the final one. Salaries with centimes differed by 0.1 DA in about 3.7 % of cases depending on the reading.
+- `language.amount-in-words`: the Arabic construct form (مائتا دينار، ألفا دينار، خمسون ألف دينار) and the limits (0 to 999 999 999 999.99 DA) are written down.
+
+### Test cases
+- 273 cases, up from 144: every IRG bracket and abatement boundary, retired and disabled limits, gross-to-net with centimes and around the 30 000 DA threshold, Arabic construct forms, rounding to the centime, limits of amounts in words, Arabic-Indic digits and separators for every identifier, non-text input, wilayas by date, plates around 1 January 2027, and every error code.
+- IRG and gross-to-net values come from an exact (rational-arithmetic) computation of the rules, independent of any implementation.
+
+### Tooling
+- The Journal officiel watch fails when joradp.dz can't be reached, instead of reporting no new issue; checks that the last issue seen still exists; reads only the first kilobyte to check that an issue exists; matches Arabic text extracted as presentation forms or in reverse order; and opens an issue when an issue's text can't be read.
+- Both weekly workflows re-enable their schedules, which GitHub turns off after 60 days without a commit. The health check closes its issues once the problem is fixed.
+- GOVERNANCE.md: one versioning rule shared by every dzkit package.
+
 ## 0.2.0 — 2026-10-28
 
 Trust model. **Breaking for early readers of 0.1.0:** `schema_version` is now 2.

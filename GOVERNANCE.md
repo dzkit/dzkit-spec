@@ -32,11 +32,15 @@ When a text changes a rule, the goal is to publish the new version **within two 
 
 ## Versions of this repository
 
-dzkit-spec follows [semantic versioning](https://semver.org) for its data:
+dzkit-spec follows [semantic versioning](https://semver.org), with the same rule as every dzkit package: **could this change make an implementation give a different result, or stop working?** If yes, it's a minor version before 1.0 (a major one after); if no, a patch.
 
-- **Major** (1.0 → 2.0): a breaking change to the format (`schema_version` changes). Implementations must be updated.
-- **Minor** (0.2 → 0.3): new rules, new rule versions, new sources or test cases. Implementations keep working and should update.
-- **Patch** (0.2.0 → 0.2.1): corrections of wrong values, wording, links.
+| Change | Before 1.0 | From 1.0 |
+|---|---|---|
+| Corrected value (it didn't match its source), wording, links, sources, trust levels | patch | patch |
+| New rule, or new test cases for behaviour already in [OPERATIONS.md](OPERATIONS.md) | patch | minor |
+| New rule version (a new text changes results from a date) | minor | major |
+| New or changed behaviour in OPERATIONS.md | minor | major |
+| Format change (`schema_version` changes) | minor | major |
 
 Every release is tagged (`vX.Y.Z`) and listed in [CHANGELOG.md](CHANGELOG.md), with each data change and its source. Implementations should pin a tag rather than follow `main`.
 

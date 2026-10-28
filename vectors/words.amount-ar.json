@@ -68,6 +68,174 @@
         "text": "ألف ومائتان وخمسون دينارا جزائريا وخمسون سنتيما"
       },
       "source": "grammar-ar"
+    },
+    {
+      "id": "a-200",
+      "input": {
+        "amount": 200
+      },
+      "expected": {
+        "text": "مائتا دينار جزائري"
+      },
+      "source": "grammar-ar",
+      "notes": "construct form before the currency"
+    },
+    {
+      "id": "a-1200",
+      "input": {
+        "amount": 1200
+      },
+      "expected": {
+        "text": "ألف ومائتا دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-2000",
+      "input": {
+        "amount": 2000
+      },
+      "expected": {
+        "text": "ألفا دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-11000",
+      "input": {
+        "amount": 11000
+      },
+      "expected": {
+        "text": "أحد عشر ألف دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-45000",
+      "input": {
+        "amount": 45000
+      },
+      "expected": {
+        "text": "خمسة وأربعون ألف دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-50000",
+      "input": {
+        "amount": 50000
+      },
+      "expected": {
+        "text": "خمسون ألف دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-200000",
+      "input": {
+        "amount": 200000
+      },
+      "expected": {
+        "text": "مائتا ألف دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-2000000",
+      "input": {
+        "amount": 2000000
+      },
+      "expected": {
+        "text": "مليونا دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-11000000",
+      "input": {
+        "amount": 11000000
+      },
+      "expected": {
+        "text": "أحد عشر مليون دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-2500",
+      "input": {
+        "amount": 2500
+      },
+      "expected": {
+        "text": "ألفان وخمسمائة دينار جزائري"
+      },
+      "source": "grammar-ar",
+      "notes": "no construct: something follows ألفان"
+    },
+    {
+      "id": "a-3000",
+      "input": {
+        "amount": 3000
+      },
+      "expected": {
+        "text": "ثلاثة آلاف دينار جزائري"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-45250",
+      "input": {
+        "amount": 45250
+      },
+      "expected": {
+        "text": "خمسة وأربعون ألفا ومائتان وخمسون دينارا جزائريا"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "a-0-50",
+      "input": {
+        "amount": 0.5
+      },
+      "expected": {
+        "text": "صفر دينار جزائري وخمسون سنتيما"
+      },
+      "source": "grammar-ar",
+      "notes": "zero dinars is written"
+    },
+    {
+      "id": "a-1-005",
+      "input": {
+        "amount": 1.005
+      },
+      "expected": {
+        "text": "دينار جزائري واحد وسنتيم واحد"
+      },
+      "source": "grammar-ar",
+      "notes": "half up on the amount as written"
+    },
+    {
+      "id": "a-max",
+      "input": {
+        "amount": 999999999999.99
+      },
+      "expected": {
+        "text": "تسعمائة وتسعة وتسعون مليارا وتسعمائة وتسعة وتسعون مليونا وتسعمائة وتسعة وتسعون ألفا وتسعمائة وتسعة وتسعون دينارا جزائريا وتسعة وتسعون سنتيما"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "negative",
+      "input": {
+        "amount": -0.01
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "too-large",
+      "input": {
+        "amount": 1000000000000
+      },
+      "error": "invalid-amount"
     }
   ]
 }

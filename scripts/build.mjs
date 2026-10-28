@@ -11,7 +11,7 @@ import YAML from 'yaml';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Set(process.argv.slice(2));
@@ -28,7 +28,7 @@ const walk = (dir) =>
     return statSync(join(root, p)).isDirectory() ? walk(p) : [p];
   });
 
-const ajv = new Ajv2020({ allErrors: true, strict: true, allowUnionTypes: true });
+const ajv = new Ajv2020({ allErrors: true, strict: true, strictRequired: false, allowUnionTypes: true });
 addFormats(ajv);
 ajv.addSchema(readJson('schema/sources.schema.json'), 'sources.schema.json');
 const validateSources = ajv.getSchema('sources.schema.json');
@@ -80,6 +80,11 @@ const TRUST = {
   examples: { order: 3, en: 'No official text; confirmed by real examples' },
   convention: { order: 4, en: 'Standard convention' },
 };
+const nextDay = (date) => {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+};
 const addMonths = (date, n) => {
   const d = new Date(`${date}T00:00:00Z`);
   d.setUTCMonth(d.getUTCMonth() + n);
@@ -115,6 +120,7 @@ for (const file of walk('rules').filter((f) => f.endsWith('.yaml')).sort()) {
     if (i > 0) {
       if (previousEnd === null) fail(where, 'the previous version never ends');
       else if (!v.valid_from || v.valid_from <= previousEnd) fail(where, 'overlaps the previous version');
+      else if (v.valid_from !== nextDay(previousEnd)) fail(where, `leaves a gap after the previous version (it ends ${previousEnd}, this one starts ${v.valid_from})`);
     }
     previousEnd = v.valid_to;
 
@@ -151,6 +157,9 @@ if (wilayas) {
     for (const w of v.data) {
       if (!/^[؀-ۿ\s]+$/.test(w.name_ar)) fail('administrative.wilayas', `Arabic name of ${w.code} has non-Arabic characters`);
       if (w.parent !== undefined && !codes.includes(w.parent)) fail('administrative.wilayas', `parent of ${w.code} does not exist`);
+      if (w.valid_from && v.valid_from && w.valid_from < v.valid_from) fail('administrative.wilayas', `${w.code} starts before its rule version`);
+      const parent = v.data.find((x) => x.code === w.parent);
+      if (parent?.valid_from && w.valid_from && parent.valid_from >= w.valid_from) fail('administrative.wilayas', `${w.code} starts before its parent ${w.parent}`);
     }
   }
 }

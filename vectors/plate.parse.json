@@ -170,6 +170,144 @@
         "date": "2027-06-01"
       },
       "expected": null
+    },
+    {
+      "id": "arabic-indic-digits",
+      "input": {
+        "plate": "٠٢٦٣٩-١٢٦-٠٩",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "02639",
+        "category": 1,
+        "year": "26",
+        "wilaya": 9
+      }
+    },
+    {
+      "id": "spaced-dashes",
+      "input": {
+        "plate": "02639 - 126 - 09",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "02639",
+        "category": 1,
+        "year": "26",
+        "wilaya": 9
+      }
+    },
+    {
+      "id": "compact-with-space",
+      "input": {
+        "plate": "12345 11916",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "19",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "compact-six-digit-serial",
+      "input": {
+        "plate": "12345611916",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "123456",
+        "category": 1,
+        "year": "19",
+        "wilaya": 16
+      }
+    },
+    {
+      "id": "short-serial",
+      "input": {
+        "plate": "7-126-31",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "7",
+        "category": 1,
+        "year": "26",
+        "wilaya": 31
+      }
+    },
+    {
+      "id": "code-49-in-2026",
+      "input": {
+        "plate": "00123-125-49",
+        "date": "2026-10-28"
+      },
+      "expected": {
+        "serial": "00123",
+        "category": 1,
+        "year": "25",
+        "wilaya": 49
+      }
+    },
+    {
+      "id": "old-plate-2005",
+      "input": {
+        "plate": "12345-105-16",
+        "date": "2005-06-01"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "05",
+        "wilaya": 16
+      },
+      "notes": "the first version has no start date"
+    },
+    {
+      "id": "dots",
+      "input": {
+        "plate": "02639.126.09",
+        "date": "2026-10-28"
+      },
+      "expected": null,
+      "notes": "dots are not plate separators"
+    },
+    {
+      "id": "compact-nine-digits",
+      "input": {
+        "plate": "123411916",
+        "date": "2026-10-28"
+      },
+      "expected": null
+    },
+    {
+      "id": "null",
+      "input": {
+        "plate": null,
+        "date": "2026-10-28"
+      },
+      "expected": null
+    },
+    {
+      "id": "code-59-last-day-2026",
+      "input": {
+        "plate": "12345-127-59",
+        "date": "2026-12-31"
+      },
+      "expected": null
+    },
+    {
+      "id": "code-59-first-day-2027",
+      "input": {
+        "plate": "12345-127-59",
+        "date": "2027-01-01"
+      },
+      "expected": {
+        "serial": "12345",
+        "category": 1,
+        "year": "27",
+        "wilaya": 59
+      }
     }
   ]
 }

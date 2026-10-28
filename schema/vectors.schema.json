@@ -4,7 +4,11 @@
   "title": "dzkit test cases",
   "description": "Inputs and expected outputs that every dzkit implementation, in any language, must reproduce.",
   "type": "object",
-  "required": ["operation", "description", "cases"],
+  "required": [
+    "operation",
+    "description",
+    "cases"
+  ],
   "additionalProperties": false,
   "properties": {
     "operation": {
@@ -12,36 +16,85 @@
       "type": "string",
       "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$"
     },
-    "description": { "type": "string" },
-    "rule": { "description": "Rule these cases exercise.", "type": "string" },
+    "description": {
+      "type": "string"
+    },
+    "rule": {
+      "description": "Rule these cases exercise.",
+      "type": "string"
+    },
     "inputs": {
       "description": "Meaning of each input field.",
       "type": "object",
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "outputs": {
       "description": "Meaning of each expected field.",
       "type": "object",
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "cases": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "input", "expected"],
+        "required": [
+          "id",
+          "input"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
-          "input": { "type": "object" },
-          "expected": {
-            "description": "Expected result. null means the input must be rejected (null, false, an error or an exception, depending on the language).",
-            "type": ["object", "null"]
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
           },
-          "source": { "description": "Source id the expected value comes from.", "type": "string" },
-          "notes": { "type": "string" }
-        }
+          "input": {
+            "type": "object"
+          },
+          "expected": {
+            "description": "Expected result. null means the input must be rejected: the parser returns its 'nothing' value or the validator returns false (OPERATIONS.md § 1.1).",
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "source": {
+            "description": "Source id the expected value comes from.",
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "error": {
+            "description": "The call must fail with this error code (OPERATIONS.md § 1.1).",
+            "enum": [
+              "invalid-amount",
+              "invalid-option",
+              "no-rule-for-date"
+            ]
+          }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "expected"
+            ]
+          },
+          {
+            "required": [
+              "error"
+            ]
+          }
+        ]
       }
+    },
+    "contract": {
+      "description": "Section of OPERATIONS.md that defines this operation.",
+      "type": "string"
     }
   }
 }

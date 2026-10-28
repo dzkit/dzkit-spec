@@ -168,6 +168,68 @@
         "text": "خمسة ملايين"
       },
       "source": "grammar-ar"
+    },
+    {
+      "id": "n-200000",
+      "input": {
+        "number": 200000
+      },
+      "expected": {
+        "text": "مائتا ألف"
+      },
+      "source": "grammar-ar",
+      "notes": "construct form before a scale word"
+    },
+    {
+      "id": "n-200200",
+      "input": {
+        "number": 200200
+      },
+      "expected": {
+        "text": "مائتا ألف ومائتان"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-200000000",
+      "input": {
+        "number": 200000000
+      },
+      "expected": {
+        "text": "مائتا مليون"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "n-max",
+      "input": {
+        "number": 999999999999
+      },
+      "expected": {
+        "text": "تسعمائة وتسعة وتسعون مليارا وتسعمائة وتسعة وتسعون مليونا وتسعمائة وتسعة وتسعون ألفا وتسعمائة وتسعة وتسعون"
+      },
+      "source": "grammar-ar"
+    },
+    {
+      "id": "negative",
+      "input": {
+        "number": -1
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "not-integer",
+      "input": {
+        "number": 1.5
+      },
+      "error": "invalid-amount"
+    },
+    {
+      "id": "too-large",
+      "input": {
+        "number": 1000000000000
+      },
+      "error": "invalid-amount"
     }
   ]
 }
