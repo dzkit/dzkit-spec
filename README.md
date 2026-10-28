@@ -176,12 +176,24 @@ npm run links    # check every source link (needs network)
 
 The build checks the files against the schemas, and also that every source and kind exists, that rules marked official cite a legal text or official publication, that versions don't overlap, that wilaya codes run without gaps, that IRG brackets increase, and that CNAS branches add up.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to report a rule change or add a rule, and [GOVERNANCE.md](GOVERNANCE.md) for how changes are reviewed and versioned.
+## Sources
+
+Every rule comes from an official text, ranked by the hierarchy of Algerian legal texts. See the [trust report](TRUST.md) for the evidence behind each rule and the work still open.
 
 ## Not legal advice
 
-This is reference data, maintained with care and linked to its sources so you can check every value. It is not legal or tax advice. When a value matters, check it against the official text, and please [open an issue](https://github.com/dzkit/dzkit-spec/issues) if you find a difference.
+This is reference material, maintained with care and linked to its sources so you can check every value. It is not legal or tax advice. When a value matters, check it against the official text, and please [open an issue](https://github.com/dzkit/dzkit-spec/issues) if you find a difference.
+
+## Contributing
+
+Issues and pull requests are welcome in العربية, Français or English. See [CONTRIBUTING.md](CONTRIBUTING.md) and the project's [governance](GOVERNANCE.md).
+
+Especially useful:
+
+- Opening an official text listed in the [trust report](TRUST.md) and confirming the passage
+- Reporting a rule change from a new text in the Journal officiel
+- Adding a rule that Algerian apps need, with its official source
 
 ## License
 
-[MIT](LICENSE). Official texts belong to their publishers.
+[MIT](LICENSE) © Siroukane and the dzkit contributors. Official texts belong to their publishers.
