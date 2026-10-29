@@ -11,7 +11,8 @@ const spec = JSON.parse(readFileSync(join(root, 'dist/dzkit-spec.json'), 'utf8')
 const links = [];
 const algeriaOnly = new Set(spec.sources.filter((s) => s.access === 'algeria-only').map((s) => s.id));
 for (const s of spec.sources) {
-  if (s.url) links.push([s.id, 'url', s.url]);
+  // Offline pages are kept as a record of what was read, but there's nothing to check.
+  if (s.url && s.access !== 'offline') links.push([s.id, 'url', s.url]);
   if (s.jo) {
     links.push([s.id, 'jo-ar', s.jo.urls.ar]);
     links.push([s.id, 'jo-fr', s.jo.urls.fr]);
