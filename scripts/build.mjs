@@ -296,6 +296,15 @@ function trustReport() {
   } else L.push('Nothing to do.');
   L.push('');
 
+  const dzOnly = sources.filter((s) => s.access === 'algeria-only');
+  L.push(`### Check from Algeria (${dzOnly.length})`, '');
+  if (dzOnly.length) {
+    L.push("These sites refuse connections from outside Algeria, so the weekly link check can't reach them. If you are in Algeria, open them and report a link that no longer works or a page that changed.", '');
+    L.push('| Source | Publication | Link | Last checked |', '|---|---|---|---|');
+    for (const s of dzOnly) L.push(`| \`${s.id}\` | ${title(s)} | ${link(s)} | ${s.verification.checked} |`);
+  } else L.push('Nothing to do.');
+  L.push('');
+
   L.push('## Sources', '');
   L.push('| Source | Kind | Authority | Read | Checked | Official text |', '|---|---|---|---|---|---|');
   for (const s of [...sources].sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id))) {

@@ -62,6 +62,16 @@ These binding texts were read through reports. Open the Arabic PDF, check the ci
 | `dgi-bareme-irg` | Barème de l'impôt sur le revenu global (IRG) 2022 | [link](https://www.mfdgi.gov.dz/files/509/Bareme-de-l-Impot-sur-le-revenu-global-IRG/94/Bareme-IRG-2022) |
 | `cnas-employer` | CNAS, espace employeur | [link](https://cnas.dz/) |
 
+### Check from Algeria (3)
+
+These sites refuse connections from outside Algeria, so the weekly link check can't reach them. If you are in Algeria, open them and report a link that no longer works or a page that changed.
+
+| Source | Publication | Link | Last checked |
+|---|---|---|---|
+| `cidta-2026` | Code des impôts directs et taxes assimilées, édition 2026 | [link](https://www.mfdgi.gov.dz/files/803/2026/3726/CodedesImpotsDirectsetTaxesAssimilees2026frpdf?preview=1) | 2026-10-28 |
+| `dgi-bareme-irg` | Barème de l'impôt sur le revenu global (IRG) 2022 | [link](https://www.mfdgi.gov.dz/files/509/Bareme-de-l-Impot-sur-le-revenu-global-IRG/94/Bareme-IRG-2022) | 2026-10-28 |
+| `cnas-employer` | CNAS, espace employeur | [link](https://cnas.dz/) | 2026-10-28 |
+
 ## Sources
 
 | Source | Kind | Authority | Read | Checked | Official text |

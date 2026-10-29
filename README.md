@@ -94,7 +94,7 @@ This lets an app recompute an old payslip with the rules of its time, or reject 
 
 TRUST.md also lists the work still open, such as official texts to open or Journal officiel issues to find, so anyone can help raise the level of a rule.
 
-**4. Freshness.** Each rule has a review cadence (`review.every_months`). Every week, one workflow scans new Journal officiel issues for the phrases each rule watches and opens an issue when one may affect a rule; another checks every source link and every review date.
+**4. Freshness.** Each rule has a review cadence (`review.every_months`). Every week, one workflow scans new Journal officiel issues for the phrases each rule watches and opens an issue when one may affect a rule; another checks every source link and every review date. Some government sites (mfdgi.gov.dz, cnas.dz) only answer from Algeria: they are marked `access: algeria-only`, the weekly check skips them, and [TRUST.md](TRUST.md) lists them for a check by hand.
 
 ## Every rule links to its source
 

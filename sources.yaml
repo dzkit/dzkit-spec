@@ -293,6 +293,7 @@
     fr: Code des impôts directs et taxes assimilées, édition 2026
   articles: ['104']
   url: https://www.mfdgi.gov.dz/files/803/2026/3726/CodedesImpotsDirectsetTaxesAssimilees2026frpdf?preview=1
+  access: algeria-only
   verification:
     read: report
     via:
@@ -306,6 +307,7 @@
   title:
     fr: Barème de l'impôt sur le revenu global (IRG) 2022
   url: https://www.mfdgi.gov.dz/files/509/Bareme-de-l-Impot-sur-le-revenu-global-IRG/94/Bareme-IRG-2022
+  access: algeria-only
   verification:
     read: report
     via:
@@ -332,6 +334,7 @@
   title:
     fr: CNAS, espace employeur
   url: https://cnas.dz/
+  access: algeria-only
   verification:
     read: report
     via:

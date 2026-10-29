@@ -9,6 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const spec = JSON.parse(readFileSync(join(root, 'dist/dzkit-spec.json'), 'utf8'));
 
 const links = [];
+const algeriaOnly = new Set(spec.sources.filter((s) => s.access === 'algeria-only').map((s) => s.id));
 for (const s of spec.sources) {
   if (s.url) links.push([s.id, 'url', s.url]);
   if (s.jo) {
@@ -72,13 +73,19 @@ async function probe(url) {
 }
 
 const broken = [];
+const unreachable = [];
 for (const [id, kind, url] of links) {
   const r = await probe(url);
   const pdfExpected = kind.startsWith('jo-');
   const ok = r.ok && (!pdfExpected || r.type.includes('pdf'));
-  console.log(`${ok ? '✓' : '✗'} ${id} ${kind} ${r.status} ${url}`);
-  if (!ok) broken.push(`${id} (${kind}): ${url} → ${r.status}${pdfExpected && r.ok ? ' (not a PDF)' : ''}`);
+  // Sites marked algeria-only refuse connections from abroad, where this check runs.
+  // Their failure is expected and isn't reported as broken; they're checked by hand.
+  const expected = !ok && kind === 'url' && algeriaOnly.has(id);
+  console.log(`${ok ? '✓' : expected ? '~' : '✗'} ${id} ${kind} ${r.status} ${url}${expected ? ' (Algeria only: not checked from here)' : ''}`);
+  if (expected) unreachable.push(id);
+  else if (!ok) broken.push(`${id} (${kind}): ${url} → ${r.status}${pdfExpected && r.ok ? ' (not a PDF)' : ''}`);
 }
+if (unreachable.length) console.log(`\n${unreachable.length} Algeria-only link(s) not checked from here: ${unreachable.join(', ')}`);
 
 if (broken.length) {
   console.error(`\n${broken.length} broken link(s):\n  ${broken.join('\n  ')}`);

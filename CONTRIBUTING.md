@@ -40,6 +40,10 @@ You don't need to edit any file.
 
 Read [PORTING.md](PORTING.md): names, how to use the spec, the test runner, errors, exact numbers, and the repository checklist.
 
+## Help from Algeria
+
+Some official sites only answer from an Algerian connection, so the automatic link check can't reach them. If you are in Algeria, open the links listed under "Check from Algeria" in [TRUST.md](TRUST.md) and tell us in an issue if one no longer works or its content changed. When a source can only be opened from Algeria, mark it `access: algeria-only` in sources.yaml.
+
 ## Status levels
 
 - `official`: the value is in an official text you can link to
