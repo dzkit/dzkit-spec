@@ -305,6 +305,15 @@ function trustReport() {
   } else L.push('Nothing to do.');
   L.push('');
 
+  const offline = sources.filter((s) => s.access === 'offline');
+  L.push(`### Sources no longer online (${offline.length})`, '');
+  if (offline.length) {
+    L.push("These pages have disappeared. They stay listed as a record of what was read on their checked date. A rule shouldn't depend on them alone: add another source that is still online.", '');
+    L.push('| Source | Title | Former link | Last read |', '|---|---|---|---|');
+    for (const s of offline) L.push(`| \`${s.id}\` | ${title(s)} | ${s.url} | ${s.verification.checked} |`);
+  } else L.push('Nothing to do.');
+  L.push('');
+
   L.push('## Sources', '');
   L.push('| Source | Kind | Authority | Read | Checked | Official text |', '|---|---|---|---|---|---|');
   for (const s of [...sources].sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id))) {

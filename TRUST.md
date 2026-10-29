@@ -72,6 +72,14 @@ These sites refuse connections from outside Algeria, so the weekly link check ca
 | `dgi-bareme-irg` | Barème de l'impôt sur le revenu global (IRG) 2022 | [link](https://www.mfdgi.gov.dz/files/509/Bareme-de-l-Impot-sur-le-revenu-global-IRG/94/Bareme-IRG-2022) | 2026-10-28 |
 | `cnas-employer` | CNAS, espace employeur | [link](https://cnas.dz/) | 2026-10-28 |
 
+### Sources no longer online (1)
+
+These pages have disappeared. They stay listed as a record of what was read on their checked date. A rule shouldn't depend on them alone: add another source that is still online.
+
+| Source | Title | Former link | Last read |
+|---|---|---|---|
+| `experts-univers-rip` | RIP CCP Algérie, formule de la clé et exemples | http://experts-univers.com/rip-ccp-algerie.2.html | 2026-10-28 |
+
 ## Sources
 
 | Source | Kind | Authority | Read | Checked | Official text |

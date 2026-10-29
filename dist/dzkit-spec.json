@@ -513,11 +513,12 @@
         "fr": "RIP CCP Algérie, formule de la clé et exemples"
       },
       "url": "http://experts-univers.com/rip-ccp-algerie.2.html",
+      "access": "offline",
       "verification": {
         "read": "original",
         "checked": "2026-10-28"
       },
-      "notes": "RIP key formula and real RIP numbers.",
+      "notes": "RIP key formula and real RIP numbers. The domain no longer exists (checked 2026-10-29); the same formula is confirmed by the other three sources of banking.ccp-rip.",
       "authority": "secondary",
       "rank": 20
     },

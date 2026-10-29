@@ -144,10 +144,11 @@
           "type": "string"
         },
         "access": {
-          "description": "Where the url can be opened from. 'algeria-only': the site refuses connections from outside Algeria, so the weekly link check (which runs abroad) can't reach it; it is checked by hand from Algeria instead.",
+          "description": "Where the url can be opened from. 'algeria-only': the site refuses connections from outside Algeria, so the weekly link check (which runs abroad) can't reach it; it is checked by hand from Algeria instead. 'offline': the page no longer exists; the source stays as a record of what was read on its checked date, and the link check skips it.",
           "enum": [
             "public",
-            "algeria-only"
+            "algeria-only",
+            "offline"
           ]
         }
       }
