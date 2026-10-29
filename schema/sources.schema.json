@@ -4,22 +4,38 @@
   "title": "dzkit sources",
   "description": "Every legal text or reference that a rule relies on, and how closely it was checked.",
   "type": "array",
-  "items": { "$ref": "#/$defs/source" },
+  "items": {
+    "$ref": "#/$defs/source"
+  },
   "$defs": {
-    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
     "localized": {
       "type": "object",
       "properties": {
-        "fr": { "type": "string" },
-        "ar": { "type": "string" },
-        "en": { "type": "string" }
+        "fr": {
+          "type": "string"
+        },
+        "ar": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        }
       },
       "minProperties": 1,
       "additionalProperties": false
     },
     "source": {
       "type": "object",
-      "required": ["id", "kind", "title", "verification"],
+      "required": [
+        "id",
+        "kind",
+        "title",
+        "verification"
+      ],
       "additionalProperties": false,
       "properties": {
         "id": {
@@ -32,48 +48,108 @@
           "type": "string",
           "pattern": "^[a-z]+(-[a-z]+)*$"
         },
-        "number": { "description": "Official number of the text, e.g. 21-16.", "type": "string" },
-        "date": { "description": "Date the text was signed or issued.", "$ref": "#/$defs/date" },
-        "title": { "$ref": "#/$defs/localized" },
-        "issuer": { "type": "string" },
+        "number": {
+          "description": "Official number of the text, e.g. 21-16.",
+          "type": "string"
+        },
+        "date": {
+          "description": "Date the text was signed or issued.",
+          "$ref": "#/$defs/date"
+        },
+        "title": {
+          "$ref": "#/$defs/localized"
+        },
+        "issuer": {
+          "type": "string"
+        },
         "jo": {
           "description": "Journal officiel issue. Links to the PDFs on joradp.dz are generated from it.",
           "type": "object",
-          "required": ["year", "issue"],
+          "required": [
+            "year",
+            "issue"
+          ],
           "additionalProperties": false,
           "properties": {
-            "year": { "type": "integer", "minimum": 1962 },
-            "issue": { "type": "integer", "minimum": 1 },
-            "date": { "$ref": "#/$defs/date" }
+            "year": {
+              "type": "integer",
+              "minimum": 1962
+            },
+            "issue": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            }
           }
         },
-        "articles": { "type": "array", "items": { "type": "string" } },
-        "url": { "description": "Where the source can be read, when it is not (only) in the Journal officiel.", "type": "string", "format": "uri" },
+        "articles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "url": {
+          "description": "Where the source can be read, when it is not (only) in the Journal officiel.",
+          "type": "string",
+          "format": "uri"
+        },
         "quote": {
           "description": "Short extract of the relevant passage, so anyone can check it quickly.",
           "$ref": "#/$defs/localized"
         },
-        "amends": { "description": "Ids of sources this text amends.", "type": "array", "items": { "type": "string" } },
+        "amends": {
+          "description": "Ids of sources this text amends.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "verification": {
           "description": "How closely this source was checked.",
           "type": "object",
-          "required": ["read", "checked"],
+          "required": [
+            "read",
+            "checked"
+          ],
           "additionalProperties": false,
           "properties": {
             "read": {
               "description": "original: the source itself was read in its authoritative form (the Journal officiel PDF, the regulator's own page, the article itself). copy: a faithful copy of the text hosted elsewhere was read. report: only reports about the text were read (press, guides).",
-              "enum": ["original", "copy", "report"]
+              "enum": [
+                "original",
+                "copy",
+                "report"
+              ]
             },
             "via": {
               "description": "Pages through which the source was read, when read is copy or report.",
               "type": "array",
-              "items": { "type": "string", "format": "uri" }
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
             },
-            "checked": { "description": "Date of the last check.", "$ref": "#/$defs/date" },
-            "notes": { "type": "string" }
+            "checked": {
+              "description": "Date of the last check.",
+              "$ref": "#/$defs/date"
+            },
+            "notes": {
+              "type": "string"
+            }
           }
         },
-        "notes": { "type": "string" }
+        "notes": {
+          "type": "string"
+        },
+        "access": {
+          "description": "Where the url can be opened from. 'algeria-only': the site refuses connections from outside Algeria, so the weekly link check (which runs abroad) can't reach it; it is checked by hand from Algeria instead.",
+          "enum": [
+            "public",
+            "algeria-only"
+          ]
+        }
       }
     }
   }
